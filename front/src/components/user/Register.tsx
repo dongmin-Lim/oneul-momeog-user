@@ -77,13 +77,12 @@ function Register({
         password: passwordObj.password,
         passwordCheck: passwordObj.passwordCheck,
         restaurantName: restaurantName,
-        categorys: [{ categoryId: 1, categoryName: "족발" }],
+        categories: [{ categoryId: 1, categoryName: "족발, 보쌈" }],
         zipcode: zipcode,
         normalAddress: normalAddress,
         specificAddress: specificAddress,
         branch: branch,
-      },
-      { withCredentials: true }
+      }
     );
     const result = response;
     console.log(result);
