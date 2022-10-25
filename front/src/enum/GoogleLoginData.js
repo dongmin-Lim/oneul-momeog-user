@@ -1,10 +1,5 @@
 import axios from "axios";
 
-export const GOOGLE_CLIENT_ID =
-  "842579925784-hq9t691ft4jpsfglpre02f0ld8papvhc.apps.googleusercontent.com";
-export const GOOGLE_CLIENT_SECURE_ID = "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";
-export const GOOGLE_REDIRECT_URI = `http://localhost:3000/login`;
-
 const PARAMS = new URL(document.location).searchParams;
 const GOOGLE_CODE = PARAMS.get("code");
 // console.log(KAKAO_CODE);

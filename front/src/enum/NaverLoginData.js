@@ -1,9 +1,5 @@
 import axios from "axios";
 
-export const NAVER_CLIENT_ID = "hyd0WPN18GA2tP1Hrpgb";
-export const NAVER_CLIENT_SECURE_ID = "wMZm6csF_u";
-export const NAVER_REDIRECT_URI = `http://localhost:3000/login`;
-
 const PARAMS = new URL(document.location).searchParams;
 const NAVER_CODE = PARAMS.get("code");
 console.log(NAVER_CODE);
