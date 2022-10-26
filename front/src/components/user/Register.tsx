@@ -123,7 +123,7 @@ function Register({
                 ...passwordObj,
                 password: e.target.value,
                 passwordSame:
-                  passwordObj.password == passwordObj.passwordCheck ? false : true,
+                  passwordObj.password === passwordObj.passwordCheck ? false : true,
               }),
               console.log(e.target.value)
             )}
