@@ -2,7 +2,6 @@ import axios from "axios";
 
 const PARAMS = new URL(document.location).searchParams;
 const KAKAO_CODE = PARAMS.get("code");
-console.log(KAKAO_CODE);
 
 async function KakaoLoginData() {
   const response = await axios.get(

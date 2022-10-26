@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import { ROUTES } from "../../enum/routes";
 import { Form, Button } from "react-bootstrap";
 import styled from "styled-components";
-import { KAKAO_REST_API_KEY, KAKAO_REDIRECT_URI } from "../../enum/KakaoLoginData";
-import { GOOGLE_CLIENT_ID, GOOGLE_REDIRECT_URI } from "../../enum/GoogleLoginData";
-import { NAVER_CLIENT_ID, NAVER_REDIRECT_URI } from "../../enum/NaverLoginData";
+// import { KAKAO_REST_API_KEY, KAKAO_REDIRECT_URI } from "../../enum/KakaoLoginData";
+// import { GOOGLE_CLIENT_ID, GOOGLE_REDIRECT_URI } from "../../enum/GoogleLoginData";
+// import { NAVER_CLIENT_ID, NAVER_REDIRECT_URI } from "../../enum/NaverLoginData";
 
 const Div = styled.div`
   width: 600px;
@@ -37,9 +37,9 @@ const ButtonWrapper = styled(Button)`
 `;
 
 function Login() {
-  const KAKAO_LOGIN_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
-  const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email`;
-  const NAVER_LOGIN_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${NAVER_REDIRECT_URI}`;
+  const KAKAO_LOGIN_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`;
+  const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_GOOGLE_REDIRECT_URI}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email`;
+  const NAVER_LOGIN_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${process.env.REACT_APP_NAVER_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_NAVER_REDIRECT_URI}`;
 
   function handleKakaoButton() {
     window.location.href = KAKAO_LOGIN_URL;
