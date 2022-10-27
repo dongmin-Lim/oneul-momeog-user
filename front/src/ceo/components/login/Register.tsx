@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Dropdown } from "react-bootstrap";
 import styled from "styled-components";
 import axios from "axios";
 
@@ -20,14 +20,12 @@ const Div = styled.div`
   box-shadow: 2px 2px 6px 0px gray;
 `;
 
-// const Img = styled.img`
-//   width: 500px;
-//   padding: 100px;
-// `;
-
+const DropdownWrapper = styled(Dropdown)`
+  width: 300px;
+  margin: 0 auto;
+`;
 const FormGroupWrapper = styled(Form.Group)`
   position: relative;
-
   display: grid;
   grid-template-columns: 200px 100px;
   width: 300px;
@@ -48,6 +46,16 @@ const ButtonWrapper = styled(Button)`
   margin-bottom: 10px;
 `;
 
+const CategoryDiv = styled.div`
+  display: inline;
+  background-color: #0000ff67;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 5px 10px;
+  color: white;
+  border-radius: 10px;
+`;
+
 function Register({
   isPopupOpen,
   setIsPopupOpen,
@@ -58,6 +66,8 @@ function Register({
   zipcode,
 }: any) {
   type Password = { password: number; passwordCheck: number; passwordSame: boolean };
+  type RestaurantType = { categoryId: number; categoryName: string };
+  type Restautant = { restaurantName: string; branch: string };
 
   const [email, setEmail] = useState<string>("");
   const [passwordObj, setPasswordObj] = useState<Password>({
@@ -65,9 +75,28 @@ function Register({
     passwordCheck: 0,
     passwordSame: true,
   });
-  const [restaurantName, setRestaurantName] = useState<string>("");
-  const [branch, setBranch] = useState<string>("");
-  const [restaurantType, setRestaurantType] = useState("");
+  const [restaurantObj, setRestaurantObj] = useState<Restautant>({
+    restaurantName: "",
+    branch: "",
+  });
+
+  const [categories, setCategories] = useState<RestaurantType[]>([]);
+
+  const restaurantTypeList = [
+    { categoryId: 1, categoryName: "족발, 보쌈" },
+    { categoryId: 2, categoryName: "찜, 탕, 찌개" },
+    { categoryId: 3, categoryName: "돈까스, 회, 일식" },
+    { categoryId: 4, categoryName: "피자" },
+    { categoryId: 5, categoryName: "고기, 구이" },
+    { categoryId: 6, categoryName: "양식" },
+    { categoryId: 7, categoryName: "치킨" },
+    { categoryId: 8, categoryName: "중식" },
+    { categoryId: 9, categoryName: "아시안" },
+    { categoryId: 10, categoryName: "백반, 죽, 국수" },
+    { categoryId: 11, categoryName: "도시락" },
+    { categoryId: 12, categoryName: "분식" },
+    { categoryId: 13, categoryName: "페스트푸드" },
+  ];
 
   async function data() {
     const response = await axios.post(
@@ -76,12 +105,12 @@ function Register({
         email: email,
         password: passwordObj.password,
         passwordCheck: passwordObj.passwordCheck,
-        restaurantName: restaurantName,
-        categories: [{ categoryId: 1, categoryName: "족발, 보쌈" }],
+        restaurant: restaurantObj.restaurantName,
+        branch: restaurantObj.branch,
+        categories: categories,
         zipcode: zipcode,
         normalAddress: normalAddress,
         specificAddress: specificAddress,
-        branch: branch,
       }
     );
     const result = response;
@@ -89,7 +118,6 @@ function Register({
   }
 
   async function EmailCheck() {
-    console.log(email);
     const response = await axios.get(
       `http://211.188.65.107:8080/api/auth/ceo/email/check?email=${email}`
     );
@@ -149,7 +177,8 @@ function Register({
           <FormControlWrapper
             placeholder="음식점 이름"
             onChange={(e: any) => (
-              setRestaurantName(e.target.value), console.log(e.target.value)
+              setRestaurantObj({ ...restaurantObj, restaurantName: e.target.value }),
+              console.log(e.target.value)
             )}
           />
         </Form.Group>
@@ -157,18 +186,32 @@ function Register({
           <FormControlWrapper
             placeholder="음식점 지점"
             onChange={(e: any) => (
-              setBranch(e.target.value), console.log(e.target.value)
+              setRestaurantObj({ ...restaurantObj, branch: e.target.value }),
+              console.log(e.target.value)
             )}
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="restaurantType">
-          <FormControlWrapper
-            placeholder="음식 업태 ex) 한식, 중식..."
-            onChange={(e: any) => (
-              setRestaurantType(e.target.value), console.log(e.target.value)
-            )}
-          />
-        </Form.Group>
+        <DropdownWrapper className="mb-3">
+          <Dropdown.Toggle id="dropdown-basic">음식점 업태 선택</Dropdown.Toggle>
+          <Dropdown.Menu>
+            {restaurantTypeList.map((value, index) => (
+              <Dropdown.Item
+                key={index}
+                onClick={() =>
+                  categories.some((type) => type.categoryName == value.categoryName)
+                    ? // 드롭다운에서 선택한 값과 이미 추가되어있는 값과 비교하여 이미 존재하면 추가안되게 구현
+                      window.alert("해당항목이 존재합니다.")
+                    : setCategories([...categories, value])
+                }
+              >
+                {value.categoryName}
+              </Dropdown.Item>
+            ))}
+          </Dropdown.Menu>
+        </DropdownWrapper>
+        {categories.map((value) => (
+          <CategoryDiv>{value.categoryName}</CategoryDiv>
+        ))}
         <FormGroupWrapper className="mb-3" controlId="zipcode">
           <FormControlWrapper placeholder="우편번호" value={zipcode} disabled />
           <Button variant="outline-success" onClick={() => setIsPopupOpen(!isPopupOpen)}>

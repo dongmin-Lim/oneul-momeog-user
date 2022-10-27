@@ -15,8 +15,8 @@ const Div = styled.div`
 `;
 
 const Img = styled.img`
-  width: 500px;
-  padding: 100px;
+  width: 200px;
+  padding-bottom: 50px;
 `;
 
 const FormControlWrapper = styled(Form.Control)`
@@ -37,7 +37,7 @@ function Login() {
   return (
     <Div>
       <Form>
-        <Img src="data/img/logo.png" alt="logo"></Img>
+        <Img src="../data/img/logo.png" alt="logo"></Img>
         <Form.Group className="mb-3" controlId="loginEmail">
           <FormControlWrapper type="email" placeholder="email" />
         </Form.Group>

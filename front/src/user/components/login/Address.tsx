@@ -42,8 +42,15 @@ const ButtonWrapper = styled(Button)`
   margin: 0 auto;
   margin-bottom: 10px;
 `;
-
-
+function Address({
+  isPopupOpen,
+  setIsPopupOpen,
+  normalAddress,
+  setNormalAddress,
+  specificAddress,
+  setSpecificAddress,
+  zipcode,
+}: any) {
   return (
     <Div>
       <Form>
@@ -77,4 +84,4 @@ const ButtonWrapper = styled(Button)`
     </Div>
   );
 }
-export default Register;
+export default Address;
