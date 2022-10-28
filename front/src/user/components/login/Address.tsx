@@ -1,7 +1,5 @@
-import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import styled from "styled-components";
-import axios from "axios";
 
 const Div = styled.div`
   position: fixed;
@@ -65,18 +63,14 @@ function Address({
             placeholder="주소"
             value={normalAddress}
             disabled
-            onChange={(e: any) => (
-              setNormalAddress(e.target.value), console.log(e.target.value)
-            )}
+            onChange={(e: any) => setNormalAddress(e.target.value)}
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="specificAddress">
           <FormControlWrapper
             placeholder="상세주소"
             value={specificAddress}
-            onChange={(e: any) => (
-              setSpecificAddress(e.target.value), console.log(e.target.value)
-            )}
+            onChange={(e: any) => setSpecificAddress(e.target.value)}
           />
         </Form.Group>
         <ButtonWrapper variant="outline-primary">회원가입</ButtonWrapper>
