@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Div = styled.div`
@@ -31,7 +32,9 @@ const NavList = styled.div`
 function Nav() {
   return (
     <Div>
-      <Logo src="../data/img/logo.png" alt="logo" />
+      <Link to="/">
+        <Logo src="../data/img/logo.png" alt="logo" />
+      </Link>
       <NavList>
         <div>주소</div>
         <div>💬</div>
