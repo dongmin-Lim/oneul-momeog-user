@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Rooms from "./Rooms";
 import Restaurants from "./Restaurants";
 import SearchBar from "./SearchBar";
+import SelectCategory from "./SelectCategory";
 
 const RestaurantList = styled.div`
   text-align: center;
@@ -13,6 +14,7 @@ function Main() {
     <div>
       <HorizonScroll />
       <SearchBar />
+      <SelectCategory />
       <RestaurantList>
         <Rooms />
         <Restaurants />
