@@ -13,7 +13,6 @@ const RestaurantImg = styled.img`
   height: 200px;
   width: 300px;
   padding: 20px;
-  border: 1px solid blue;
 `;
 
 const RestaurantName = styled.div`

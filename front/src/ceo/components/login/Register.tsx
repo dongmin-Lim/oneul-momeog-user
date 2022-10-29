@@ -127,7 +127,7 @@ function Register({
         email: email,
         password: passwordObj.password,
         passwordCheck: passwordObj.passwordCheck,
-        restaurant: restaurantObj.restaurantName,
+        restaurantName: restaurantObj.restaurantName,
         branch: restaurantObj.branch,
         categories: categories,
         zipcode: zipcode,

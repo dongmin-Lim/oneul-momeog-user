@@ -4,9 +4,9 @@ import DaumPost from "../../components/DaumPost";
 
 function RegisterPage() {
   const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
-  const [normalAddress, setNormalAddress] = useState<string>();
-  const [specificAddress, setSpecificAddress] = useState<string>();
-  const [zipcode, setZipcode] = useState<number>();
+  const [normalAddress, setNormalAddress] = useState<string>("");
+  const [specificAddress, setSpecificAddress] = useState<string>("");
+  const [zipcode, setZipcode] = useState<number>(0);
   return (
     <>
       <Register
@@ -21,7 +21,6 @@ function RegisterPage() {
       {isPopupOpen ? (
         <DaumPost
           isPopupOpen={isPopupOpen}
-          setIsPopupOpen={setIsPopupOpen}
           setNormalAddress={setNormalAddress}
           setSpecificAddress={setSpecificAddress}
           setZipcode={setZipcode}

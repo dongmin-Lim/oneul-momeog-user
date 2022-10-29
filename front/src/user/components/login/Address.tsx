@@ -1,5 +1,6 @@
 import { Form, Button } from "react-bootstrap";
 import styled from "styled-components";
+import axios from "axios";
 
 const Div = styled.div`
   position: fixed;
@@ -49,6 +50,14 @@ function Address({
   setSpecificAddress,
   zipcode,
 }: any) {
+  async function SubmitAddress() {
+    const response = await axios.post(
+      `http://211.188.65.107:8080/api/auth/oauth/address`,
+      { zipcode: zipcode, normalAddress: normalAddress, specificAddress: specificAddress }
+    );
+    console.log(response);
+  }
+
   return (
     <Div>
       <Form>
@@ -73,7 +82,9 @@ function Address({
             onChange={(e: any) => setSpecificAddress(e.target.value)}
           />
         </Form.Group>
-        <ButtonWrapper variant="outline-primary">회원가입</ButtonWrapper>
+        <ButtonWrapper variant="outline-primary" onClick={SubmitAddress}>
+          회원가입
+        </ButtonWrapper>
       </Form>
     </Div>
   );

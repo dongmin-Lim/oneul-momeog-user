@@ -21,13 +21,7 @@ const DaumPostCodeWrapper = styled(DaumPostCode)`
   background-color: white;
 `;
 
-const DaumPost = ({
-  isPopupOpen,
-  setIsPopupOpen,
-  setNormalAddress,
-  setSpecificAddress,
-  setZipcode,
-}) => {
+const DaumPost = ({ isPopupOpen, setNormalAddress, setSpecificAddress, setZipcode }) => {
   const handleComplete = (data) => {
     let fullAddress = data.address;
     let extraAddress = "";
@@ -42,7 +36,6 @@ const DaumPost = ({
       fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
     }
     //fullAddress -> 전체 주소반환
-    console.log(data);
     setNormalAddress(fullAddress);
     setSpecificAddress(extraAddress);
     setZipcode(data.zonecode);

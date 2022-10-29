@@ -1,4 +1,5 @@
 import axios from "axios";
+import { ROUTES } from "../../enum/routes";
 
 function NaverLoginData() {
   let query: string = window.location.search;
@@ -12,6 +13,9 @@ function NaverLoginData() {
         `http://211.188.65.107:8080/api/auth/oauth/login/naver?code=${NAVER_CODE}`
       );
       console.log(response);
+      if (response.status == 200) {
+        window.location.href = ROUTES.USER.ADDRESS;
+      }
     } catch (e) {
       console.log(e);
     }

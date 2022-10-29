@@ -21,7 +21,6 @@ function AddressPage() {
       {isPopupOpen ? (
         <DaumPost
           isPopupOpen={isPopupOpen}
-          setIsPopupOpen={setIsPopupOpen}
           setNormalAddress={setNormalAddress}
           setSpecificAddress={setSpecificAddress}
           setZipcode={setZipcode}

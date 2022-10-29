@@ -2,6 +2,11 @@ import { Form } from "react-bootstrap";
 import styled from "styled-components";
 
 const Div = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
   width: 600px;
   margin: 0 auto;
   border: none;
@@ -17,18 +22,18 @@ const Img = styled.img`
   padding: 100px;
 `;
 
-const KakaoBtn = styled.img`
+const SocialBtn = styled.img`
   display: block;
-  width: 300px;
+  /* width: 300px; */
   height: 50px;
   margin: 0 auto;
   margin-bottom: 10px;
+  cursor: pointer;
 `;
 
 function Login() {
-  const KAKAO_LOGIN_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`;
+  const KAKAO_LOGIN_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}`;
   const NAVER_LOGIN_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${process.env.REACT_APP_NAVER_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_NAVER_REDIRECT_URI}`;
-  // const GOOGLE_LOGIN_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_GOOGLE_REDIRECT_URI}&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email`;
 
   function handleKakaoButton() {
     window.location.href = KAKAO_LOGIN_URL;
@@ -36,26 +41,21 @@ function Login() {
   function handleNaverButton() {
     window.location.href = NAVER_LOGIN_URL;
   }
-  // function handleGoogleButton() {
-  //   window.location.href = GOOGLE_LOGIN_URL;
-  // }
+
   return (
     <Div>
       <Form>
         <Img src="../data/img/logo.png" alt="logo"></Img>
-        <KakaoBtn
-          src="../data/img/kakao_login.png"
+        <SocialBtn
+          src="https://developers.kakao.com/tool/resource/static/img/button/login/full/ko/kakao_login_large_narrow.png"
           alt="kakao_login"
           onClick={handleKakaoButton}
-        ></KakaoBtn>
-        <KakaoBtn
-          src="../data/img/naver_login.png"
+        ></SocialBtn>
+        <SocialBtn
+          src="../data/img/naver_login_btn.PNG"
           alt="naver_login"
           onClick={handleNaverButton}
-        ></KakaoBtn>
-        {/* <ButtonWrapper variant="outline-success" onClick={handleGoogleButton}>
-            구글
-          </ButtonWrapper> */}
+        ></SocialBtn>
       </Form>
     </Div>
   );

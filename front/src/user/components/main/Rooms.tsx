@@ -2,7 +2,7 @@ import Card from "./Card";
 
 function Rooms() {
   return (
-    <div style={{ border: "1px solid red" }}>
+    <div>
       <Card />
       <Card />
       <Card />

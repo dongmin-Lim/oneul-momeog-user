@@ -4,22 +4,21 @@ import Rooms from "./Rooms";
 import Restaurants from "./Restaurants";
 import SearchBar from "./SearchBar";
 import SelectCategory from "./SelectCategory";
+import { useState } from "react";
 
-const RestaurantList = styled.div`
+const Div = styled.div`
   text-align: center;
 `;
 
 function Main() {
+  const [mode, setMode] = useState<number>(0);
   return (
-    <div>
+    <Div>
       <HorizonScroll />
-      <SearchBar />
+      <SearchBar setMode={setMode} mode={mode} />
       <SelectCategory />
-      <RestaurantList>
-        <Rooms />
-        <Restaurants />
-      </RestaurantList>
-    </div>
+      {mode ? <Restaurants /> : <Rooms />}
+    </Div>
   );
 }
 export default Main;

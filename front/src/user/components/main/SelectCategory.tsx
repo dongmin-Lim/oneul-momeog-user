@@ -3,19 +3,23 @@ import { Dropdown } from "react-bootstrap";
 import styled from "styled-components";
 
 const DropdownWrapper = styled(Dropdown)`
-  width: 300px;
+  width: 200px;
+  height: 40px;
   margin: 0 auto;
 `;
 
-const TypeTag = styled.div`
+const TypeTags = styled.div`
   display: inline-block;
-  background-color: #0000ff67;
+`;
+
+const TypeTag = styled.div`
   width: fit-content;
-  margin: 0 auto;
-  margin: 2px;
-  padding: 5px 10px;
-  color: white;
+  height: 40px;
+  line-height: 40px;
+  padding: 0px 10px;
   border-radius: 10px;
+  background-color: #0000ff67;
+  color: white;
 `;
 
 const restaurantTypeList = [
@@ -58,20 +62,22 @@ function SelectCategory() {
           ))}
         </Dropdown.Menu>
       </DropdownWrapper>
-      {categories.map((value, index) => (
-        <TypeTag
-          key={index}
-          onClick={() =>
-            setCategories(
-              categories.filter((list) => {
-                return list.categoryId !== value.categoryId;
-              })
-            )
-          }
-        >
-          {value.categoryName}
-        </TypeTag>
-      ))}
+      <TypeTags>
+        {categories.map((value, index) => (
+          <TypeTag
+            key={index}
+            onClick={() =>
+              setCategories(
+                categories.filter((list) => {
+                  return list.categoryId !== value.categoryId;
+                })
+              )
+            }
+          >
+            {value.categoryName}
+          </TypeTag>
+        ))}
+      </TypeTags>
     </>
   );
 }

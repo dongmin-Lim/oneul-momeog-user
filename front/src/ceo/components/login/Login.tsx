@@ -55,10 +55,10 @@ function Login() {
         password: loginObj.password,
       }
     );
+    console.log(response);
     // JWT
-    const { accessToken } = response.data;
-    // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
-    axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+    const jwtToken = response.data.data.jwt;
+    sessionStorage.setItem("userToken", jwtToken);
   }
 
   return (
