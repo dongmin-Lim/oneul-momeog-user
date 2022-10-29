@@ -87,15 +87,15 @@ function Register({
   setSpecificAddress,
   zipcode,
 }: any) {
-  type Password = { password: number; passwordCheck: number };
+  type Password = { password: string; passwordCheck: string };
   type RestaurantType = { categoryId: number; categoryName: string };
   type Restautant = { restaurantName: string; branch: string };
 
   const [email, setEmail] = useState<string>("");
   const [emailCheckResult, setEmailCheckResult] = useState<string>("");
   const [passwordObj, setPasswordObj] = useState<Password>({
-    password: 0,
-    passwordCheck: 0,
+    password: "",
+    passwordCheck: "",
   });
   const [restaurantObj, setRestaurantObj] = useState<Restautant>({
     restaurantName: "",

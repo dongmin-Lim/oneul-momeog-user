@@ -3,6 +3,10 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.css";
+// import axios from "axios";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(<App />);
+
+// axios.defaults.baseURL = "https://www.abc.com";
+// axios.defaults.withCredentials = true;
