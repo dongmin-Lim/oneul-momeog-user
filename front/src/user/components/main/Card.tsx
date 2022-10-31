@@ -2,22 +2,37 @@ import styled from "styled-components";
 
 const CardDiv = styled.div`
   display: inline-block;
-  width: 400px;
-  height: 250px;
-  border: 1px solid black;
+  width: 350px;
+  height: 200px;
+  border: 1px solid #aaaaaa;
   margin: 20px;
   border-radius: 10px;
+  background-color: white;
+`;
+
+const RoomName = styled.div`
+  width: 80px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 20px;
 `;
 
 const RestaurantImg = styled.img`
-  height: 200px;
-  width: 300px;
+  height: 120px;
+  width: 250px;
   padding: 20px;
+`;
+
+const Detail = styled.div`
+  display: grid;
+  grid-template-columns: 70px 140px 140px;
+  height: 50px;
+  line-height: 30px;
 `;
 
 const RestaurantName = styled.div`
   height: 30px;
-  width: 80px;
+  width: 55px;
   border: 1px solid #808080;
   border-radius: 5px;
   align-self: center;
@@ -26,7 +41,7 @@ const RestaurantName = styled.div`
 
 const RestaurantPeople = styled.div`
   height: 30px;
-  width: 150px;
+  width: 120px;
   border: 1px solid #808080;
   border-radius: 5px;
   align-self: center;
@@ -35,24 +50,18 @@ const RestaurantPeople = styled.div`
 
 const RestaurantTime = styled.div`
   height: 30px;
-  width: 130px;
+  width: 120px;
   border: 1px solid #808080;
   border-radius: 5px;
   align-self: center;
   justify-self: center;
 `;
 
-const Detail = styled.div`
-  display: grid;
-  grid-template-columns: 100px 150px 150px;
-  height: 50px;
-  line-height: 30px;
-`;
-
 function Card() {
   return (
     <CardDiv>
-      <RestaurantImg src="../data/img/logo.png" />
+      <RoomName>방 제목</RoomName>
+      <RestaurantImg src="../data/img/bbq.jpg" />
       <Detail>
         <RestaurantName>bbq</RestaurantName>
         <RestaurantPeople>x/4명 참가중</RestaurantPeople>

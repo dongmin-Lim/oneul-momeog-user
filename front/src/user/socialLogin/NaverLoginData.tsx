@@ -13,9 +13,10 @@ function NaverLoginData() {
         `http://211.188.65.107:8080/api/auth/oauth/login/naver?code=${NAVER_CODE}`
       );
       console.log(response);
-      if (response.status == 200) {
-        window.location.href = ROUTES.USER.ADDRESS;
-      }
+      sessionStorage.setItem("jwt", response.data.data.jwt);
+      !response.data.data.isRegister
+        ? (window.location.href = ROUTES.USER.ADDRESS)
+        : (window.location.href = ROUTES.USER.MAIN);
     } catch (e) {
       console.log(e);
     }

@@ -2,17 +2,15 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Div = styled.div`
-  position: relative;
-  top: 0;
-  left: 0;
-
-  display: grid;
-  grid-template-columns: 70% 30%;
   height: 50px;
   width: 100%;
   padding: 10px 50px;
-  border: none;
   background-color: #d8f1ff;
+`;
+
+const NavGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 `;
 
 const Logo = styled.img`
@@ -21,7 +19,7 @@ const Logo = styled.img`
 
 const NavList = styled.div`
   display: grid;
-  grid-template-columns: 3fr 1fr 2fr 2fr;
+  grid-template-columns: 15fr 1fr 1fr;
   height: 30px;
   width: 100%;
   text-align: end;
@@ -32,15 +30,24 @@ const NavList = styled.div`
 function Nav() {
   return (
     <Div>
-      <Link to="/">
-        <Logo src="../data/img/logo.png" alt="logo" />
-      </Link>
-      <NavList>
-        <div>주소</div>
-        <div>💬</div>
-        <div>닉네임</div>
-        <div>로그아웃</div>
-      </NavList>
+      <NavGrid>
+        <Link to="/">
+          <Logo src="../data/img/logo.png" alt="logo" />
+        </Link>
+        <NavList>
+          {sessionStorage.getItem("jwt") ? (
+            <div>{sessionStorage.getItem("normalAddress")}</div>
+          ) : (
+            <div></div>
+          )}
+          <div>💬</div>
+          {sessionStorage.getItem("jwt") ? (
+            <div>{sessionStorage.getItem("nickname")}</div>
+          ) : (
+            <div>로그인</div>
+          )}
+        </NavList>
+      </NavGrid>
     </Div>
   );
 }

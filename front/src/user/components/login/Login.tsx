@@ -2,13 +2,9 @@ import { Form } from "react-bootstrap";
 import styled from "styled-components";
 
 const Div = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
   width: 600px;
   margin: 0 auto;
+  margin-top: 5%;
   border: none;
   padding: 50px;
   border-radius: 20px;

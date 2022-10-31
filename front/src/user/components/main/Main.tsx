@@ -11,13 +11,28 @@ const Div = styled.div`
 `;
 
 function Main() {
-  const [mode, setMode] = useState<number>(0);
+  type Search = { search: string; page: number };
+  type RestaurantType = { categoryId: number };
+
+  const [searchObj, setSearchObj] = useState<Search>({
+    search: "",
+    page: 1,
+  });
+  const [categories, setCategories] = useState<RestaurantType[]>([]);
+  const [mode, setMode] = useState<string>("rooms");
   return (
     <Div>
       <HorizonScroll />
-      <SearchBar setMode={setMode} mode={mode} />
-      <SelectCategory />
-      {mode ? <Restaurants /> : <Rooms />}
+      <SearchBar
+        mode={mode}
+        setMode={setMode}
+        searchObj={searchObj}
+        setSearchObj={setSearchObj}
+        categories={categories}
+        setCategories={setCategories}
+      />
+      <SelectCategory categories={categories} setCategories={setCategories} />
+      {mode === "rooms" ? <Rooms /> : <Restaurants />}
     </Div>
   );
 }

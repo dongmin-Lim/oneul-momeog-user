@@ -1,5 +1,5 @@
 // 주소입력창
-
+import CloseButton from "react-bootstrap/CloseButton";
 import styled from "styled-components";
 import DaumPostCode from "react-daum-postcode";
 
@@ -21,8 +21,13 @@ const DaumPostCodeWrapper = styled(DaumPostCode)`
   background-color: white;
 `;
 
-const DaumPost = ({ isPopupOpen, setNormalAddress, setSpecificAddress, setZipcode }) => {
-  const handleComplete = (data) => {
+const DaumPost = ({
+  isPopupOpen,
+  setNormalAddress,
+  setSpecificAddress,
+  setZipcode,
+}: any) => {
+  const handleComplete = (data: any) => {
     let fullAddress = data.address;
     let extraAddress = "";
     if (data.addressType === "R") {
@@ -43,11 +48,14 @@ const DaumPost = ({ isPopupOpen, setNormalAddress, setSpecificAddress, setZipcod
   return (
     <>
       {isPopupOpen ? (
-        <DaumPostCodeWrapper
-          style={{ width: "500px", height: "700px" }}
-          onComplete={handleComplete}
-          className="post-code"
-        />
+        <>
+          <CloseButton />
+          <DaumPostCodeWrapper
+            style={{ width: "500px", height: "700px" }}
+            onComplete={handleComplete}
+            className="post-code"
+          />
+        </>
       ) : (
         <></>
       )}

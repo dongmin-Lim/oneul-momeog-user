@@ -1,22 +1,25 @@
 import { Form, Button } from "react-bootstrap";
 import styled from "styled-components";
 import axios from "axios";
+import { ROUTES } from "../../../enum/routes";
 
 const Div = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   z-index: 0;
   display: relative;
   width: 600px;
   margin: 0 auto;
+  margin-top: 5%;
   border: none;
   padding: 50px;
   border-radius: 20px;
   text-align: center;
   background-color: #d8f1ff;
   box-shadow: 2px 2px 6px 0px gray;
+`;
+
+const H1 = styled.h1`
+  font-size: 28px;
+  margin-bottom: 30px;
 `;
 
 const FormGroupWrapper = styled(Form.Group)`
@@ -53,13 +56,26 @@ function Address({
   async function SubmitAddress() {
     const response = await axios.post(
       `http://211.188.65.107:8080/api/auth/oauth/address`,
-      { zipcode: zipcode, normalAddress: normalAddress, specificAddress: specificAddress }
+      {
+        zipcode: zipcode,
+        normalAddress: normalAddress,
+        specificAddress: specificAddress,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("jwt")}`,
+        },
+      }
     );
-    console.log(response);
+    sessionStorage.setItem("normalAddress", normalAddress);
+    response.data.success
+      ? (window.location.href = ROUTES.USER.MAIN)
+      : window.alert("에러가 발생하였습니다.");
   }
 
   return (
     <Div>
+      <H1>배달받으실 주소를 입력해주세요</H1>
       <Form>
         <FormGroupWrapper className="mb-3" controlId="zipcode">
           <FormControlWrapper placeholder="우편번호" value={zipcode} disabled />

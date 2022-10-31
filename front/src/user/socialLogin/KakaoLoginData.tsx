@@ -13,9 +13,12 @@ function KakaoLoginData() {
         `http://211.188.65.107:8080/api/auth/oauth/login/kakao?code=${KAKAO_CODE}`
       );
       console.log(response);
-      if (response.status == 200) {
-        window.location.href = ROUTES.USER.ADDRESS;
-      }
+      sessionStorage.setItem("jwt", response.data.data.jwt);
+      sessionStorage.setItem("nickname", response.data.data.nickname);
+      sessionStorage.setItem("normalAddress", response.data.data.normalAddress);
+      response.data.isRegister
+        ? (window.location.href = ROUTES.USER.MAIN)
+        : (window.location.href = ROUTES.USER.ADDRESS);
     } catch (e) {
       console.log(e);
     }
