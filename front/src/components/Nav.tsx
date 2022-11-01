@@ -1,11 +1,21 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { ROUTES } from "../enum/routes";
 
 const Div = styled.div`
   height: 50px;
   width: 100%;
   padding: 10px 50px;
   background-color: #d8f1ff;
+  a {
+    color: black;
+    text-decoration: none;
+  }
+`;
+
+const NavDiv = styled.div`
+  width: 1320px;
+  margin: 0 auto;
 `;
 
 const NavGrid = styled.div`
@@ -19,7 +29,7 @@ const Logo = styled.img`
 
 const NavList = styled.div`
   display: grid;
-  grid-template-columns: 15fr 1fr 1fr;
+  grid-template-columns: 15fr 2fr 2fr;
   height: 30px;
   width: 100%;
   text-align: end;
@@ -30,24 +40,28 @@ const NavList = styled.div`
 function Nav() {
   return (
     <Div>
-      <NavGrid>
-        <Link to="/">
-          <Logo src="../data/img/logo.png" alt="logo" />
-        </Link>
-        <NavList>
-          {sessionStorage.getItem("jwt") ? (
-            <div>{sessionStorage.getItem("normalAddress")}</div>
-          ) : (
-            <div></div>
-          )}
-          <div>💬</div>
-          {sessionStorage.getItem("jwt") ? (
-            <div>{sessionStorage.getItem("nickname")}</div>
-          ) : (
-            <div>로그인</div>
-          )}
-        </NavList>
-      </NavGrid>
+      <NavDiv>
+        <NavGrid>
+          <Link to={ROUTES.USER.MAIN}>
+            <Logo src="../data/img/logo.png" alt="logo" />
+          </Link>
+          <NavList>
+            {sessionStorage.getItem("jwt") ? (
+              <div>{sessionStorage.getItem("normalAddress")}</div>
+            ) : (
+              <div></div>
+            )}
+            <div>💬</div>
+            {sessionStorage.getItem("jwt") ? (
+              <div>{sessionStorage.getItem("nickname")}</div>
+            ) : (
+              <div>
+                <Link to={ROUTES.USER.LOGIN}>로그인</Link>
+              </div>
+            )}
+          </NavList>
+        </NavGrid>
+      </NavDiv>
     </Div>
   );
 }

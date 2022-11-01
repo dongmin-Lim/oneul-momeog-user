@@ -1,5 +1,7 @@
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { ROUTES } from "../../../enum/routes";
 import MenuList from "./MenuList";
 import Review from "./Review";
 import RoomList from "./RoomList";
@@ -56,9 +58,9 @@ function Main() {
         <MenuList />
       </div>
 
-      <div>
+      <Link to={ROUTES.USER.PAY}>
         <OrderButton>구매하기</OrderButton>
-      </div>
+      </Link>
     </Div>
   );
 }

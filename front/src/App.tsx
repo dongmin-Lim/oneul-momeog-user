@@ -11,6 +11,7 @@ import KakaoLoginData from "./user/socialLogin/KakaoLoginData";
 import NaverLoginData from "./user/socialLogin/NaverLoginData";
 import MainPage from "./user/pages/MainPage";
 import RestaurantsPage from "./user/pages/RestaurantsPage";
+import PayPage from "./user/pages/PayPage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path={ROUTES.USER.NAVER} element={<NaverLoginData />} />
         <Route path={ROUTES.USER.MAIN} element={<MainPage />} />
         <Route path={ROUTES.USER.RESTAURANTS} element={<RestaurantsPage />} />
+        <Route path={ROUTES.USER.PAY} element={<PayPage />} />
         <Route path={ROUTES.CEO.LOGIN} element={<CeoLoginPage />} />
         <Route path={ROUTES.CEO.REGISTER} element={<CeoRegisterPage />} />
       </Routes>
