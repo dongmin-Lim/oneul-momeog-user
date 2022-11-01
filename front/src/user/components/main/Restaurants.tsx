@@ -1,3 +1,4 @@
+import { Container, Row, Col } from "react-bootstrap";
 import Card from "./Card";
 import axios from "axios";
 import { useEffect } from "react";
@@ -17,11 +18,19 @@ function Restaurants() {
     getData();
   }, []);
   return (
-    <div>
-      <Card />
-      <Card />
-      <Card />
-    </div>
+    <Container>
+      <Row className="justify-content-md-center">
+        <Col>
+          <Card />
+        </Col>
+        <Col>
+          <Card />
+        </Col>
+        <Col>
+          <Card />
+        </Col>
+      </Row>
+    </Container>
   );
 }
 export default Restaurants;

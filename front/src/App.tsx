@@ -10,26 +10,23 @@ import CeoRegisterPage from "./ceo/pages/RegisterPage";
 import KakaoLoginData from "./user/socialLogin/KakaoLoginData";
 import NaverLoginData from "./user/socialLogin/NaverLoginData";
 import MainPage from "./user/pages/MainPage";
-import styled from "styled-components";
-
-const RoutesWrapper = styled(Routes)`
-  width: 1100px;
-`;
+import RestaurantsPage from "./user/pages/RestaurantsPage";
 
 function App() {
   return (
     <Router>
       <Nav />
-      <RoutesWrapper>
+      <Routes>
         <Route path={ROUTES.HOME} element={<HomePage />} />
         <Route path={ROUTES.USER.LOGIN} element={<UserLoginPage />} />
         <Route path={ROUTES.USER.ADDRESS} element={<UserAddressPage />} />
         <Route path={ROUTES.USER.KAKAO} element={<KakaoLoginData />} />
         <Route path={ROUTES.USER.NAVER} element={<NaverLoginData />} />
         <Route path={ROUTES.USER.MAIN} element={<MainPage />} />
+        <Route path={ROUTES.USER.RESTAURANTS} element={<RestaurantsPage />} />
         <Route path={ROUTES.CEO.LOGIN} element={<CeoLoginPage />} />
         <Route path={ROUTES.CEO.REGISTER} element={<CeoRegisterPage />} />
-      </RoutesWrapper>
+      </Routes>
     </Router>
   );
 }

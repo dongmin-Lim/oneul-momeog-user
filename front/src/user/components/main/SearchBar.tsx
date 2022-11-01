@@ -1,9 +1,6 @@
-import { Button } from "react-bootstrap";
+import { Button, Container, Row, Col, InputGroup, Form } from "react-bootstrap";
 import styled from "styled-components";
 import axios from "axios";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 
 const ButtonWrapper = styled(Button)`
   width: 350px;
@@ -20,27 +17,24 @@ const ButtonWrapper = styled(Button)`
   }
 `;
 
-const Form = styled.form``;
-
-const SearchBtn = styled.button`
-  width: 25px;
-  position: relative;
-  top: 0;
-  left: -80px;
-  border: none;
-  background-color: rgba(0, 0, 0, 0);
-`;
-
-const SearchInput = styled.input`
+const InputGroupWrapper = styled(InputGroup)`
   width: 350px;
   height: 50px;
-  vertical-align: middle;
-  border: 1px solid #aaaaaa;
+  margin: 0 auto;
+  margin-top: 20px;
+`;
+
+const FormControlWrapper = styled(Form.Control)`
   border-radius: 10px;
-  margin: 20px;
-  padding-left: 20px;
-  color: black;
-  outline: none;
+`;
+
+const SearchBtn = styled(Button)`
+  background-color: #d8f1ff;
+  border: none;
+  :hover {
+    background-color: #7bcfff;
+    color: black;
+  }
 `;
 
 const SearchImg = styled.img`
@@ -66,10 +60,10 @@ function SearchBar({ mode, setMode, searchObj, setSearchObj, categories }: any) 
     }
   }
   return (
-    <Container>
-      <Form onSubmit={onSubmit}>
-        <Row>
-          <Col style={{ border: "none" }}>
+    <Form onSubmit={onSubmit}>
+      <Container>
+        <Row className="justify-content-md-center">
+          <Col>
             <ButtonWrapper
               onClick={() => setMode("rooms")}
               bgcolor={mode === "rooms" ? "#7bcfff" : "#d8f1ff"}
@@ -85,20 +79,22 @@ function SearchBar({ mode, setMode, searchObj, setSearchObj, categories }: any) 
               음식점 찾기
             </ButtonWrapper>
           </Col>
-          <Col>
-            <SearchInput
-              placeholder="음식점 이름을 입력해주세요..."
-              onChange={(e: any) =>
-                setSearchObj({ ...searchObj, search: e.target.value })
-              }
-            />
-            <SearchBtn type="submit">
-              <SearchImg src="data/img/search_icon.png" alt="search button" />
-            </SearchBtn>
+          <Col style={{ verticalAlign: "middle" }}>
+            <InputGroupWrapper className="mb-3">
+              <FormControlWrapper
+                placeholder="음식점 이름을 입력해주세요..."
+                onChange={(e: any) =>
+                  setSearchObj({ ...searchObj, search: e.target.value })
+                }
+              />
+              <SearchBtn type="submit">
+                <SearchImg src="data/img/search_icon.png" alt="search button" />
+              </SearchBtn>
+            </InputGroupWrapper>
           </Col>
         </Row>
-      </Form>
-    </Container>
+      </Container>
+    </Form>
   );
 }
 export default SearchBar;

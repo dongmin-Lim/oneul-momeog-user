@@ -1,12 +1,12 @@
-import Carousel from "react-bootstrap/Carousel";
 import styled from "styled-components";
+import { Carousel, Container, Row, Col } from "react-bootstrap";
 import Card from "./Card";
 import axios from "axios";
 import { useEffect } from "react";
 
 const CarouselWrapper = styled(Carousel)`
-  background-color: #e4e4e4;
-  height: 300px;
+  background-color: rgb(230, 230, 230);
+  height: 250px;
   .carousel-indicators {
     margin: 0;
   }
@@ -28,27 +28,67 @@ function HorizonScroll() {
   return (
     <CarouselWrapper variant="dark">
       <Carousel.Item>
-        <Card />
-        <Card />
-        <Card />
+        <Container>
+          <Row className="justify-content-md-center">
+            <Col>
+              <Card />
+            </Col>
+            <Col>
+              <Card />
+            </Col>
+            <Col>
+              <Card />
+            </Col>
+          </Row>
+        </Container>
       </Carousel.Item>
 
       <Carousel.Item>
-        <Card />
-        <Card />
-        <Card />
+        <Container>
+          <Row className="justify-content-md-center">
+            <Col>
+              <Card />
+            </Col>
+            <Col>
+              <Card />
+            </Col>
+            <Col>
+              <Card />
+            </Col>
+          </Row>
+        </Container>
       </Carousel.Item>
 
       <Carousel.Item>
-        <Card />
-        <Card />
-        <Card />
+        <Container>
+          <Row className="justify-content-md-center">
+            <Col>
+              <Card />
+            </Col>
+            <Col>
+              <Card />
+            </Col>
+            <Col>
+              <Card />
+            </Col>
+          </Row>
+        </Container>
       </Carousel.Item>
 
       <Carousel.Item>
-        <Card />
-        <Card />
-        <Card />
+        <Container>
+          <Row className="justify-content-md-center">
+            <Col>
+              <Card />
+            </Col>
+            <Col>
+              <Card />
+            </Col>
+            <Col>
+              <Card />
+            </Col>
+          </Row>
+        </Container>
       </Carousel.Item>
     </CarouselWrapper>
   );

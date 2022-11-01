@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const CardDiv = styled.div`
   display: inline-block;
@@ -8,6 +9,7 @@ const CardDiv = styled.div`
   margin: 20px;
   border-radius: 10px;
   background-color: white;
+  color: black;
 `;
 
 const RoomName = styled.div`
@@ -58,16 +60,19 @@ const RestaurantTime = styled.div`
 `;
 
 function Card() {
+  const restaurantsId = 1;
   return (
-    <CardDiv>
-      <RoomName>방 제목</RoomName>
-      <RestaurantImg src="../data/img/bbq.jpg" />
-      <Detail>
-        <RestaurantName>bbq</RestaurantName>
-        <RestaurantPeople>x/4명 참가중</RestaurantPeople>
-        <RestaurantTime>남은시간 01:19</RestaurantTime>
-      </Detail>
-    </CardDiv>
+    <Link to={`/restaurants/${restaurantsId}`}>
+      <CardDiv>
+        <RoomName>방 제목</RoomName>
+        <RestaurantImg src="../data/img/bbq.jpg" />
+        <Detail>
+          <RestaurantName>bbq</RestaurantName>
+          <RestaurantPeople>x/4명 참가중</RestaurantPeople>
+          <RestaurantTime>남은시간 01:19</RestaurantTime>
+        </Detail>
+      </CardDiv>
+    </Link>
   );
 }
 export default Card;
