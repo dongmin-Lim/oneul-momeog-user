@@ -20,7 +20,7 @@ const NavDiv = styled.div`
 
 const NavGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 2fr;
 `;
 
 const Logo = styled.img`

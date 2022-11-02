@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { ROUTES } from "../../../enum/routes";
+import { Map, MapMarker } from "react-kakao-maps-sdk";
 
 const Div = styled.div`
   width: 1100px;
@@ -27,19 +25,17 @@ const PayGrid = styled.div`
 
 const Info = styled.div`
   display: grid;
-  grid-template-rows: 60px;
+  grid-template-rows: 300px;
   grid-row-gap: 30px;
 `;
 
-const Address = styled.input`
-  height: 60px;
+const Result = styled.div`
   width: 100%;
   border: 1px solid black;
-  padding: 0px 20px;
 `;
 
-const Mathod = styled.div`
-  border: 1px solid blue;
+const KakaoMap = styled.div`
+  border: 1px solid #aaaaaa;
 `;
 
 const Order = styled.div`
@@ -54,7 +50,6 @@ const OrderList = styled.div`
 
 const TotalPrice = styled.div`
   border: 1px solid #aaaaaa;
-  text-align: center;
 `;
 
 const MenuOption = styled.div`
@@ -102,19 +97,6 @@ const PayValue = styled.div`
   line-height: 50px;
 `;
 
-const PayButton = styled(Button)`
-  width: 320px;
-  height: 50px;
-  border: none;
-  margin-top: 15px;
-  color: black;
-  background-color: #d8f1ff;
-  :hover {
-    background-color: #7bcfff;
-    color: black;
-  }
-`;
-
 function Main() {
   const [orderMenu, setOrderMenu] = useState([
     {
@@ -141,8 +123,21 @@ function Main() {
     <Div>
       <PayGrid>
         <Info>
-          <Address placeholder="배송지"></Address>
-          <Mathod></Mathod>
+          <Result>
+            <div>오후 5:17 도착예정</div>
+            <div>bbq 서울대입구점</div>
+            <div>주문일시 : 2022년 10월 4일 오후 4:36</div>
+            <div>주문번호 113번 (추후구현)</div>
+          </Result>
+          <KakaoMap>
+            <Map
+              center={{ lat: 37.4775026, lng: 126.9550467 }}
+              style={{ width: "100%", height: "100%", margin: "0px auto" }}
+              level={4}
+            >
+              <MapMarker position={{ lat: 37.4775026, lng: 126.9550467 }} />
+            </Map>
+          </KakaoMap>
         </Info>
         <Order>
           <OrderList>
@@ -155,7 +150,7 @@ function Main() {
             ))}
           </OrderList>
           <TotalPrice>
-            <Title>결제 예정금액</Title>
+            <Title>결제금액</Title>
             <PayOption>
               <PayName>상품금액</PayName>
               <PayValue>{totalPrice.toLocaleString("ko-KR")}원</PayValue>
@@ -165,12 +160,13 @@ function Main() {
               <PayValue>3,000원</PayValue>
             </PayOption>
             <PayOption>
+              <PayName>결제방법</PayName>
+              <PayValue>모먹페이</PayValue>
+            </PayOption>
+            <PayOption>
               <PayName>합계</PayName>
               <PayValue>{(totalPrice + 3000).toLocaleString("ko-KR")}원</PayValue>
             </PayOption>
-            <Link to={ROUTES.USER.PAYCOMPLETE}>
-              <PayButton>결제</PayButton>
-            </Link>
           </TotalPrice>
         </Order>
       </PayGrid>

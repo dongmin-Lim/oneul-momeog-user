@@ -12,6 +12,7 @@ import NaverLoginData from "./user/socialLogin/NaverLoginData";
 import MainPage from "./user/pages/MainPage";
 import RestaurantsPage from "./user/pages/RestaurantsPage";
 import PayPage from "./user/pages/PayPage";
+import PayCompletePage from "./user/pages/PayCompletePage";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path={ROUTES.USER.MAIN} element={<MainPage />} />
         <Route path={ROUTES.USER.RESTAURANTS} element={<RestaurantsPage />} />
         <Route path={ROUTES.USER.PAY} element={<PayPage />} />
+        <Route path={ROUTES.USER.PAYCOMPLETE} element={<PayCompletePage />} />
         <Route path={ROUTES.CEO.LOGIN} element={<CeoLoginPage />} />
         <Route path={ROUTES.CEO.REGISTER} element={<CeoRegisterPage />} />
       </Routes>

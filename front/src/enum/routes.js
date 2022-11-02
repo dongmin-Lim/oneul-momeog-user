@@ -8,6 +8,7 @@ export const ROUTES = {
     MAIN: "/main",
     RESTAURANTS: "/restaurants/:restaurantsId",
     PAY: "/restaurants/pay",
+    PAYCOMPLETE: "/restaurants/paycomplete",
   },
   CEO: {
     LOGIN: "/ceo/login",

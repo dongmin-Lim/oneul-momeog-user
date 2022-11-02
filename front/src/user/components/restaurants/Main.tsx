@@ -15,8 +15,8 @@ const Img = styled.img`
 const Div = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-column-gap: 90px;
-  width: 1320px;
+  grid-column-gap: 50px;
+  width: 1100px;
   margin: 0 auto;
   margin-top: 50px;
 `;
