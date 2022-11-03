@@ -1,5 +1,5 @@
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { ROUTES } from "../../../enum/routes";
 import MenuList from "./MenuList";
@@ -35,6 +35,10 @@ const OrderButton = styled(Button)`
 `;
 
 function Main() {
+  const location = useLocation(); // 추가된 부분
+  const restaurantId = location.state.restaurantId; // 추가된 부분
+  console.log(restaurantId);
+
   return (
     <Div>
       <div>

@@ -1,5 +1,10 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { roomsProps } from "./Restaurants";
+
+interface ValueProps {
+  value: roomsProps;
+}
 
 const CardDiv = styled.div`
   display: inline-block;
@@ -59,16 +64,18 @@ const RestaurantTime = styled.div`
   justify-self: center;
 `;
 
-function Card() {
-  const restaurantsId = 1;
+function Card({ value }: ValueProps) {
+  const restaurantId = value.restaurantId;
   return (
-    <Link to={`/restaurants/${restaurantsId}`}>
+    <Link to={`/restaurants/${restaurantId}`} state={{ restaurantId: restaurantId }}>
       <CardDiv>
-        <RoomName>방 제목</RoomName>
+        <RoomName>{value.roomName}</RoomName>
         <RestaurantImg src="../data/img/bbq.jpg" />
         <Detail>
-          <RestaurantName>bbq</RestaurantName>
-          <RestaurantPeople>x/4명 참가중</RestaurantPeople>
+          <RestaurantName>{value.restaurantName}</RestaurantName>
+          <RestaurantPeople>
+            {value.currentPeople}/{value.maxPeople}명 참가중
+          </RestaurantPeople>
           <RestaurantTime>남은시간 01:19</RestaurantTime>
         </Detail>
       </CardDiv>

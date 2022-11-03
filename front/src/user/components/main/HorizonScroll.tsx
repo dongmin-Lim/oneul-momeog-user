@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Carousel, Container, Row, Col } from "react-bootstrap";
 import Card from "./Card";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const CarouselWrapper = styled(Carousel)`
   background-color: rgb(230, 230, 230);
@@ -12,12 +12,35 @@ const CarouselWrapper = styled(Carousel)`
   }
 `;
 
+interface roomsProps {
+  roomId: number;
+  restaurantId: number;
+  roomName: string;
+  restaurantImage: string;
+  restaurantName: string;
+  maxPeople: number;
+  currentPeople: number;
+  currentTime: string;
+  dueTime: string;
+}
+
+interface dataProps {
+  rooms: roomsProps[];
+}
+
+interface resultProps {
+  success: boolean;
+  message: string;
+  data: dataProps;
+}
+
 function HorizonScroll() {
+  const [lists, setLists] = useState<roomsProps[]>([]);
   useEffect(() => {
     async function getData() {
       try {
-        const response = await axios.get(`http://211.188.65.107:8080/api/main/room/last`);
-        console.log(response);
+        const response = await axios.get(`/mockdata/RestaurantListsApi.json`);
+        setLists(response.data.data.rooms);
       } catch (e) {
         console.log(e);
       }
@@ -30,63 +53,11 @@ function HorizonScroll() {
       <Carousel.Item>
         <Container>
           <Row className="justify-content-md-center">
-            <Col>
-              <Card />
-            </Col>
-            <Col>
-              <Card />
-            </Col>
-            <Col>
-              <Card />
-            </Col>
-          </Row>
-        </Container>
-      </Carousel.Item>
-
-      <Carousel.Item>
-        <Container>
-          <Row className="justify-content-md-center">
-            <Col>
-              <Card />
-            </Col>
-            <Col>
-              <Card />
-            </Col>
-            <Col>
-              <Card />
-            </Col>
-          </Row>
-        </Container>
-      </Carousel.Item>
-
-      <Carousel.Item>
-        <Container>
-          <Row className="justify-content-md-center">
-            <Col>
-              <Card />
-            </Col>
-            <Col>
-              <Card />
-            </Col>
-            <Col>
-              <Card />
-            </Col>
-          </Row>
-        </Container>
-      </Carousel.Item>
-
-      <Carousel.Item>
-        <Container>
-          <Row className="justify-content-md-center">
-            <Col>
-              <Card />
-            </Col>
-            <Col>
-              <Card />
-            </Col>
-            <Col>
-              <Card />
-            </Col>
+            {lists.map((value, index) => (
+              <Col key={index}>
+                <Card value={value} />
+              </Col>
+            ))}
           </Row>
         </Container>
       </Carousel.Item>
