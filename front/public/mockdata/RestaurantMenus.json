@@ -1,0 +1,35 @@
+{
+    "success": true,
+    "message": "string",
+    "data": {
+        "menus": [
+            {
+                "menuId": 0,
+                 "menuName": "후라이드치킨",
+                 "description": "기름에 튀긴 기본 후라이드 치킨",
+                 "price": 16000,
+                 "menuImage": "img",
+                 "ingredients": "국내산 생닭 100%",
+                 "soldOut": false
+            },
+            {
+                "menuId": 1,
+                 "menuName": "양념치킨",
+                 "description": "후라이드에 달달한 소스를 버무린 치킨",
+                 "price": 18000,
+                 "menuImage": "img",
+                 "ingredients": "국내산 생닭 100%",
+                 "soldOut": false
+            },
+            {
+                "menuId": 2,
+                 "menuName": "순살치킨",
+                 "description": "뼈가 없는 후라이드 치킨",
+                 "price": 20000,
+                 "menuImage": "img",
+                 "ingredients": "국내산 생닭 100%",
+                 "soldOut": false
+            }
+        ] 
+    }
+}

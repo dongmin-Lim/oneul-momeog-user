@@ -1,6 +1,8 @@
 import { Button, Container, Row, Col, InputGroup, Form } from "react-bootstrap";
 import styled from "styled-components";
 import axios from "axios";
+import { useEffect } from "react";
+import { listsProps, SearchProps, RestaurantTypeProps } from "./Main";
 
 const ButtonWrapper = styled(Button)`
   width: 350px;
@@ -28,39 +30,42 @@ const FormControlWrapper = styled(Form.Control)`
   border-radius: 10px;
 `;
 
-const SearchBtn = styled(Button)`
-  background-color: #d8f1ff;
-  border: none;
-  :hover {
-    background-color: #7bcfff;
-    color: black;
-  }
-`;
+interface Props {
+  setLists: React.Dispatch<React.SetStateAction<listsProps[]>>;
+  mode: string;
+  setMode: React.Dispatch<React.SetStateAction<string>>;
+  searchObj: SearchProps;
+  setSearchObj: React.Dispatch<React.SetStateAction<SearchProps>>;
+  categories: RestaurantTypeProps[];
+  setCategories: React.Dispatch<React.SetStateAction<RestaurantTypeProps[]>>;
+}
 
-const SearchImg = styled.img`
-  width: 25px;
-  position: relative;
-  top: 0;
-  left: 0px;
-  cursor: pointer;
-`;
-
-function SearchBar({ mode, setMode, searchObj, setSearchObj, categories }: any) {
-  async function onSubmit(e: any) {
-    e.preventDefault();
-    try {
-      const response = await axios.get(
-        `http://211.188.65.107:8080/api/main/${mode}/search?search=${
-          searchObj.search
-        }&category=${categories.join()}&page=${searchObj.page}`
-      );
-      console.log(response);
-    } catch (e) {
-      console.log(e);
+function SearchBar({
+  setLists,
+  mode,
+  setMode,
+  searchObj,
+  setSearchObj,
+  categories,
+}: Props) {
+  useEffect(() => {
+    async function onSubmit() {
+      try {
+        const response = await axios.get(
+          `http://211.188.65.107:8080/api/main/${mode}/search?search=${
+            searchObj.search
+          }&category=${categories.join()}&page=${searchObj.page}`
+        );
+        setLists(response.data);
+        console.log(response.data);
+      } catch (e) {
+        console.log(e);
+      }
     }
-  }
+    onSubmit();
+  }, [mode, categories, searchObj.search, searchObj.page]);
   return (
-    <Form onSubmit={onSubmit}>
+    <Form>
       <Container>
         <Row className="justify-content-md-center">
           <Col>
@@ -87,9 +92,6 @@ function SearchBar({ mode, setMode, searchObj, setSearchObj, categories }: any) 
                   setSearchObj({ ...searchObj, search: e.target.value })
                 }
               />
-              <SearchBtn type="submit">
-                <SearchImg src="data/img/search_icon.png" alt="search button" />
-              </SearchBtn>
             </InputGroupWrapper>
           </Col>
         </Row>

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Carousel, Container, Row, Col } from "react-bootstrap";
 import Card from "./Card";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 const CarouselWrapper = styled(Carousel)`
   background-color: rgb(230, 230, 230);
@@ -34,13 +34,19 @@ interface resultProps {
   data: dataProps;
 }
 
-function HorizonScroll() {
+interface roomTypeProps {
+  roomType: string;
+  setRoomType: React.Dispatch<React.SetStateAction<string>>;
+}
+
+function HorizonScroll({ roomType, setRoomType }: roomTypeProps) {
   const [lists, setLists] = useState<roomsProps[]>([]);
   useEffect(() => {
     async function getData() {
       try {
-        const response = await axios.get(`/mockdata/RestaurantListsApi.json`);
-        setLists(response.data.data.rooms);
+        const response = await axios.get(`http://211.188.65.107:8080/api/main/room/last`);
+        setLists(response.data.data);
+        console.log(response.data.data);
       } catch (e) {
         console.log(e);
       }
@@ -55,7 +61,7 @@ function HorizonScroll() {
           <Row className="justify-content-md-center">
             {lists.map((value, index) => (
               <Col key={index}>
-                <Card value={value} />
+                <Card value={value} roomType={roomType} />
               </Col>
             ))}
           </Row>

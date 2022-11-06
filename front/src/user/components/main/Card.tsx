@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { roomsProps } from "./Restaurants";
 
 interface ValueProps {
-  value: roomsProps;
+  value: any;
+  roomType: string;
 }
 
 const CardDiv = styled.div`
@@ -18,7 +18,7 @@ const CardDiv = styled.div`
 `;
 
 const RoomName = styled.div`
-  width: 80px;
+  width: 100%;
   height: 30px;
   line-height: 30px;
   font-size: 20px;
@@ -64,10 +64,14 @@ const RestaurantTime = styled.div`
   justify-self: center;
 `;
 
-function Card({ value }: ValueProps) {
+function Card({ value, roomType }: ValueProps) {
   const restaurantId = value.restaurantId;
+  const roomId = value.roomId;
   return (
-    <Link to={`/restaurants/${restaurantId}`} state={{ restaurantId: restaurantId }}>
+    <Link
+      to={`/restaurants/${restaurantId}`}
+      state={{ restaurantId: restaurantId, roomId: roomId, roomType: roomType }}
+    >
       <CardDiv>
         <RoomName>{value.roomName}</RoomName>
         <RestaurantImg src="../data/img/bbq.jpg" />

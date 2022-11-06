@@ -1,4 +1,5 @@
-import { useState } from "react";
+import axios from "axios";
+import { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -137,6 +138,19 @@ function Main() {
     (previousValue, currentValue) => previousValue + currentValue.menuPrice,
     0
   );
+  // useEffect(() => {
+  //   async function getOrderData() {
+  //     try {
+  //       const response =
+  //         await axios.get`http://211.188.65.107:8080/api/restaurants/${restaurantId}/room/${roomId}/order`();
+  //       console.log(response.data.data);
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   }
+  //   getOrderData();
+  // }, []);
+
   return (
     <Div>
       <PayGrid>

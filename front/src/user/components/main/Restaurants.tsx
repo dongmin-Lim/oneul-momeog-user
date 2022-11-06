@@ -1,50 +1,25 @@
+import { useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Card from "./Card";
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { listsProps } from "./Main";
 
-export interface roomsProps {
-  roomId: number;
-  restaurantId: number;
-  roomName: string;
-  restaurantImage: string;
-  restaurantName: string;
-  maxPeople: number;
-  currentPeople: number;
-  currentTime: string;
-  dueTime: string;
+interface roomTypeProps {
+  lists: listsProps[];
+  roomType: string;
+  setRoomType: React.Dispatch<React.SetStateAction<string>>;
 }
 
-interface dataProps {
-  rooms: roomsProps[];
-}
+function Restaurants({ lists, roomType, setRoomType }: roomTypeProps) {
+  useEffect(
+    () => setRoomType("create") // 방 입장 시 참가자 권한으로 참여
+  );
 
-interface resultProps {
-  success: boolean;
-  message: string;
-  data: dataProps;
-}
-
-function Restaurants() {
-  const [lists, setLists] = useState<roomsProps[]>([]);
-  useEffect(() => {
-    async function getData() {
-      try {
-        const response = await axios.get(`/mockdata/RestaurantListsApi.json`);
-        setLists(response.data.data.rooms);
-        // console.log(response.data.data.rooms);
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    getData();
-  }, []);
   return (
     <Container>
       <Row className="justify-content-md-center">
         {lists.map((value, index) => (
           <Col key={index}>
-            <Card value={value} />
+            <Card value={value} roomType={roomType} />
           </Col>
         ))}
       </Row>
