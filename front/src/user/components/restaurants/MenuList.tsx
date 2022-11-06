@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { MenuProps } from "./Main";
 
 const Div = styled.div`
   margin-top: 50px;
@@ -36,28 +37,19 @@ const TotalPrice = styled.div`
   text-align: center;
 `;
 
-function MenuList() {
-  const [orderMenu, setOrderMenu] = useState([
-    {
-      menuId: "menuId0",
-      menuName: "menuName0",
-      menuPrice: 12000,
-    },
-    {
-      menuId: "menuId1",
-      menuName: "menuName1",
-      menuPrice: 18000,
-    },
-    {
-      menuId: "menuId2",
-      menuName: "menuName2",
-      menuPrice: 26000,
-    },
-  ]);
+interface orderMenuProps {
+  orderMenu: MenuProps[];
+  setOrderMenu: React.Dispatch<React.SetStateAction<MenuProps[]>>;
+}
+
+function MenuList({ orderMenu, setOrderMenu }: orderMenuProps) {
   const totalPrice = orderMenu.reduce(
-    (previousValue, currentValue) => previousValue + currentValue.menuPrice,
+    (previousValue, currentValue) => previousValue + currentValue.price,
     0
   );
+
+  console.log(orderMenu);
+
   return (
     <Div>
       <Title>주문목록</Title>
@@ -74,7 +66,7 @@ function MenuList() {
             }
           >
             <div>{value.menuName}</div>
-            <div>{value.menuPrice.toLocaleString("ko-KR")}원</div>
+            <div>{value.price.toLocaleString("ko-KR")}원</div>
           </Menu>
         ))}
       </Menus>

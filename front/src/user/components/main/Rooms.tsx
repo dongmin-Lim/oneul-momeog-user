@@ -10,8 +10,8 @@ interface roomTypeProps {
 }
 
 function Rooms({ lists, roomType, setRoomType }: roomTypeProps) {
-  useEffect(() =>
-    setRoomType("participant") // 방 입장 시 방생성자 권한으로 참여
+  useEffect(
+    () => setRoomType("participant") // 방 입장 시 방생성자 권한으로 참여
   );
 
   return (

@@ -1,3 +1,5 @@
+import axios from "axios";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const rooms = [
@@ -69,12 +71,43 @@ const Title = styled.div`
   text-align: center;
 `;
 
-function RoomList() {
+interface roomsProps {
+  roomId: number;
+  roomName: string;
+  maxPeople: number;
+  currentPeople: number;
+  normalAddress: string;
+  specificAddress: string;
+  currentTime: string;
+  dueTime: string;
+}
+
+interface roomListProps {
+  rooms: roomsProps[];
+}
+
+function RoomList({ restaurantId }: any) {
+  const [roomList, setRoomList] = useState<roomListProps[]>();
+
+  useEffect(() => {
+    async function getRoomListData() {
+      try {
+        const response = await axios.get(
+          `http://211.188.65.107:8080/api/restaurants/${restaurantId}/review`
+        );
+        setRoomList(response.data.data);
+        console.log(response.data);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getRoomListData();
+  }, []);
   return (
     <Div>
       <Title>공동구매 방 목록</Title>
       <Rooms>
-        {rooms.map((value: any, index: number) => (
+        {roomList?.map((value: any, index: number) => (
           <Room key={index}>
             <div>{value.roomName}</div>
             <div>[{value.currentPeople + "/" + value.maxPeople}]</div>

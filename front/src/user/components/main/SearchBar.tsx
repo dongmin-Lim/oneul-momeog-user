@@ -56,7 +56,7 @@ function SearchBar({
             searchObj.search
           }&category=${categories.join()}&page=${searchObj.page}`
         );
-        setLists(response.data);
+        setLists(response.data.data);
         console.log(response.data);
       } catch (e) {
         console.log(e);

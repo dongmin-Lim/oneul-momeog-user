@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Accordion, useAccordionButton, Card } from "react-bootstrap";
 import styled from "styled-components";
+import { MenuProps } from "./Main";
 
 const Div = styled.div`
   height: 200px;
@@ -53,30 +54,48 @@ const OptionButton = styled.button`
   }
 `;
 
-function SelectMenuOption() {
-  interface groupsProps {
-    groupId: number;
-    groupName: string;
-  }
+interface groupsProps {
+  groupId: number;
+  groupName: string;
+}
 
-  interface menusProps {
-    menuId: number;
-    menuName: string;
-    description: string;
-    price: number;
-    menuImage: string;
-    ingredients: string;
-    soldOut: boolean;
-  }
+interface menusProps {
+  menuId: number;
+  menuName: string;
+  description: string;
+  price: number;
+  menuImage: string;
+  ingredients: string;
+  soldOut: boolean;
+}
+
+interface orderMenuProps {
+  restaurantId: number;
+  orderMenu: MenuProps[];
+  setOrderMenu: React.Dispatch<React.SetStateAction<MenuProps[]>>;
+}
+
+function SelectMenuOption({ restaurantId, orderMenu, setOrderMenu }: orderMenuProps) {
   const [groups, setGroups] = useState<groupsProps[]>([]);
-  const [menus, setMenus] = useState<menusProps[]>([]);
+  const [menus, setMenus] = useState<menusProps[]>([
+    {
+      menuId: 1,
+      menuName: "아구찜",
+      description: "맛있어요",
+      price: 20000,
+      menuImage: ".img",
+      ingredients: "국내산 아구 100%",
+      soldOut: false,
+    },
+  ]);
 
   useEffect(() => {
     async function getGroupData() {
       try {
-        const response = await axios.get(`/mockdata/RestaurantMenuGroup.json`);
-        setGroups(response.data.data.groups);
-        console.log(response.data.data.groups);
+        const response = await axios.get(`	
+        http://211.188.65.107:8080/api/restaurants/${restaurantId}/groups`);
+        setGroups(response.data.data);
+        console.log(response.data.data);
       } catch (e) {
         console.log(e);
       }
@@ -107,9 +126,19 @@ function SelectMenuOption() {
             <Accordion.Collapse eventKey={`${groupIndex}`}>
               <>
                 {menus.map((menuValue, menuIndex) => (
-                  <div key={menuIndex}>
+                  <div
+                    key={menuIndex}
+                    onClick={() =>
+                      orderMenu.some(() => menuIndex + 1 === menuValue.menuId)
+                        ? // 드롭다운에서 선택한 값과 이미 추가되어있는 값과 비교하여 이미 존재하면 추가안되게 구현
+                          window.alert("해당항목이 존재합니다.")
+                        : (setOrderMenu([...orderMenu, menuValue]),
+                          console.log(orderMenu))
+                    }
+                  >
                     <CustomOption eventKey={`${groupIndex}`}>
                       {menuValue.menuName}
+                      {menuValue.price}원
                     </CustomOption>
                   </div>
                 ))}
