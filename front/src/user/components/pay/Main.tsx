@@ -128,7 +128,7 @@ interface orderDataProps {
   roomId: number;
   deliveryLocation: string;
   menus: menusProps[];
-  totalPrice: number | undefined;
+  totalPrice: number;
   deliveryFee: number;
 }
 
@@ -140,6 +140,8 @@ function Main() {
   const orderMenu = location.state.orderMenu;
 
   const [orderData, setOrderData] = useState<orderDataProps>();
+  const [resultPrice, setResultPrice] = useState<number>();
+  const deliveryFee = 3000; // 임시로 작성(api에 배달비가 null이라)
 
   useEffect(() => {
     async function getOrderData() {
@@ -158,6 +160,7 @@ function Main() {
           }
         );
         setOrderData(response.data.data);
+        setResultPrice(response.data.data.totalPrice + deliveryFee);
         console.log(response.data);
         if (!response.data.success) {
           window.alert(response.data.message);
@@ -198,9 +201,7 @@ function Main() {
             </PayOption>
             <PayOption>
               <PayName>합계</PayName>
-              <PayValue>
-                {(orderData?.totalPrice + 3000).toLocaleString("ko-KR")}원
-              </PayValue>
+              <PayValue>{resultPrice?.toLocaleString("ko-KR")}원</PayValue>
             </PayOption>
             <Link to={ROUTES.USER.PAYCOMPLETE}>
               <PayButton>결제</PayButton>
