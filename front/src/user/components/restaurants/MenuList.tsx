@@ -48,10 +48,11 @@ const ButtonWrapper = styled(Button)`
   line-height: 32.5px;
   padding: 0px;
   padding-bottom: 10px;
+  margin-left: auto;
 `;
 
 const QuanPicker = styled.span`
-  text-align: end;
+  text-align: start;
 `;
 
 const Title = styled.div`
@@ -81,8 +82,6 @@ function MenuList({ orderMenu, setOrderMenu }: orderMenuProps) {
     0
   );
 
-  console.log(orderMenu);
-
   return (
     <Div>
       <Title>주문목록</Title>
@@ -91,6 +90,9 @@ function MenuList({ orderMenu, setOrderMenu }: orderMenuProps) {
           <Menu key={index}>
             <MenuName>{value.menuName}</MenuName>
             <MenuValue>{value.price.toLocaleString("ko-KR")}원</MenuValue>
+            <QuanPicker>
+              <QuantityPicker min={1} max={4} />
+            </QuanPicker>
             <ButtonWrapper
               variant="danger"
               onClick={() =>
@@ -103,9 +105,6 @@ function MenuList({ orderMenu, setOrderMenu }: orderMenuProps) {
             >
               삭제
             </ButtonWrapper>
-            <QuanPicker>
-              <QuantityPicker min={1} max={4} />
-            </QuanPicker>
           </Menu>
         ))}
       </Menus>

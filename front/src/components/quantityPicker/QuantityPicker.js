@@ -15,6 +15,7 @@ export default class QuantityPicker extends Component {
     if (this.state.value < this.props.max) {
       this.setState({ value: plusState });
       this.setState({ disable: false });
+      console.log(plusState);
     }
     if (this.state.value == this.props.max - 1) {
       this.setState({ disableInc: true });
@@ -26,8 +27,11 @@ export default class QuantityPicker extends Component {
 
   decrement() {
     const minusState = this.state.value - 1;
+
     if (this.state.value > this.props.min) {
       this.setState({ value: minusState });
+      console.log(minusState);
+
       if (this.state.value == this.props.min + 1) {
         this.setState({ disableDec: true });
       }

@@ -67,6 +67,7 @@ interface menusProps {
   menuImage: string;
   ingredients: string;
   soldOut: boolean;
+  quantity?: number;
 }
 
 interface orderMenuProps {
@@ -80,6 +81,15 @@ function SelectMenuOption({ restaurantId, orderMenu, setOrderMenu }: orderMenuPr
   const [menus, setMenus] = useState<menusProps[]>([
     {
       menuId: 1,
+      menuName: "마약족발",
+      description: "맛있어요",
+      price: 20000,
+      menuImage: ".img",
+      ingredients: "국내산 돼지 100%",
+      soldOut: false,
+    },
+    {
+      menuId: 2,
       menuName: "아구찜",
       description: "맛있어요",
       price: 20000,
@@ -95,7 +105,6 @@ function SelectMenuOption({ restaurantId, orderMenu, setOrderMenu }: orderMenuPr
         const response = await axios.get(`	
         http://211.188.65.107:8080/api/restaurants/${restaurantId}/groups`);
         setGroups(response.data.data);
-        console.log(response.data.data);
       } catch (e) {
         console.log(e);
       }
@@ -129,10 +138,11 @@ function SelectMenuOption({ restaurantId, orderMenu, setOrderMenu }: orderMenuPr
                   <div
                     key={menuIndex}
                     onClick={() =>
-                      orderMenu.some(() => menuIndex + 1 === menuValue.menuId)
+                      orderMenu.some((value) => value.menuId === menuValue.menuId)
                         ? // 드롭다운에서 선택한 값과 이미 추가되어있는 값과 비교하여 이미 존재하면 추가안되게 구현
                           window.alert("해당항목이 존재합니다.")
-                        : (setOrderMenu([...orderMenu, menuValue]),
+                        : ((menuValue.quantity = 1),
+                          setOrderMenu([...orderMenu, menuValue]),
                           console.log(orderMenu))
                     }
                   >

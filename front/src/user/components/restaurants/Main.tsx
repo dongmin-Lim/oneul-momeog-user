@@ -114,7 +114,6 @@ function Main() {
           `http://211.188.65.107:8080/api/restaurants/${restaurantId}`
         );
         setRestaurantInfo(response.data.data);
-        console.log(response.data.data);
       } catch (e) {
         console.log(e);
       }
@@ -125,7 +124,6 @@ function Main() {
           `http://211.188.65.107:8080/api/restaurants/${restaurantId}/room/default?roomId=${roomId}`
         );
         setRoomInfo(response.data.data);
-        console.log(response.data.data);
       } catch (e) {
         console.log(e);
       }

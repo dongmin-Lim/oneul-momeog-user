@@ -142,6 +142,7 @@ function Main() {
   const [orderData, setOrderData] = useState<orderDataProps>();
   const [resultPrice, setResultPrice] = useState<number>();
   const deliveryFee = 3000; // 임시로 작성(api에 배달비가 null이라)
+  orderMenu.map((value: any) => console.log(value));
 
   useEffect(() => {
     async function getOrderData() {
@@ -153,7 +154,7 @@ function Main() {
             roomId: roomId,
             menus: [
               {
-                menuId: 1,
+                menuId: orderMenu[0].menuId,
                 count: 1,
               },
             ],

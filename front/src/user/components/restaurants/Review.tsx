@@ -61,7 +61,6 @@ function Review({ restaurantId }: any) {
           `http://211.188.65.107:8080/api/restaurants/${restaurantId}/review`
         );
         setReviewInfo(response.data.data);
-        console.log(response.data);
       } catch (e) {
         console.log(e);
       }
