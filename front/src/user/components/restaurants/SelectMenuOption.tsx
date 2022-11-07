@@ -59,26 +59,23 @@ interface groupsProps {
   groupName: string;
 }
 
-interface menusProps {
-  menuId: number;
-  menuName: string;
-  description: string;
-  price: number;
-  menuImage: string;
-  ingredients: string;
-  soldOut: boolean;
-  quantity?: number;
-}
-
 interface orderMenuProps {
   restaurantId: number;
   orderMenu: MenuProps[];
   setOrderMenu: React.Dispatch<React.SetStateAction<MenuProps[]>>;
+  totalPrice: number;
+  setTotalPrice: React.Dispatch<React.SetStateAction<number>>;
 }
 
-function SelectMenuOption({ restaurantId, orderMenu, setOrderMenu }: orderMenuProps) {
+function SelectMenuOption({
+  restaurantId,
+  orderMenu,
+  setOrderMenu,
+  totalPrice,
+  setTotalPrice,
+}: orderMenuProps) {
   const [groups, setGroups] = useState<groupsProps[]>([]);
-  const [menus, setMenus] = useState<menusProps[]>([
+  const [menus, setMenus] = useState<MenuProps[]>([
     {
       menuId: 1,
       menuName: "마약족발",
@@ -143,7 +140,8 @@ function SelectMenuOption({ restaurantId, orderMenu, setOrderMenu }: orderMenuPr
                           window.alert("해당항목이 존재합니다.")
                         : ((menuValue.quantity = 1),
                           setOrderMenu([...orderMenu, menuValue]),
-                          console.log(orderMenu))
+                          console.log(orderMenu),
+                          setTotalPrice((totalPrice += menuValue.price)))
                     }
                   >
                     <CustomOption eventKey={`${groupIndex}`}>

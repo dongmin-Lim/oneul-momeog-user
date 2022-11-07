@@ -96,6 +96,7 @@ export interface MenuProps {
   menuImage: string;
   ingredients: string;
   soldOut: boolean;
+  quantity?: any;
 }
 
 function Main() {
@@ -106,6 +107,7 @@ function Main() {
   const [restaurantInfo, setRestaurantInfo] = useState<restaurantInfoProps>();
   const [roomInfo, setRoomInfo] = useState<roomInfoProps>();
   const [orderMenu, setOrderMenu] = useState<MenuProps[]>([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     async function getRestaurantData() {
@@ -173,8 +175,15 @@ function Main() {
           restaurantId={restaurantId}
           orderMenu={orderMenu}
           setOrderMenu={setOrderMenu}
+          totalPrice={totalPrice}
+          setTotalPrice={setTotalPrice}
         />
-        <MenuList orderMenu={orderMenu} setOrderMenu={setOrderMenu} />
+        <MenuList
+          orderMenu={orderMenu}
+          setOrderMenu={setOrderMenu}
+          totalPrice={totalPrice}
+          setTotalPrice={setTotalPrice}
+        />
         <Link
           to={ROUTES.USER.PAY}
           state={{

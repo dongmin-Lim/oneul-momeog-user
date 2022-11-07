@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { MenuProps } from "./Main";
-import QuantityPicker from "../../../components/quantityPicker/QuantityPicker";
 import { Button } from "react-bootstrap";
+import QuantityPicker from "../../../components/quantityPicker/QuantityPicker";
 
 const Div = styled.div`
   margin-top: 50px;
@@ -71,17 +71,33 @@ const TotalPrice = styled.div`
   text-align: center;
 `;
 
+const QuantityButton = styled.button`
+  width: 30px;
+  height: 30px;
+  border: none;
+`;
+
+const QuantityInput = styled.input`
+  width: 50px;
+  height: 30px;
+  border: 1px solid #aaa;
+  padding-bottom: 2px;
+  text-align: center;
+`;
+
 interface orderMenuProps {
   orderMenu: MenuProps[];
   setOrderMenu: React.Dispatch<React.SetStateAction<MenuProps[]>>;
+  totalPrice: number;
+  setTotalPrice: React.Dispatch<React.SetStateAction<number>>;
 }
 
-function MenuList({ orderMenu, setOrderMenu }: orderMenuProps) {
-  const totalPrice = orderMenu.reduce(
-    (previousValue, currentValue) => previousValue + currentValue.price,
-    0
-  );
-
+function MenuList({
+  orderMenu,
+  setOrderMenu,
+  totalPrice,
+  setTotalPrice,
+}: orderMenuProps) {
   return (
     <Div>
       <Title>주문목록</Title>
@@ -91,17 +107,25 @@ function MenuList({ orderMenu, setOrderMenu }: orderMenuProps) {
             <MenuName>{value.menuName}</MenuName>
             <MenuValue>{value.price.toLocaleString("ko-KR")}원</MenuValue>
             <QuanPicker>
-              <QuantityPicker min={1} max={4} />
+              <QuantityPicker
+                min={1}
+                max={4}
+                value={value}
+                totalPrice={totalPrice}
+                setTotalPrice={setTotalPrice}
+                orderMenu={orderMenu}
+              />
             </QuanPicker>
             <ButtonWrapper
               variant="danger"
-              onClick={() =>
+              onClick={() => (
                 setOrderMenu(
                   orderMenu.filter((list: any) => {
                     return list !== value;
                   })
-                )
-              }
+                ),
+                setTotalPrice((totalPrice -= value.price * value.quantity))
+              )}
             >
               삭제
             </ButtonWrapper>

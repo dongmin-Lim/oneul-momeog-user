@@ -154,15 +154,15 @@ function Main() {
             roomId: roomId,
             menus: [
               {
-                menuId: orderMenu[0].menuId,
+                menuId: 1,
                 count: 1,
               },
             ],
           }
         );
         setOrderData(response.data.data);
-        setResultPrice(response.data.data.totalPrice + deliveryFee);
-        console.log(response.data);
+        // setResultPrice(response.data.data.totalPrice + deliveryFee);
+        console.log(response);
         if (!response.data.success) {
           window.alert(response.data.message);
         }
@@ -170,7 +170,7 @@ function Main() {
         console.log(e);
       }
     }
-    getOrderData();
+    roomType === "participant" ? getOrderData() : getOrderData();
   }, []);
 
   return (
