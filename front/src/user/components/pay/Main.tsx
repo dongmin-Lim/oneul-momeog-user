@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { ROUTES } from "../../../enum/routes";
 
@@ -116,40 +116,58 @@ const PayButton = styled(Button)`
   }
 `;
 
+interface menusProps {
+  menuId: number;
+  menuName: string;
+  price: number;
+  quantity: number;
+}
+
+interface orderDataProps {
+  orderId: number;
+  roomId: number;
+  deliveryLocation: string;
+  menus: menusProps[];
+  totalPrice: number | undefined;
+  deliveryFee: number;
+}
+
 function Main() {
-  const [orderMenu, setOrderMenu] = useState([
-    {
-      menuId: "menuId0",
-      menuName: "menuName0",
-      menuPrice: 12000,
-    },
-    {
-      menuId: "menuId1",
-      menuName: "menuName1",
-      menuPrice: 18000,
-    },
-    {
-      menuId: "menuId2",
-      menuName: "menuName2",
-      menuPrice: 26000,
-    },
-  ]);
-  const totalPrice = orderMenu.reduce(
-    (previousValue, currentValue) => previousValue + currentValue.menuPrice,
-    0
-  );
-  // useEffect(() => {
-  //   async function getOrderData() {
-  //     try {
-  //       const response =
-  //         await axios.get`http://211.188.65.107:8080/api/restaurants/${restaurantId}/room/${roomId}/order`();
-  //       console.log(response.data.data);
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   }
-  //   getOrderData();
-  // }, []);
+  const location = useLocation();
+  const restaurantId = location.state.restaurantId;
+  const roomId = location.state.roomId;
+  const roomType = location.state.roomType;
+  const orderMenu = location.state.orderMenu;
+
+  const [orderData, setOrderData] = useState<orderDataProps>();
+
+  useEffect(() => {
+    async function getOrderData() {
+      try {
+        const response = await axios.post(
+          `http://211.188.65.107:8080/api/restaurants/${restaurantId}/room/${roomId}/order`,
+          {
+            restaurantId: restaurantId,
+            roomId: roomId,
+            menus: [
+              {
+                menuId: 1,
+                count: 1,
+              },
+            ],
+          }
+        );
+        setOrderData(response.data.data);
+        console.log(response.data);
+        if (!response.data.success) {
+          window.alert(response.data.message);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getOrderData();
+  }, []);
 
   return (
     <Div>
@@ -164,7 +182,7 @@ function Main() {
             {orderMenu.map((value: any, index: number) => (
               <MenuOption key={index}>
                 <MenuName>{value.menuName}</MenuName>
-                <MenuValue>{value.menuPrice.toLocaleString("ko-KR")}원</MenuValue>
+                <MenuValue>{value.price.toLocaleString("ko-KR")}원</MenuValue>
               </MenuOption>
             ))}
           </OrderList>
@@ -172,7 +190,7 @@ function Main() {
             <Title>결제 예정금액</Title>
             <PayOption>
               <PayName>상품금액</PayName>
-              <PayValue>{totalPrice.toLocaleString("ko-KR")}원</PayValue>
+              <PayValue>{orderData?.totalPrice.toLocaleString("ko-KR")}원</PayValue>
             </PayOption>
             <PayOption>
               <PayName>배달금액</PayName>
@@ -180,7 +198,9 @@ function Main() {
             </PayOption>
             <PayOption>
               <PayName>합계</PayName>
-              <PayValue>{(totalPrice + 3000).toLocaleString("ko-KR")}원</PayValue>
+              <PayValue>
+                {(orderData?.totalPrice + 3000).toLocaleString("ko-KR")}원
+              </PayValue>
             </PayOption>
             <Link to={ROUTES.USER.PAYCOMPLETE}>
               <PayButton>결제</PayButton>

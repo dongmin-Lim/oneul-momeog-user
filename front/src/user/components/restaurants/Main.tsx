@@ -177,7 +177,15 @@ function Main() {
           setOrderMenu={setOrderMenu}
         />
         <MenuList orderMenu={orderMenu} setOrderMenu={setOrderMenu} />
-        <Link to={ROUTES.USER.PAY}>
+        <Link
+          to={ROUTES.USER.PAY}
+          state={{
+            restaurantId: restaurantId,
+            roomId: roomId,
+            roomType: roomType,
+            orderMenu: orderMenu,
+          }}
+        >
           <OrderButton>구매하기</OrderButton>
         </Link>
       </div>
