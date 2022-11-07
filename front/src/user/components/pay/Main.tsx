@@ -176,13 +176,17 @@ function Main() {
     <Div>
       <PayGrid>
         <Info>
-          <Address placeholder="배송지"></Address>
+          <Address
+            placeholder="배송지"
+            value={orderData?.deliveryLocation}
+            disabled={roomType === "participant" ? true : false}
+          ></Address>
           <Mathod></Mathod>
         </Info>
         <Order>
           <OrderList>
             <Title>주문목록</Title>
-            {orderMenu.map((value: any, index: number) => (
+            {orderData?.menus.map((value: any, index: number) => (
               <MenuOption key={index}>
                 <MenuName>{value.menuName}</MenuName>
                 <MenuValue>{value.price.toLocaleString("ko-KR")}원</MenuValue>
