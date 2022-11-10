@@ -11,7 +11,7 @@ const Div = styled.div`
   /* margin: 0 auto; */
 `;
 
-const ButtonWrapper = styled(Button)`
+const Back = styled.div`
   padding: 30px;
   color: black;
   font-size: 24px;
@@ -77,9 +77,10 @@ function Main() {
 
   return (
     <Div>
-      <Link to={ROUTES.USER.RESTAURANTS}>
-        <ButtonWrapper variant="link">← 돌아가기</ButtonWrapper>
+      <Link to={ROUTES.USER.RESTAURANTS} state={{ restaurantId: restaurantId }}>
+        <Back>← 돌아가기</Back>
       </Link>
+
       {reviews?.map((value, index) => (
         <Review key={index}>
           <Content>

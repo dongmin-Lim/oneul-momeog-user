@@ -111,8 +111,8 @@ function MenuList({
                 min={1}
                 max={4}
                 value={value}
-                totalPrice={totalPrice}
-                setTotalPrice={setTotalPrice}
+                num={totalPrice}
+                setNum={setTotalPrice}
                 orderMenu={orderMenu}
               />
             </QuanPicker>

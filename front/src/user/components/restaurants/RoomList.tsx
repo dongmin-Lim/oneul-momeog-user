@@ -93,7 +93,7 @@ function RoomList({ restaurantId }: any) {
     async function getRoomListData() {
       try {
         const response = await axios.get(
-          `http://211.188.65.107:8080/api/restaurants/${restaurantId}/review`
+          `http://211.188.65.107:8080/api/restaurants/${restaurantId}/room/list`
         );
         setRoomList(response.data.data);
       } catch (e) {

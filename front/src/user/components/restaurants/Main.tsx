@@ -9,6 +9,7 @@ import Review from "./Review";
 import RoomList from "./RoomList";
 import SelectMenuOption from "./SelectMenuOption";
 import SelectRoomOption from "./SelectRoomOption";
+import CreateRoomOption from "./CreateRoomOption";
 
 const Img = styled.img`
   width: 380px;
@@ -106,6 +107,7 @@ function Main() {
   const roomType = location.state.roomType;
   const [restaurantInfo, setRestaurantInfo] = useState<restaurantInfoProps>();
   const [roomInfo, setRoomInfo] = useState<roomInfoProps>();
+  const [roomOption, setRoomOption] = useState<string>("방 옵션");
   const [orderMenu, setOrderMenu] = useState<MenuProps[]>([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -166,8 +168,19 @@ function Main() {
       </div>
 
       <div>
-        {roomType === "participant" ? <Participant /> : <SelectRoomOption />}
-        {roomType === "create" ? <></> : <RoomList restaurantId={restaurantId} />}
+        {roomType === "participant" ? (
+          <Participant />
+        ) : (
+          <SelectRoomOption roomOption={roomOption} setRoomOption={setRoomOption} />
+        )}
+
+        {roomType === "create" && roomOption === "공동구매" ? (
+          <CreateRoomOption />
+        ) : roomType === "participant" ? (
+          <RoomList restaurantId={restaurantId} />
+        ) : (
+          <></>
+        )}
       </div>
 
       <div>

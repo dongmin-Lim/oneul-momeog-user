@@ -52,9 +52,12 @@ const OptionButton = styled.button`
   }
 `;
 
-function SelectRoomOption() {
-  const [roomOption, setRoomOption] = useState("방 옵션");
+interface roomOptionProps {
+  roomOption: string;
+  setRoomOption: React.Dispatch<React.SetStateAction<string>>;
+}
 
+function SelectRoomOption({ roomOption, setRoomOption }: roomOptionProps) {
   function CustomToggle({ children, eventKey }: any) {
     const decoratedOnClick = useAccordionButton(eventKey);
 
