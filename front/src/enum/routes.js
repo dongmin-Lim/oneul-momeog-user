@@ -7,6 +7,7 @@ export const ROUTES = {
     NAVER: "/api/auth/oauth/login/naver",
     MAIN: "/main",
     RESTAURANTS: "/restaurants/:restaurantId",
+    REVIEW: "/restaurants/review",
     PAY: "/restaurants/pay",
     PAYCOMPLETE: "/restaurants/paycomplete",
   },

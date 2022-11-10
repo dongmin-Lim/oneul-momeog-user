@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
+import "antd/dist/antd.css";
 import { ROUTES } from "./enum/routes";
 import Nav from "./components/Nav";
 import HomePage from "./pages/HomePage";
@@ -13,6 +14,7 @@ import MainPage from "./user/pages/MainPage";
 import RestaurantsPage from "./user/pages/RestaurantsPage";
 import PayPage from "./user/pages/PayPage";
 import PayCompletePage from "./user/pages/PayCompletePage";
+import ReviewPage from "./user/pages/ReviewPage";
 
 function App() {
   return (
@@ -26,6 +28,7 @@ function App() {
         <Route path={ROUTES.USER.NAVER} element={<NaverLoginData />} />
         <Route path={ROUTES.USER.MAIN} element={<MainPage />} />
         <Route path={ROUTES.USER.RESTAURANTS} element={<RestaurantsPage />} />
+        <Route path={ROUTES.USER.REVIEW} element={<ReviewPage />} />
         <Route path={ROUTES.USER.PAY} element={<PayPage />} />
         <Route path={ROUTES.USER.PAYCOMPLETE} element={<PayCompletePage />} />
         <Route path={ROUTES.CEO.LOGIN} element={<CeoLoginPage />} />

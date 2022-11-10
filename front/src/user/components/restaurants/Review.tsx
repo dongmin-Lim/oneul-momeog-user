@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { ROUTES } from "../../../enum/routes";
 
 const ReviewDiv = styled.div`
   height: 200px;
@@ -79,7 +81,9 @@ function Review({ restaurantId }: any) {
         </div>
         <div>{reviewInfo?.content}</div>
       </ReviewContent>
-      <ReviewButton>리뷰더보기</ReviewButton>
+      <Link to={ROUTES.USER.REVIEW} state={{ restaurantId: restaurantId }}>
+        <ReviewButton>리뷰더보기</ReviewButton>
+      </Link>
     </ReviewDiv>
   );
 }
