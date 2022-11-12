@@ -1,17 +1,16 @@
 import { InputNumber } from "antd";
 import styled from "styled-components";
-import QuantityPicker from "../../../components/quantityPicker/QuantityPicker";
 
 const Div = styled.div`
   margin-top: 50px;
 `;
 
-const Room = styled.div`
-  border-bottom: 1px solid #aaaaaa;
-  :hover {
-    background-color: #d8f1ff;
-  }
-`;
+// const Room = styled.div`
+//   border-bottom: 1px solid #aaaaaa;
+//   :hover {
+//     background-color: #d8f1ff;
+//   }
+// `;
 
 const Rooms = styled.div`
   border: 1px solid #aaaaaa;
@@ -37,15 +36,28 @@ function CreateRoomOption() {
     <Div>
       <Title>방 생성하기 옵션</Title>
       <Rooms>
-        인원 선택
-        <InputNumber
-          size="large"
-          autoFocus={true}
-          min={1}
-          max={10}
-          defaultValue={1}
-          onChange={onChange}
-        />
+        <div>
+          인원 선택
+          <InputNumber
+            size="large"
+            autoFocus={true}
+            min={1}
+            max={10}
+            defaultValue={1}
+            onChange={onChange}
+          />{" "}
+        </div>
+
+        <div>
+          방이름
+          <input></input>
+        </div>
+        <div>
+          배달주소
+          <input></input>
+        </div>
+        <div></div>
+        <div></div>
       </Rooms>
     </Div>
   );

@@ -47,7 +47,11 @@ function Nav() {
           </Link>
           <NavList>
             {sessionStorage.getItem("jwt") ? (
-              <div>{sessionStorage.getItem("normalAddress")}</div>
+              sessionStorage.getItem("normalAddress") === "null" ? (
+                <div>주소를 입력해주세요</div>
+              ) : (
+                <div>{sessionStorage.getItem("normalAddress")}</div>
+              )
             ) : (
               <div></div>
             )}

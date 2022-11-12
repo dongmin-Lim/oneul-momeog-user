@@ -1,7 +1,6 @@
 import { Rate } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { ROUTES } from "../../../enum/routes";

@@ -2,49 +2,6 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 
-const rooms = [
-  {
-    roomId: "0",
-    roomName: "roomName0",
-    maxPeople: "4",
-    currentPeople: "0",
-    normalAddress: "normalAddress0",
-    specificAddress: "specificAddress0",
-    currentTime: "currentTime0",
-    dueTime: "dueTime0",
-  },
-  {
-    roomId: "1",
-    roomName: "roomName1",
-    maxPeople: "4",
-    currentPeople: "1",
-    normalAddress: "normalAddress1",
-    specificAddress: "specificAddress1",
-    currentTime: "currentTime1",
-    dueTime: "dueTime1",
-  },
-  {
-    roomId: "2",
-    roomName: "roomName2",
-    maxPeople: "4",
-    currentPeople: "2",
-    normalAddress: "normalAddress2",
-    specificAddress: "specificAddress2",
-    currentTime: "currentTime2",
-    dueTime: "dueTime2",
-  },
-  {
-    roomId: "3",
-    roomName: "roomName3",
-    maxPeople: "4",
-    currentPeople: "3",
-    normalAddress: "normalAddress3",
-    specificAddress: "specificAddress3",
-    currentTime: "currentTime3",
-    dueTime: "dueTime3",
-  },
-];
-
 const Div = styled.div`
   margin-top: 50px;
 `;
@@ -102,6 +59,7 @@ function RoomList({ restaurantId }: any) {
     }
     getRoomListData();
   }, []);
+
   return (
     <Div>
       <Title>공동구매 방 목록</Title>

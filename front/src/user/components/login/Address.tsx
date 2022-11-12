@@ -2,7 +2,6 @@ import { Form, Button } from "react-bootstrap";
 import styled from "styled-components";
 import axios from "axios";
 import { ROUTES } from "../../../enum/routes";
-import { useEffect } from "react";
 
 const Div = styled.div`
   z-index: 0;

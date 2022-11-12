@@ -138,11 +138,12 @@ function Main() {
   const roomId = location.state.roomId;
   const roomType = location.state.roomType;
   const orderMenu = location.state.orderMenu;
+  const roomOption = location.state.roomOption;
 
   const [orderData, setOrderData] = useState<orderDataProps>();
   const [resultPrice, setResultPrice] = useState<number>();
-  const deliveryFee = 3000; // 임시로 작성(api에 배달비가 null이라)
-  orderMenu.map((value: any) => console.log(value));
+
+  console.log(roomType);
 
   useEffect(() => {
     async function getOrderData() {
@@ -161,7 +162,7 @@ function Main() {
           }
         );
         setOrderData(response.data.data);
-        // setResultPrice(response.data.data.totalPrice + deliveryFee);
+        setResultPrice(response.data.data.totalPrice + response.data.data.deliveryFee);
         console.log(response);
         if (!response.data.success) {
           window.alert(response.data.message);
@@ -170,7 +171,66 @@ function Main() {
         console.log(e);
       }
     }
-    roomType === "participant" ? getOrderData() : getOrderData();
+    async function getSingleOrderData() {
+      try {
+        const response = await axios.post(
+          `http://211.188.65.107:8080/api/restaurants/${restaurantId}/${roomOption}/order`,
+          {
+            restaurantId: restaurantId,
+            menus: [
+              {
+                menuId: 1,
+                count: 1,
+              },
+            ],
+          }
+        );
+        setOrderData(response.data.data);
+        setResultPrice(response.data.data.totalPrice + response.data.data.deliveryFee);
+        console.log(response);
+        if (!response.data.success) {
+          window.alert(response.data.message);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    // TODO 에러 해결하자
+    async function getCreateOrderData() {
+      try {
+        const response = await axios.post(
+          `http://211.188.65.107:8080/api/restaurants/${restaurantId}/${roomOption}/order`,
+          {
+            restaurantId: restaurantId,
+            roomName: "roomName",
+            zipcode: 10323,
+            normalAddress: "normalAddress",
+            specificAddress: "specificAddress",
+            menus: [
+              {
+                menuId: 1,
+                count: 1,
+              },
+            ],
+            maxPeople: 2,
+            timer: "timer",
+          }
+        );
+        setOrderData(response.data.data);
+        setResultPrice(response.data.data.totalPrice + response.data.data.deliveryFee);
+        console.log(response);
+        if (!response.data.success) {
+          window.alert(response.data.message);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    roomType === "participant"
+      ? getOrderData()
+      : roomType === "create"
+      ? getCreateOrderData()
+      : getSingleOrderData();
   }, []);
 
   return (
@@ -202,7 +262,7 @@ function Main() {
             </PayOption>
             <PayOption>
               <PayName>배달금액</PayName>
-              <PayValue>3,000원</PayValue>
+              <PayValue>{orderData?.deliveryFee.toLocaleString("ko-KR")}원</PayValue>
             </PayOption>
             <PayOption>
               <PayName>합계</PayName>

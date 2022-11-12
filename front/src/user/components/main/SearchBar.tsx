@@ -63,7 +63,7 @@ function SearchBar({
       }
     }
     onSubmit();
-  }, [mode, categories, searchObj.search, searchObj.page]);
+  }, [setLists, mode, categories, searchObj.search, searchObj.page]);
   return (
     <Form>
       <Container>

@@ -174,7 +174,7 @@ function Main() {
           <SelectRoomOption roomOption={roomOption} setRoomOption={setRoomOption} />
         )}
 
-        {roomType === "create" && roomOption === "공동구매" ? (
+        {roomType === "create" && roomOption === "create" ? (
           <CreateRoomOption />
         ) : roomType === "participant" ? (
           <RoomList restaurantId={restaurantId} />
@@ -204,6 +204,7 @@ function Main() {
             roomId: roomId,
             roomType: roomType,
             orderMenu: orderMenu,
+            roomOption: roomOption,
           }}
         >
           <OrderButton>구매하기</OrderButton>

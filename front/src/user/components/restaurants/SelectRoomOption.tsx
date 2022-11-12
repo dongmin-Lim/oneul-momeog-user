@@ -58,37 +58,52 @@ interface roomOptionProps {
 }
 
 function SelectRoomOption({ roomOption, setRoomOption }: roomOptionProps) {
-  function CustomToggle({ children, eventKey }: any) {
-    const decoratedOnClick = useAccordionButton(eventKey);
+  const [display, setDisplay] = useState("방 옵션");
 
-    return <Button onClick={decoratedOnClick}>{children}</Button>;
+  function CustomToggle({ children, eventKey }: { children: string; eventKey: string }) {
+    const decoratedOnClick = useAccordionButton(eventKey);
+    return <Button onClick={decoratedOnClick}>{display}</Button>;
   }
 
-  function CustomOption({ children, eventKey }: any) {
+  function CustomOption({
+    children,
+    eventKey,
+    value,
+  }: {
+    children: string;
+    eventKey: string;
+    value: string;
+  }) {
     const decoratedOnClick = useAccordionButton(eventKey);
-
     return (
       <div
         onClick={() => {
-          setRoomOption(children);
+          setRoomOption(value);
+          setDisplay(children);
         }}
       >
         <OptionButton onClick={decoratedOnClick}>{children}</OptionButton>
       </div>
     );
   }
+
   // TODO: 방 선택에 따라 roomType을 바꿔서 구매하기 버튼 api요청 주소 바뀌도록 해야함
+
   return (
     <Div>
       <Accordion>
         <CardWrapper>
           <CardHeaderWrapper>
-            <CustomToggle eventKey="0">{roomOption}</CustomToggle>
+            <CustomToggle eventKey="0">{display}</CustomToggle>
           </CardHeaderWrapper>
           <Accordion.Collapse eventKey="0">
             <>
-              <CustomOption eventKey="0">혼자구매</CustomOption>
-              <CustomOption eventKey="0">공동구매</CustomOption>
+              <CustomOption eventKey="0" value="single">
+                혼자구매
+              </CustomOption>
+              <CustomOption eventKey="0" value="create">
+                공동구매
+              </CustomOption>
             </>
           </Accordion.Collapse>
         </CardWrapper>

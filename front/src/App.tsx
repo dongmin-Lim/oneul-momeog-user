@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import "antd/dist/antd.css";
+import "antd/dist/antd.min.css";
 import { ROUTES } from "./enum/routes";
 import Nav from "./components/Nav";
 import HomePage from "./pages/HomePage";
