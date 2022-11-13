@@ -76,6 +76,21 @@ const TypeTag = styled.div`
   border-radius: 10px;
 `;
 
+interface PasswordProps {
+  password: string;
+  passwordCheck: string;
+}
+
+interface RestautantProps {
+  restaurantName: string;
+  branch: string;
+}
+
+interface RestaurantTypeProps {
+  categoryId: number;
+  categoryName: string;
+}
+
 function Register({
   isPopupOpen,
   setIsPopupOpen,
@@ -85,22 +100,18 @@ function Register({
   setSpecificAddress,
   zipcode,
 }: any) {
-  type Password = { password: string; passwordCheck: string };
-  type RestaurantType = { categoryId: number; categoryName: string };
-  type Restautant = { restaurantName: string; branch: string };
-
   const [email, setEmail] = useState<string>("");
   const [emailCheckResult, setEmailCheckResult] = useState<string>("");
-  const [passwordObj, setPasswordObj] = useState<Password>({
+  const [passwordObj, setPasswordObj] = useState<PasswordProps>({
     password: "",
     passwordCheck: "",
   });
-  const [restaurantObj, setRestaurantObj] = useState<Restautant>({
+  const [restaurantObj, setRestaurantObj] = useState<RestautantProps>({
     restaurantName: "",
     branch: "",
   });
 
-  const [categories, setCategories] = useState<RestaurantType[]>([]);
+  const [categories, setCategories] = useState<RestaurantTypeProps[]>([]);
 
   async function data() {
     const response = await axios.post(

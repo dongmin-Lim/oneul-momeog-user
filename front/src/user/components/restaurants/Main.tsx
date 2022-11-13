@@ -100,16 +100,34 @@ export interface MenuProps {
   quantity?: any;
 }
 
+interface RoomOptionProps {
+  roomName: string;
+  maxPeople: number;
+  timer: number;
+}
+
 function Main() {
   const location = useLocation();
   const restaurantId = location.state.restaurantId;
   const roomId = location.state.roomId;
   const roomType = location.state.roomType;
+
   const [restaurantInfo, setRestaurantInfo] = useState<restaurantInfoProps>();
   const [roomInfo, setRoomInfo] = useState<roomInfoProps>();
   const [roomOption, setRoomOption] = useState<string>("방 옵션");
   const [orderMenu, setOrderMenu] = useState<MenuProps[]>([]);
   const [totalPrice, setTotalPrice] = useState(0);
+
+  // CreateRoomOption Props
+  const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
+  const [roomOptionObj, setRoomOptionObj] = useState<RoomOptionProps>({
+    roomName: "",
+    maxPeople: 0,
+    timer: 0,
+  });
+  const [normalAddress, setNormalAddress] = useState<string>("");
+  const [specificAddress, setSpecificAddress] = useState<string>("");
+  const [zipcode, setZipcode] = useState<number>();
 
   useEffect(() => {
     async function getRestaurantData() {
@@ -175,7 +193,17 @@ function Main() {
         )}
 
         {roomType === "create" && roomOption === "create" ? (
-          <CreateRoomOption />
+          <CreateRoomOption
+            isPopupOpen={isPopupOpen}
+            setIsPopupOpen={setIsPopupOpen}
+            roomOptionObj={roomOptionObj}
+            setRoomOptionObj={setRoomOptionObj}
+            normalAddress={normalAddress}
+            setNormalAddress={setNormalAddress}
+            specificAddress={specificAddress}
+            setSpecificAddress={setSpecificAddress}
+            setZipcode={setZipcode}
+          />
         ) : roomType === "participant" ? (
           <RoomList restaurantId={restaurantId} />
         ) : (
@@ -205,6 +233,10 @@ function Main() {
             roomType: roomType,
             orderMenu: orderMenu,
             roomOption: roomOption,
+            roomOptionObj: roomOptionObj,
+            normalAddress: normalAddress,
+            specificAddress: specificAddress,
+            zipcode: zipcode,
           }}
         >
           <OrderButton>구매하기</OrderButton>

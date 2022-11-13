@@ -87,8 +87,6 @@ function SelectRoomOption({ roomOption, setRoomOption }: roomOptionProps) {
     );
   }
 
-  // TODO: 방 선택에 따라 roomType을 바꿔서 구매하기 버튼 api요청 주소 바뀌도록 해야함
-
   return (
     <Div>
       <Accordion>

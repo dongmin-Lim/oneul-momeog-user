@@ -139,6 +139,10 @@ function Main() {
   const roomType = location.state.roomType;
   const orderMenu = location.state.orderMenu;
   const roomOption = location.state.roomOption;
+  const roomOptionObj = location.state.roomOptionObj;
+  const normalAddress = location.state.normalAddress;
+  const specificAddress = location.state.specificAddress;
+  const zipcode = location.state.zipcode;
 
   const [orderData, setOrderData] = useState<orderDataProps>();
   const [resultPrice, setResultPrice] = useState<number>();
@@ -195,25 +199,25 @@ function Main() {
         console.log(e);
       }
     }
-    // TODO 에러 해결하자
+    // TODO 방옵션 입력하기
     async function getCreateOrderData() {
       try {
         const response = await axios.post(
-          `http://211.188.65.107:8080/api/restaurants/${restaurantId}/${roomOption}/order`,
+          `http://211.188.65.107:8080/api/restaurants/${restaurantId}/create/order`,
           {
             restaurantId: restaurantId,
-            roomName: "roomName",
-            zipcode: 10323,
-            normalAddress: "normalAddress",
-            specificAddress: "specificAddress",
+            roomName: roomOptionObj.roomName,
+            zipcode: zipcode,
+            normalAddress: normalAddress,
+            specificAddress: specificAddress,
             menus: [
               {
                 menuId: 1,
                 count: 1,
               },
             ],
-            maxPeople: 2,
-            timer: "timer",
+            maxPeople: roomOptionObj.maxPeople,
+            timer: roomOptionObj.timer,
           }
         );
         setOrderData(response.data.data);
