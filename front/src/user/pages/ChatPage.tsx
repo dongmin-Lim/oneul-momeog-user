@@ -1,8 +1,8 @@
-// import Main from "../components/chat/Main";
-import Chat from "../components/chat/Chat";
+import Main from "../components/chat/Main";
+// import Chat from "../components/chat/Chat";
 
 function ChatPage() {
-  return <Chat />;
+  return <Main />;
 }
 
 export default ChatPage;
