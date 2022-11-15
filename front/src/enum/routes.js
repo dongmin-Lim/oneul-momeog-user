@@ -6,6 +6,7 @@ export const ROUTES = {
     KAKAO: "/api/auth/oauth/login/kakao",
     NAVER: "/api/auth/oauth/login/naver",
     MAIN: "/main",
+    JOIN: "/join",
     CHAT: "/chat",
     RESTAURANTS: "/restaurants/:restaurantId",
     REVIEW: "/restaurants/review",

@@ -2,13 +2,12 @@ import { useState, useEffect } from "react";
 import queryString from "query-string";
 import io from "socket.io-client";
 
-import TextContainer from "./TextContainer";
 import Messages from "./Messages";
 import Input from "./Input";
 
 import "./Chat.css";
 
-const ENDPOINT = "http://211.188.65.107:8081";
+const ENDPOINT = "http://211.188.65.107:8081/webSocket";
 
 let socket: any;
 
@@ -20,8 +19,11 @@ const Chat = ({ location }: any) => {
   const [messages, setMessages] = useState<any[]>([]);
 
   useEffect(() => {
-    const { name, room }: any = queryString.parse(location.search);
-
+    // const { name, room }: any = queryString.parse(location.search);
+    const name = "123";
+    const room = "123";
+    console.log(name, room);
+    console.log(location?.search);
     socket = io(ENDPOINT);
 
     setRoom(room);
@@ -58,7 +60,6 @@ const Chat = ({ location }: any) => {
         <Messages messages={messages} name={name} />
         <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
       </div>
-      <TextContainer users={users} />
     </div>
   );
 };

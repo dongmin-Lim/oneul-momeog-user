@@ -1,8 +1,8 @@
 // import Main from "../components/chat/Main";
-import Join from "../components/chat/Join";
+import Chat from "../components/chat/Chat";
 
 function ChatPage() {
-  return <Join />;
+  return <Chat />;
 }
 
 export default ChatPage;

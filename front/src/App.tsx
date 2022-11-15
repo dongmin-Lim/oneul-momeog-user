@@ -16,6 +16,7 @@ import PayPage from "./user/pages/PayPage";
 import PayCompletePage from "./user/pages/PayCompletePage";
 import ReviewPage from "./user/pages/ReviewPage";
 import ChatPage from "./user/pages/ChatPage";
+import JoinPage from "./user/pages/JoinPage";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path={ROUTES.USER.KAKAO} element={<KakaoLoginData />} />
         <Route path={ROUTES.USER.NAVER} element={<NaverLoginData />} />
         <Route path={ROUTES.USER.MAIN} element={<MainPage />} />
+        <Route path={ROUTES.USER.JOIN} element={<JoinPage />} />
         <Route path={ROUTES.USER.CHAT} element={<ChatPage />} />
         <Route path={ROUTES.USER.RESTAURANTS} element={<RestaurantsPage />} />
         <Route path={ROUTES.USER.REVIEW} element={<ReviewPage />} />

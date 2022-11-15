@@ -2,7 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ROUTES } from "../enum/routes";
 import { Modal, Button, Table } from "react-bootstrap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Div = styled.div`
   height: 50px;
@@ -40,7 +41,6 @@ const NavList = styled.div`
 `;
 
 function MyVerticallyCenteredModal(props: any) {
-  const navigate = useNavigate();
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header closeButton>
@@ -53,14 +53,25 @@ function MyVerticallyCenteredModal(props: any) {
             <th>채팅방 제목</th>
             <th>음식점</th>
             <th>현재인원 / 총원</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr onClick={() => (navigate(ROUTES.USER.CHAT), props.setModalShow(false))}>
+          <tr>
             <td>1</td>
             <td>남자기숙사 드루와</td>
             <td>도미노 피자</td>
             <td>3 / 4</td>
+
+            <td>
+              <Link
+                to={ROUTES.USER.CHAT}
+                // state={{ roomId: roomId }}
+                onClick={() => props.setModalShow(false)}
+              >
+                입장하기
+              </Link>
+            </td>
           </tr>
         </tbody>
       </Table>
@@ -70,7 +81,20 @@ function MyVerticallyCenteredModal(props: any) {
 
 function Nav() {
   const [modalShow, setModalShow] = useState<boolean>(false);
+  const [lists, setLists] = useState([]);
 
+  async function getChatList() {
+    try {
+      const response = await axios.get(
+        // `http://211.188.65.107:8080/api/chats`
+        `/mockdata/ChatRoomList.json`
+      );
+      setLists(response.data.data.rooms);
+      console.log(response.data.data.rooms);
+    } catch (e) {
+      console.log(e);
+    }
+  }
   return (
     <Div>
       <NavDiv>
@@ -88,7 +112,7 @@ function Nav() {
             ) : (
               <div></div>
             )}
-            <div onClick={() => setModalShow(true)}>💬</div>
+            <div onClick={() => (getChatList(), setModalShow(true))}>💬</div>
             <MyVerticallyCenteredModal
               show={modalShow}
               onHide={() => setModalShow(false)}
