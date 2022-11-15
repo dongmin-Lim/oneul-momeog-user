@@ -96,7 +96,7 @@ const PayValue = styled.div`
   text-align: end;
   line-height: 50px;
 `;
-
+// TODO api받아와서 화면 출력하기
 function Main() {
   const [orderMenu, setOrderMenu] = useState([
     {

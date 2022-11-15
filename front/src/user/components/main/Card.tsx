@@ -67,6 +67,7 @@ const RestaurantTime = styled.div`
 function Card({ value, roomType }: ValueProps) {
   const restaurantId = value.restaurantId;
   const roomId = value.roomId;
+  // TODO 남은시간 실시간으로 되게끔 구현해야함
   return (
     <Link
       to={`/restaurants/${restaurantId}`}
@@ -80,6 +81,7 @@ function Card({ value, roomType }: ValueProps) {
           <RestaurantPeople>
             {value.currentPeople}/{value.maxPeople}명 참가중
           </RestaurantPeople>
+
           <RestaurantTime>남은시간 01:19</RestaurantTime>
         </Detail>
       </CardDiv>

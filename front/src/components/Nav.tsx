@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ROUTES } from "../enum/routes";
+import { Modal, Button, Table } from "react-bootstrap";
+import { useState } from "react";
 
 const Div = styled.div`
   height: 50px;
@@ -37,7 +39,38 @@ const NavList = styled.div`
   line-height: 30px;
 `;
 
+function MyVerticallyCenteredModal(props: any) {
+  const navigate = useNavigate();
+  return (
+    <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">채팅방 입장</Modal.Title>
+      </Modal.Header>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>채팅방 제목</th>
+            <th>음식점</th>
+            <th>현재인원 / 총원</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr onClick={() => (navigate(ROUTES.USER.CHAT), props.setModalShow(false))}>
+            <td>1</td>
+            <td>남자기숙사 드루와</td>
+            <td>도미노 피자</td>
+            <td>3 / 4</td>
+          </tr>
+        </tbody>
+      </Table>
+    </Modal>
+  );
+}
+
 function Nav() {
+  const [modalShow, setModalShow] = useState<boolean>(false);
+
   return (
     <Div>
       <NavDiv>
@@ -55,7 +88,12 @@ function Nav() {
             ) : (
               <div></div>
             )}
-            <div>💬</div>
+            <div onClick={() => setModalShow(true)}>💬</div>
+            <MyVerticallyCenteredModal
+              show={modalShow}
+              onHide={() => setModalShow(false)}
+              setModalShow={setModalShow}
+            />
             {sessionStorage.getItem("jwt") ? (
               <div>{sessionStorage.getItem("nickname")}</div>
             ) : (

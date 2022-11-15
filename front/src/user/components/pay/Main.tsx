@@ -199,7 +199,6 @@ function Main() {
         console.log(e);
       }
     }
-    // TODO 방옵션 입력하기
     async function getCreateOrderData() {
       try {
         const response = await axios.post(

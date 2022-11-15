@@ -70,7 +70,6 @@ function CreateRoomOption({
     setRoomOptionObj({ ...roomOptionObj, timer: value });
   };
 
-  // TODO 인원수 피커는 구현하였으나 기능연결은 못함
   return (
     <Div>
       <Title>방 생성하기 옵션</Title>
