@@ -9,11 +9,12 @@ function NaverLoginData() {
 
   async function accessNaverToken() {
     try {
-      const response = await axios.get(
-        `http://211.188.65.107:8080/api/auth/oauth/login/naver?code=${NAVER_CODE}`
-      );
+      const response = await axios.get(`/api/auth/oauth/login/naver?code=${NAVER_CODE}`);
       console.log(response);
       sessionStorage.setItem("jwt", response.data.data.jwt);
+      sessionStorage.setItem("nickname", response.data.data.nickname);
+      sessionStorage.setItem("normalAddress", response.data.data.normalAddress);
+      sessionStorage.setItem("userId", response.data.data.userId);
       !response.data.data.isRegister
         ? (window.location.href = ROUTES.USER.ADDRESS)
         : (window.location.href = ROUTES.USER.MAIN);

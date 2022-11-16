@@ -10,6 +10,14 @@
                 "restaurantName": "restaurantName",
                 "maxPeople": 4,
                 "currentPeople": 1
+            },
+            {
+                "restaurantId": 1,
+                "roomId": 2,
+                "roomName": "roomName",
+                "restaurantName": "restaurantName",
+                "maxPeople": 4,
+                "currentPeople": 1
             }
         ]
     }

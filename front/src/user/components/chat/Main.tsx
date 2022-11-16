@@ -1,8 +1,8 @@
 import { Button, Modal } from "react-bootstrap";
 import { Rate } from "antd";
 import styled from "styled-components";
-import SockJS from "sockjs-client";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const Div = styled.div`
   margin: 0 auto;
@@ -46,8 +46,46 @@ const ChatUserList = styled.div`
 `;
 
 function Main() {
+  const location = useLocation();
+  const value = location.state.value;
+
   const [modalShow, setModalShow] = useState<boolean>(false);
+  const [content, setContent] = useState<string>("");
   const handleClose = () => setModalShow(false);
+
+  var exampleSocket = new WebSocket(
+    `ws://211.188.65.107:8081/ws/chat?roomId=${value.roomId}`
+  );
+
+  exampleSocket.onmessage = function (event) {
+    console.log(event.data);
+  };
+
+  // const onSend = () => {
+  //   var msg = {
+  //     userId: 1,
+  //     roomId: 1,
+  //     messageType: "text",
+  //     content: "content",
+  //   };
+
+  //   exampleSocket.send(JSON.stringify(msg));
+  // };
+
+  const onSend = () => {
+    var msg = {
+      userId: sessionStorage.getItem("userId"),
+      roomId: value.roomId,
+      messageType: "text",
+      content: content,
+    };
+
+    exampleSocket.send(JSON.stringify(msg));
+  };
+
+  const onClose = () => {
+    exampleSocket.close();
+  };
 
   function ReviewModal(props: any) {
     return (
@@ -77,16 +115,6 @@ function Main() {
     );
   }
 
-  const onConnect = () => {
-    const sock = new SockJS("http://211.188.65.107:8081/webSocket");
-    // var sock = new SockJS("http://211.188.65.107:8081/webSocket", null, {
-    //   transports: ["websocket", "xhr-streaming", "xhr-polling"],
-    // });
-    sock.onmessage = function (e: any) {
-      console.log(e.data);
-    };
-  };
-  useEffect(() => onConnect(), []);
   return (
     <Div>
       <div>방제목</div>
@@ -95,8 +123,8 @@ function Main() {
           <Message></Message>
           <InputBox>
             <Button>사진전송</Button>
-            <input></input>
-            <Button>보내기</Button>
+            <input onChange={(e) => setContent(e.target.value)}></input>
+            <Button onClick={onSend}>보내기</Button>
           </InputBox>
         </ChatBox>
         <ChatUserList>
@@ -109,6 +137,7 @@ function Main() {
             onHide={() => setModalShow(false)}
             setModalShow={setModalShow}
           />
+          <Button onClick={() => onClose()}>채팅소켓종료</Button>
           <Button onClick={() => setModalShow(true)}>리뷰작성</Button> {/* 임시버튼*/}
         </ChatUserList>
       </Chat>

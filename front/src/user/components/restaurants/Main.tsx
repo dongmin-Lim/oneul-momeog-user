@@ -132,9 +132,7 @@ function Main() {
   useEffect(() => {
     async function getRestaurantData() {
       try {
-        const response = await axios.get(
-          `http://211.188.65.107:8080/api/restaurants/${restaurantId}`
-        );
+        const response = await axios.get(`/api/restaurants/${restaurantId}`);
         setRestaurantInfo(response.data.data);
       } catch (e) {
         console.log(e);
@@ -143,7 +141,7 @@ function Main() {
     async function getRoomData() {
       try {
         const response = await axios.get(
-          `http://211.188.65.107:8080/api/restaurants/${restaurantId}/room/default?roomId=${roomId}`
+          `/api/restaurants/${restaurantId}/room/default?roomId=${roomId}`
         );
         setRoomInfo(response.data.data);
       } catch (e) {

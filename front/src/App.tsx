@@ -18,6 +18,8 @@ import ReviewPage from "./user/pages/ReviewPage";
 import ChatPage from "./user/pages/ChatPage";
 
 function App() {
+  // 인스턴스가 생성 된 후 기본값 변경
+
   return (
     <Router>
       <Nav />

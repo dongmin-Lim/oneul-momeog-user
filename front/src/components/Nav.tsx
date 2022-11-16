@@ -41,6 +41,8 @@ const NavList = styled.div`
 `;
 
 function MyVerticallyCenteredModal(props: any) {
+  const lists = props.lists;
+
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header closeButton>
@@ -57,22 +59,26 @@ function MyVerticallyCenteredModal(props: any) {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>남자기숙사 드루와</td>
-            <td>도미노 피자</td>
-            <td>3 / 4</td>
+          {lists.map((value: any, index: any) => (
+            <tr>
+              <td>{index}</td>
+              <td>{value.roomName}</td>
+              <td>{value.restaurantName}</td>
+              <td>
+                {value.currentPeople} / {value.maxPeople}
+              </td>
 
-            <td>
-              <Link
-                to={ROUTES.USER.CHAT}
-                // state={{ roomId: roomId }}
-                onClick={() => props.setModalShow(false)}
-              >
-                입장하기
-              </Link>
-            </td>
-          </tr>
+              <td>
+                <Link
+                  to={ROUTES.USER.CHAT}
+                  state={{ value: value }}
+                  onClick={() => props.setModalShow(false)}
+                >
+                  입장하기
+                </Link>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </Table>
     </Modal>
@@ -86,7 +92,7 @@ function Nav() {
   async function getChatList() {
     try {
       const response = await axios.get(
-        // `http://211.188.65.107:8080/api/chats`
+        // `/api/chats`
         `/mockdata/ChatRoomList.json`
       );
       setLists(response.data.data.rooms);
@@ -117,6 +123,7 @@ function Nav() {
               show={modalShow}
               onHide={() => setModalShow(false)}
               setModalShow={setModalShow}
+              lists={lists}
             />
             {sessionStorage.getItem("jwt") ? (
               <div>{sessionStorage.getItem("nickname")}</div>

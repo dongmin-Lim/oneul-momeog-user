@@ -153,7 +153,7 @@ function Main() {
     async function getOrderData() {
       try {
         const response = await axios.post(
-          `http://211.188.65.107:8080/api/restaurants/${restaurantId}/room/${roomId}/order`,
+          `/api/restaurants/${restaurantId}/room/${roomId}/order`,
           {
             restaurantId: restaurantId,
             roomId: roomId,
@@ -178,7 +178,7 @@ function Main() {
     async function getSingleOrderData() {
       try {
         const response = await axios.post(
-          `http://211.188.65.107:8080/api/restaurants/${restaurantId}/${roomOption}/order`,
+          `/api/restaurants/${restaurantId}/${roomOption}/order`,
           {
             restaurantId: restaurantId,
             menus: [
@@ -202,7 +202,7 @@ function Main() {
     async function getCreateOrderData() {
       try {
         const response = await axios.post(
-          `http://211.188.65.107:8080/api/restaurants/${restaurantId}/create/order`,
+          `/api/restaurants/${restaurantId}/create/order`,
           {
             restaurantId: restaurantId,
             roomName: roomOptionObj.roomName,

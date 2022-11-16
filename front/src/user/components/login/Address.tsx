@@ -54,19 +54,11 @@ function Address({
   zipcode,
 }: any) {
   async function SubmitAddress() {
-    const response = await axios.post(
-      `http://211.188.65.107:8080/api/auth/oauth/address`,
-      {
-        zipcode: zipcode,
-        normalAddress: normalAddress,
-        specificAddress: specificAddress,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("jwt")}`,
-        },
-      }
-    );
+    const response = await axios.post(`/api/auth/oauth/address`, {
+      zipcode: zipcode,
+      normalAddress: normalAddress,
+      specificAddress: specificAddress,
+    });
     sessionStorage.setItem("normalAddress", normalAddress);
     response.data.success
       ? (window.location.href = ROUTES.USER.MAIN)

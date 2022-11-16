@@ -9,13 +9,12 @@ function KakaoLoginData() {
 
   async function accessKakaoToken() {
     try {
-      const response = await axios.get(
-        `http://211.188.65.107:8080/api/auth/oauth/login/kakao?code=${KAKAO_CODE}`
-      );
+      const response = await axios.get(`/api/auth/oauth/login/kakao?code=${KAKAO_CODE}`);
       console.log(response);
       sessionStorage.setItem("jwt", response.data.data.jwt);
       sessionStorage.setItem("nickname", response.data.data.nickname);
       sessionStorage.setItem("normalAddress", response.data.data.normalAddress);
+      sessionStorage.setItem("userId", response.data.data.userId);
       response.data.isRegister
         ? (window.location.href = ROUTES.USER.MAIN)
         : (window.location.href = ROUTES.USER.ADDRESS);
