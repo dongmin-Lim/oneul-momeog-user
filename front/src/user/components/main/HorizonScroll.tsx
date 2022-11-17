@@ -34,7 +34,7 @@ function HorizonScroll({ roomType, setRoomType }: roomTypeProps) {
   useEffect(() => {
     async function getData() {
       try {
-        const response = await axios.get(`api/main/room/last`);
+        const response = await axios.get(`http://211.188.65.107:8080/api/main/room/last`);
         setLists(response.data.data);
         console.log(response.data.data);
       } catch (e) {

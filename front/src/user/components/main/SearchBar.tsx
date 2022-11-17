@@ -52,7 +52,7 @@ function SearchBar({
     async function onSubmit() {
       try {
         const response = await axios.get(
-          `/api/main/${mode}/search?search=${
+          `http://211.188.65.107:8080/api/main/${mode}/search?search=${
             searchObj.search
           }&category=${categories.join()}&page=${searchObj.page}`
         );

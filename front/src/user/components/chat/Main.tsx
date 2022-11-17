@@ -3,6 +3,7 @@ import { Rate } from "antd";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import SockJS from "sockjs-client";
 
 const Div = styled.div`
   margin: 0 auto;
@@ -53,6 +54,29 @@ function Main() {
   const [content, setContent] = useState<string>("");
   const handleClose = () => setModalShow(false);
 
+  // var sock = new SockJS(`ws://211.188.65.107:8081/ws/chat?roomId=${value.roomId}`);
+
+  // sock.onopen = function () {
+  //   console.log("onopen");
+
+  //   var msg = {
+  //     userId: sessionStorage.getItem("userId"),
+  //     roomId: value.roomId,
+  //     messageType: "text",
+  //     content: content,
+  //   };
+
+  //   sock.send(JSON.stringify(msg));
+  // };
+
+  // sock.onclose = function () {
+  //   console.log("onclose");
+  // };
+
+  // sock.onmessage = function (message) {
+  //   console.log(message.data);
+  // };
+
   var exampleSocket = new WebSocket(
     `ws://211.188.65.107:8081/ws/chat?roomId=${value.roomId}`
   );
@@ -60,17 +84,6 @@ function Main() {
   exampleSocket.onmessage = function (event) {
     console.log(event.data);
   };
-
-  // const onSend = () => {
-  //   var msg = {
-  //     userId: 1,
-  //     roomId: 1,
-  //     messageType: "text",
-  //     content: "content",
-  //   };
-
-  //   exampleSocket.send(JSON.stringify(msg));
-  // };
 
   const onSend = () => {
     var msg = {
@@ -86,6 +99,10 @@ function Main() {
   const onClose = () => {
     exampleSocket.close();
   };
+
+  function logging() {
+    console.log("oo");
+  }
 
   function ReviewModal(props: any) {
     return (
@@ -137,7 +154,8 @@ function Main() {
             onHide={() => setModalShow(false)}
             setModalShow={setModalShow}
           />
-          <Button onClick={() => onClose()}>채팅소켓종료</Button>
+          {/* <Button onClick={onClose}>채팅소켓접속</Button> */}
+          <Button onClick={onClose}>채팅소켓종료</Button>
           <Button onClick={() => setModalShow(true)}>리뷰작성</Button> {/* 임시버튼*/}
         </ChatUserList>
       </Chat>

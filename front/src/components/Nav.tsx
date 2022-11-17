@@ -92,7 +92,7 @@ function Nav() {
   async function getChatList() {
     try {
       const response = await axios.get(
-        // `/api/chats`
+        // `http://211.188.65.107:8080/api/chats`
         `/mockdata/ChatRoomList.json`
       );
       setLists(response.data.data.rooms);

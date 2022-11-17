@@ -63,7 +63,7 @@ function Main() {
       try {
         const response = await axios.get(
           `/mockdata/review.json`
-          //   `/api/restaurants/${restaurantId}/review/list`
+          //   `http://211.188.65.107:8080/api/restaurants/${restaurantId}/review/list`
         );
         setReviews(response.data.data.reviews);
         console.log(response.data);

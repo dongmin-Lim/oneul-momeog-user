@@ -9,7 +9,7 @@ function GoogleLoginData() {
   async function accessGoogleToken() {
     try {
       const response = await axios.get(
-        `/api/auth/oauth/login/google?code=${GOOGLE_CODE}`
+        `http://211.188.65.107:8080/api/auth/oauth/login/google?code=${GOOGLE_CODE}`
       );
       console.log(response);
     } catch (e) {

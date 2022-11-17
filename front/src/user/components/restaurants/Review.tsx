@@ -59,7 +59,9 @@ function Review({ restaurantId }: any) {
   useEffect(() => {
     async function getReviewData() {
       try {
-        const response = await axios.get(`/api/restaurants/${restaurantId}/review`);
+        const response = await axios.get(
+          `http://211.188.65.107:8080/api/restaurants/${restaurantId}/review`
+        );
         setReviewInfo(response.data.data);
       } catch (e) {
         console.log(e);

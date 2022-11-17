@@ -100,7 +100,7 @@ function SelectMenuOption({
     async function getGroupData() {
       try {
         const response = await axios.get(`	
-        /api/restaurants/${restaurantId}/groups`);
+        http://211.188.65.107:8080/api/restaurants/${restaurantId}/groups`);
         setGroups(response.data.data);
         console.log(response);
       } catch (e) {
