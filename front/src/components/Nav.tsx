@@ -54,7 +54,7 @@ function MyVerticallyCenteredModal(props: any) {
             <th>#</th>
             <th>채팅방 제목</th>
             <th>음식점</th>
-            <th>현재인원 / 총원</th>
+
             <th></th>
           </tr>
         </thead>
@@ -64,13 +64,10 @@ function MyVerticallyCenteredModal(props: any) {
               <td>{index}</td>
               <td>{value.roomName}</td>
               <td>{value.restaurantName}</td>
-              <td>
-                {value.currentPeople} / {value.maxPeople}
-              </td>
 
               <td>
                 <Link
-                  to={ROUTES.USER.CHAT}
+                  to={`/chat/${value.roomId}`}
                   state={{ value: value }}
                   onClick={() => props.setModalShow(false)}
                 >

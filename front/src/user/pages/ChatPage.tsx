@@ -1,8 +1,12 @@
 import Main from "../components/chat/Main";
-// import Chat from "../components/chat/Chat";
+import WebSocketProvider from "../websocket/WebSocketProvider";
 
 function ChatPage() {
-  return <Main />;
+  return (
+    <WebSocketProvider>
+      <Main />
+    </WebSocketProvider>
+  );
 }
 
 export default ChatPage;
