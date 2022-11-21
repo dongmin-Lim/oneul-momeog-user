@@ -1,14 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ROUTES } from "../enum/routes";
-import { Modal, Button, Table } from "react-bootstrap";
+import { Modal, Table, NavDropdown } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 const Div = styled.div`
-  height: 50px;
   width: 100%;
-  padding: 10px 50px;
+  height: 50px;
+  line-height: 50px;
   background-color: #d8f1ff;
   a {
     color: black;
@@ -16,28 +16,19 @@ const Div = styled.div`
   }
 `;
 
-const NavDiv = styled.div`
-  width: 1320px;
-  margin: 0 auto;
-`;
-
-const NavGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-`;
-
 const Logo = styled.img`
+  float: left;
   height: 30px;
+  padding: 0 30px;
+  margin-top: 10px;
 `;
 
 const NavList = styled.div`
+  float: right;
   display: grid;
-  grid-template-columns: 15fr 2fr 2fr;
-  height: 30px;
-  width: 100%;
-  text-align: end;
-  font-size: 18px;
-  line-height: 30px;
+  grid-template-columns: 1fr auto auto;
+  padding: 0 30px;
+  text-align: center;
 `;
 
 function MyVerticallyCenteredModal(props: any) {
@@ -60,7 +51,7 @@ function MyVerticallyCenteredModal(props: any) {
         </thead>
         <tbody>
           {lists.map((value: any, index: any) => (
-            <tr>
+            <tr key={index}>
               <td>{index}</td>
               <td>{value.roomName}</td>
               <td>{value.restaurantName}</td>
@@ -89,8 +80,8 @@ function Nav() {
   async function getChatList() {
     try {
       const response = await axios.get(
-        // `http://211.188.65.107:8080/api/chats`
-        `/mockdata/ChatRoomList.json`
+        `http://175.45.208.84:8081/api/chats`
+        // `/mockdata/ChatRoomList.json`
       );
       setLists(response.data.data.rooms);
       console.log(response.data.data.rooms);
@@ -98,40 +89,56 @@ function Nav() {
       console.log(e);
     }
   }
+
+  function LogOutHandler() {
+    sessionStorage.removeItem("normalAddress");
+    sessionStorage.removeItem("jwt");
+    sessionStorage.removeItem("userId");
+    sessionStorage.removeItem("nickname");
+    window.location.replace("/");
+  }
   return (
     <Div>
-      <NavDiv>
-        <NavGrid>
-          <Link to={ROUTES.USER.MAIN}>
-            <Logo src="../data/img/logo.png" alt="logo" />
-          </Link>
-          <NavList>
-            {sessionStorage.getItem("jwt") ? (
-              sessionStorage.getItem("normalAddress") === "null" ? (
-                <div>주소를 입력해주세요</div>
-              ) : (
-                <div>{sessionStorage.getItem("normalAddress")}</div>
-              )
-            ) : (
-              <div></div>
-            )}
-            <div onClick={() => (getChatList(), setModalShow(true))}>💬</div>
-            <MyVerticallyCenteredModal
-              show={modalShow}
-              onHide={() => setModalShow(false)}
-              setModalShow={setModalShow}
-              lists={lists}
-            />
-            {sessionStorage.getItem("jwt") ? (
-              <div>{sessionStorage.getItem("nickname")}</div>
-            ) : (
-              <div>
-                <Link to={ROUTES.USER.LOGIN}>로그인</Link>
-              </div>
-            )}
-          </NavList>
-        </NavGrid>
-      </NavDiv>
+      <Link to={ROUTES.USER.MAIN}>
+        <Logo src="../data/img/logo.png" alt="logo" />
+      </Link>
+      <NavList>
+        {sessionStorage.getItem("jwt") ? (
+          sessionStorage.getItem("normalAddress") === "null" ? (
+            <div style={{ padding: "0 30px" }}>주소를 입력해주세요</div>
+          ) : (
+            <div style={{ padding: "0 30px" }}>
+              {sessionStorage.getItem("normalAddress")}
+            </div>
+          )
+        ) : (
+          <div></div>
+        )}
+        <div
+          style={{ padding: "0 30px" }}
+          onClick={() => (getChatList(), setModalShow(true))}
+        >
+          💬
+        </div>
+        <MyVerticallyCenteredModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          setModalShow={setModalShow}
+          lists={lists}
+        />
+        {sessionStorage.getItem("jwt") ? (
+          <NavDropdown title={sessionStorage.getItem("nickname")}>
+            <NavDropdown.Item href="#action/3.1">내 주문목록</NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.2" onClick={LogOutHandler}>
+              로그아웃
+            </NavDropdown.Item>
+          </NavDropdown>
+        ) : (
+          <div>
+            <Link to={ROUTES.USER.LOGIN}>로그인</Link>
+          </div>
+        )}
+      </NavList>
     </Div>
   );
 }

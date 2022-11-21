@@ -13,22 +13,22 @@ function TextInputBox({ value }: any) {
     ws.current.send(
       JSON.stringify({
         userId: sessionStorage.getItem("userId"),
+        userNickname: sessionStorage.getItem("nickname"),
         roomId: value.roomId,
         messageType: "text",
         content: message,
       })
     );
-
     setMessage("");
   };
 
   return (
-    <div>
+    <span>
       <input type="text" value={message} onChange={handleChangeText}></input>
       <button type="button" onClick={handleClickSubmit}>
-        Send!
+        전송
       </button>
-    </div>
+    </span>
   );
 }
 

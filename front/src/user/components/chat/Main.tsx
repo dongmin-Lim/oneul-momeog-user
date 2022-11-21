@@ -1,10 +1,11 @@
 import { Button, Modal } from "react-bootstrap";
-import { Rate } from "antd";
 import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import TextInputBox from "./TextInputBox";
+import ReviewModal from "./ReviewModal";
 import { WebSocketContext } from "../../websocket/WebSocketProvider";
+import axios from "axios";
 
 const Div = styled.div`
   margin: 0 auto;
@@ -22,6 +23,7 @@ const Chat = styled.div`
 const Message = styled.div``;
 
 const InputBox = styled.div`
+  display: inline;
   margin: 0 auto;
   text-align: center;
   width: 95%;
@@ -50,6 +52,7 @@ const ChatUserList = styled.div`
 function Main() {
   const location = useLocation();
   const value = location.state.value;
+  console.log(value);
 
   const [modalShow, setModalShow] = useState<boolean>(false);
   const handleClose = () => setModalShow(false);
@@ -60,32 +63,19 @@ function Main() {
     console.log(data);
   };
 
-  function ReviewModal(props: any) {
-    return (
-      <Modal
-        {...props}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">채팅방 입장</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Rate onChange={(e) => console.log(e)} />
-          <Button>사진전송</Button>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    );
-  }
+  useEffect(() => {
+    async function getChats() {
+      try {
+        const response = await axios.get(
+          `http://211.188.65.107:8081/api/chats/${value.roomId}/all`
+        );
+        console.log(response.data.data);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    getChats();
+  }, []);
 
   return (
     <Div>
@@ -102,14 +92,12 @@ function Main() {
           <div>1번 닉네임</div>
           <div>2번 닉네임</div>
           <div>3번 닉네임</div>
-          <Button>채팅방 나가기</Button>
           <ReviewModal
+            value={value}
             show={modalShow}
             onHide={() => setModalShow(false)}
             setModalShow={setModalShow}
           />
-          {/* <Button onClick={onClose}>채팅소켓접속</Button> */}
-          {/* <Button onClick={onClose}>채팅소켓종료</Button> */}
           <Button onClick={() => setModalShow(true)}>리뷰작성</Button> {/* 임시버튼*/}
         </ChatUserList>
       </Chat>

@@ -8,6 +8,7 @@ import axios from "axios";
 axios.defaults.headers.common["Authorization"] = `Bearer ${sessionStorage.getItem(
   "jwt"
 )}`;
-// axios.defaults.baseURL = "http://211.188.65.107:8080";
+
+axios.defaults.baseURL = "http://175.45.208.84:8080";
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(<App />);
