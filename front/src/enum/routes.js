@@ -12,8 +12,4 @@ export const ROUTES = {
     PAY: "/restaurants/pay",
     PAYCOMPLETE: "/restaurants/paycomplete",
   },
-  CEO: {
-    LOGIN: "/ceo/login",
-    REGISTER: "/ceo/register",
-  },
 };

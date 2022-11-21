@@ -6,8 +6,6 @@ import Nav from "./components/Nav";
 import HomePage from "./pages/HomePage";
 import UserLoginPage from "./user/pages/LoginPage";
 import UserAddressPage from "./user/pages/AddressPage";
-import CeoLoginPage from "./ceo/pages/LoginPage";
-import CeoRegisterPage from "./ceo/pages/RegisterPage";
 import KakaoLoginData from "./user/socialLogin/KakaoLoginData";
 import NaverLoginData from "./user/socialLogin/NaverLoginData";
 import MainPage from "./user/pages/MainPage";
@@ -35,8 +33,6 @@ function App() {
         <Route path={ROUTES.USER.REVIEW} element={<ReviewPage />} />
         <Route path={ROUTES.USER.PAY} element={<PayPage />} />
         <Route path={ROUTES.USER.PAYCOMPLETE} element={<PayCompletePage />} />
-        <Route path={ROUTES.CEO.LOGIN} element={<CeoLoginPage />} />
-        <Route path={ROUTES.CEO.REGISTER} element={<CeoRegisterPage />} />
       </Routes>
     </Router>
   );
