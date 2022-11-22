@@ -18,9 +18,8 @@ function HomePage() {
           오늘모먹
         </Button>
       </Link>
-      <Link to={ROUTES.CEO.LOGIN}>
-        <Button variant="primary">사장님</Button>
-      </Link>
+
+      <Button variant="primary">사장님</Button>
     </Div>
   );
 }
