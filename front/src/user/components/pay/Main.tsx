@@ -236,6 +236,16 @@ function Main() {
       : getSingleOrderData();
   }, []);
 
+  async function onPay() {
+    const response = await axios.post(`/api/pay/${restaurantId}/${roomId}`, {
+      orderId: orderData?.orderId,
+      restaurantId: restaurantId,
+      roomId: orderData?.roomId,
+      price: resultPrice,
+    });
+    console.log(response);
+  }
+
   return (
     <Div>
       <PayGrid>
@@ -272,7 +282,7 @@ function Main() {
               <PayValue>{resultPrice?.toLocaleString("ko-KR")}원</PayValue>
             </PayOption>
             <Link to={ROUTES.USER.PAYCOMPLETE}>
-              <PayButton>결제</PayButton>
+              <PayButton onClick={onPay}>결제</PayButton>
             </Link>
           </TotalPrice>
         </Order>

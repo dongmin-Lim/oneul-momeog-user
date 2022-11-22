@@ -50,7 +50,7 @@ function MyVerticallyCenteredModal(props: any) {
           </tr>
         </thead>
         <tbody>
-          {lists.map((value: any, index: any) => (
+          {lists?.map((value: any, index: any) => (
             <tr key={index}>
               <td>{index}</td>
               <td>{value.roomName}</td>
@@ -83,8 +83,8 @@ function Nav() {
         `http://175.45.208.84:8081/api/chats`
         // `/mockdata/ChatRoomList.json`
       );
-      setLists(response.data.data.rooms);
-      console.log(response.data.data.rooms);
+      setLists(response.data.data);
+      console.log(response.data.data);
     } catch (e) {
       console.log(e);
     }

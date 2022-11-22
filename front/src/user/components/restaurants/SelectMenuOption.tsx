@@ -57,6 +57,7 @@ const OptionButton = styled.button`
 interface groupsProps {
   groupId: number;
   groupName: string;
+  menus: MenuProps[];
 }
 
 interface orderMenuProps {
@@ -99,8 +100,7 @@ function SelectMenuOption({
   useEffect(() => {
     async function getGroupData() {
       try {
-        const response = await axios.get(`	
-        /api/restaurants/${restaurantId}/groups`);
+        const response = await axios.get(`/api/restaurants/${restaurantId}/groups`);
         setGroups(response.data.data);
         console.log(response);
       } catch (e) {
@@ -132,7 +132,7 @@ function SelectMenuOption({
             </CardHeaderWrapper>
             <Accordion.Collapse eventKey={`${groupIndex}`}>
               <>
-                {menus.map((menuValue, menuIndex) => (
+                {groupValue.menus.map((menuValue, menuIndex) => (
                   <div
                     key={menuIndex}
                     onClick={() =>

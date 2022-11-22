@@ -109,7 +109,7 @@ function MenuList({
             <QuanPicker>
               <QuantityPicker
                 min={1}
-                max={4}
+                max={10}
                 value={value}
                 num={totalPrice}
                 setNum={setTotalPrice}
