@@ -11,60 +11,6 @@ import SelectMenuOption from "./SelectMenuOption";
 import SelectRoomOption from "./SelectRoomOption";
 import CreateRoomOption from "./CreateRoomOption";
 
-const Img = styled.img`
-  width: 380px;
-  height: 200px;
-  border: 1px solid #aaaaaa;
-  padding: 10px;
-  margin-bottom: 50px;
-`;
-
-const Div = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-column-gap: 50px;
-  width: 1100px;
-  margin: 0 auto;
-  margin-top: 50px;
-`;
-
-const Title = styled.h1`
-  height: 50px;
-  line-height: 50px;
-  text-align: center;
-`;
-
-const Notice = styled.div`
-  height: 150px;
-  border: 1px solid black;
-  padding: 10px;
-  margin-top: 20px;
-`;
-
-const Event = styled.div`
-  height: 150px;
-  border: 1px solid black;
-  padding: 10px;
-  margin-top: 20px;
-`;
-
-const RoomInfoDiv = styled.div`
-  height: 200px;
-`;
-
-const OrderButton = styled(Button)`
-  width: 100%;
-  height: 50px;
-  border: none;
-  margin-top: 30px;
-  color: black;
-  background-color: #d8f1ff;
-  :hover {
-    background-color: #7bcfff;
-    color: black;
-  }
-`;
-
 interface restaurantInfoProps {
   restaurantId: number;
   restaurantImage: string;
@@ -97,7 +43,7 @@ export interface MenuProps {
   menuImage: string;
   ingredients: string;
   soldOut: boolean;
-  quantity?: any;
+  count?: any;
 }
 
 interface RoomOptionProps {
@@ -114,9 +60,10 @@ function Main() {
 
   const [restaurantInfo, setRestaurantInfo] = useState<restaurantInfoProps>();
   const [roomInfo, setRoomInfo] = useState<roomInfoProps>();
-  const [roomOption, setRoomOption] = useState<string>("방 옵션");
+  const [roomOption, setRoomOption] = useState<string>("participant");
   const [orderMenu, setOrderMenu] = useState<MenuProps[]>([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [menus, setMenus] = useState<any>([]);
 
   // CreateRoomOption Props
   const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
@@ -144,12 +91,17 @@ function Main() {
           `/api/restaurants/${restaurantId}/room/default?roomId=${roomId}`
         );
         setRoomInfo(response.data.data);
+        if (roomId && !response.data.success) {
+          window.alert(response.data.message);
+        }
       } catch (e) {
         console.log(e);
       }
     }
     getRestaurantData();
-    getRoomData();
+    if (roomId) {
+      getRoomData();
+    }
   }, []);
 
   function Participant() {
@@ -216,10 +168,14 @@ function Main() {
           setOrderMenu={setOrderMenu}
           totalPrice={totalPrice}
           setTotalPrice={setTotalPrice}
+          menus={menus}
+          setMenus={setMenus}
         />
         <MenuList
           orderMenu={orderMenu}
           setOrderMenu={setOrderMenu}
+          menus={menus}
+          setMenus={setMenus}
           totalPrice={totalPrice}
           setTotalPrice={setTotalPrice}
         />
@@ -230,6 +186,7 @@ function Main() {
             roomId: roomId,
             roomType: roomType,
             orderMenu: orderMenu,
+            menus: menus,
             roomOption: roomOption,
             roomOptionObj: roomOptionObj,
             normalAddress: normalAddress,
@@ -243,4 +200,57 @@ function Main() {
     </Div>
   );
 }
+const Img = styled.img`
+  width: 380px;
+  height: 200px;
+  border: 1px solid #aaaaaa;
+  padding: 10px;
+  margin-bottom: 50px;
+`;
+
+const Div = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 50px;
+  width: 1100px;
+  margin: 0 auto;
+  margin-top: 50px;
+`;
+
+const Title = styled.h1`
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+`;
+
+const Notice = styled.div`
+  height: 150px;
+  border: 1px solid black;
+  padding: 10px;
+  margin-top: 20px;
+`;
+
+const Event = styled.div`
+  height: 150px;
+  border: 1px solid black;
+  padding: 10px;
+  margin-top: 20px;
+`;
+
+const RoomInfoDiv = styled.div`
+  height: 200px;
+`;
+
+const OrderButton = styled(Button)`
+  width: 100%;
+  height: 50px;
+  border: none;
+  margin-top: 30px;
+  color: black;
+  background-color: #d8f1ff;
+  :hover {
+    background-color: #7bcfff;
+    color: black;
+  }
+`;
 export default Main;

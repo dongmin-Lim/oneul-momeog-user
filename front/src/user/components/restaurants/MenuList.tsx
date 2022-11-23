@@ -88,6 +88,8 @@ const QuantityInput = styled.input`
 interface orderMenuProps {
   orderMenu: MenuProps[];
   setOrderMenu: React.Dispatch<React.SetStateAction<MenuProps[]>>;
+  menus: MenuProps[];
+  setMenus: React.Dispatch<React.SetStateAction<MenuProps[]>>;
   totalPrice: number;
   setTotalPrice: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -95,6 +97,8 @@ interface orderMenuProps {
 function MenuList({
   orderMenu,
   setOrderMenu,
+  menus,
+  setMenus,
   totalPrice,
   setTotalPrice,
 }: orderMenuProps) {
@@ -111,6 +115,7 @@ function MenuList({
                 min={1}
                 max={10}
                 value={value}
+                menus={menus[index]}
                 num={totalPrice}
                 setNum={setTotalPrice}
                 orderMenu={orderMenu}

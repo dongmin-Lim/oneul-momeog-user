@@ -5,6 +5,169 @@ import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { ROUTES } from "../../../enum/routes";
 
+interface menusProps {
+  menuId: number;
+  menuName: string;
+  price: number;
+  quantity: number;
+}
+
+interface orderDataProps {
+  orderId: number;
+  roomId: number;
+  deliveryLocation: string;
+  menus: menusProps[];
+  totalPrice: number;
+  deliveryFee: number;
+}
+
+function Main() {
+  const location = useLocation();
+  const restaurantId = location.state.restaurantId;
+  const roomId = location.state.roomId;
+  const roomType = location.state.roomType;
+  const orderMenu = location.state.orderMenu;
+  const menus = location.state.menus;
+  const roomOption = location.state.roomOption;
+  const roomOptionObj = location.state.roomOptionObj;
+  const normalAddress = location.state.normalAddress;
+  const specificAddress = location.state.specificAddress;
+  const zipcode = location.state.zipcode;
+
+  const [orderData, setOrderData] = useState<orderDataProps>();
+  const [resultPrice, setResultPrice] = useState<number>();
+
+  console.log(roomOption);
+
+  useEffect(() => {
+    async function getOrderData() {
+      try {
+        const response = await axios.post(
+          `/api/restaurants/${restaurantId}/room/${roomId}/order`,
+          {
+            restaurantId: restaurantId,
+            roomId: roomId,
+            menus: menus,
+          }
+        );
+        setOrderData(response.data.data);
+        setResultPrice(response.data.data.totalPrice + response.data.data.deliveryFee);
+        console.log(response);
+
+        if (!response.data.success) {
+          window.alert(response.data.message);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    async function getSingleOrderData() {
+      try {
+        const response = await axios.post(
+          `/api/restaurants/${restaurantId}/${roomOption}/order`,
+          {
+            restaurantId: restaurantId,
+            menus: menus,
+          }
+        );
+        setOrderData(response.data.data);
+        setResultPrice(response.data.data.totalPrice + response.data.data.deliveryFee);
+        console.log(response);
+        if (!response.data.success) {
+          window.alert(response.data.message);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    async function getCreateOrderData() {
+      try {
+        const response = await axios.post(
+          `/api/restaurants/${restaurantId}/create/order`,
+          {
+            restaurantId: restaurantId,
+            roomName: roomOptionObj.roomName,
+            zipcode: zipcode,
+            normalAddress: normalAddress,
+            specificAddress: specificAddress,
+            menus: menus,
+            maxPeople: roomOptionObj.maxPeople,
+            timer: roomOptionObj.timer,
+          }
+        );
+        setOrderData(response.data.data);
+        setResultPrice(response.data.data.totalPrice + response.data.data.deliveryFee);
+        console.log(response);
+        if (!response.data.success) {
+          window.alert(response.data.message);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    roomOption === "participant"
+      ? getOrderData()
+      : roomOption === "create"
+      ? getCreateOrderData()
+      : getSingleOrderData();
+  }, []);
+
+  return (
+    <Div>
+      <PayGrid>
+        <Info>
+          <Address
+            placeholder="배송지"
+            value={orderData?.deliveryLocation}
+            disabled={roomType === "participant" ? true : false}
+          ></Address>
+          <Mathod></Mathod>
+        </Info>
+        <Order>
+          <OrderList>
+            <Title>주문목록</Title>
+            {orderData?.menus.map((value: any, index: number) => (
+              <MenuOption key={index}>
+                <MenuName>{value.menuName}</MenuName>
+                <MenuValue>수량 {menus[index].count}개</MenuValue>
+                <MenuValue>
+                  {(menus[index].count * value.price).toLocaleString("ko-KR")}원{" "}
+                  {/* 개당가격 곱하기 갯수 */}
+                </MenuValue>
+              </MenuOption>
+            ))}
+          </OrderList>
+          <TotalPrice>
+            <Title>결제 예정금액</Title>
+            <PayOption>
+              <PayName>상품금액</PayName>
+              <PayValue>{orderData?.totalPrice.toLocaleString("ko-KR")}원</PayValue>
+            </PayOption>
+            <PayOption>
+              <PayName>배달금액</PayName>
+              <PayValue>{orderData?.deliveryFee.toLocaleString("ko-KR")}원</PayValue>
+            </PayOption>
+            <PayOption>
+              <PayName>합계</PayName>
+              <PayValue>{resultPrice?.toLocaleString("ko-KR")}원</PayValue>
+            </PayOption>
+            <Link
+              to={ROUTES.USER.PAYCOMPLETE}
+              state={{
+                restaurantId: restaurantId,
+                orderData: orderData,
+                resultPrice: resultPrice,
+              }}
+            >
+              <PayButton>결제</PayButton>
+            </Link>
+          </TotalPrice>
+        </Order>
+      </PayGrid>
+    </Div>
+  );
+}
+
 const Div = styled.div`
   width: 1100px;
   height: 800px;
@@ -60,7 +223,7 @@ const TotalPrice = styled.div`
 
 const MenuOption = styled.div`
   display: grid;
-  grid-template-columns: 60% 40%;
+  grid-template-columns: 50% 25% 25%;
   height: 70px;
   padding: 0px 20px;
   border-bottom: 1px solid #aaaaaa;
@@ -115,179 +278,4 @@ const PayButton = styled(Button)`
     color: black;
   }
 `;
-
-interface menusProps {
-  menuId: number;
-  menuName: string;
-  price: number;
-  quantity: number;
-}
-
-interface orderDataProps {
-  orderId: number;
-  roomId: number;
-  deliveryLocation: string;
-  menus: menusProps[];
-  totalPrice: number;
-  deliveryFee: number;
-}
-
-function Main() {
-  const location = useLocation();
-  const restaurantId = location.state.restaurantId;
-  const roomId = location.state.roomId;
-  const roomType = location.state.roomType;
-  const orderMenu = location.state.orderMenu;
-  const roomOption = location.state.roomOption;
-  const roomOptionObj = location.state.roomOptionObj;
-  const normalAddress = location.state.normalAddress;
-  const specificAddress = location.state.specificAddress;
-  const zipcode = location.state.zipcode;
-
-  const [orderData, setOrderData] = useState<orderDataProps>();
-  const [resultPrice, setResultPrice] = useState<number>();
-
-  console.log(roomType);
-
-  useEffect(() => {
-    async function getOrderData() {
-      try {
-        const response = await axios.post(
-          `/api/restaurants/${restaurantId}/room/${roomId}/order`,
-          {
-            restaurantId: restaurantId,
-            roomId: roomId,
-            menus: [
-              {
-                menuId: 1,
-                count: 1,
-              },
-            ],
-          }
-        );
-        setOrderData(response.data.data);
-        setResultPrice(response.data.data.totalPrice + response.data.data.deliveryFee);
-        console.log(response);
-        if (!response.data.success) {
-          window.alert(response.data.message);
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    async function getSingleOrderData() {
-      try {
-        const response = await axios.post(
-          `/api/restaurants/${restaurantId}/${roomOption}/order`,
-          {
-            restaurantId: restaurantId,
-            menus: [
-              {
-                menuId: 1,
-                count: 1,
-              },
-            ],
-          }
-        );
-        setOrderData(response.data.data);
-        setResultPrice(response.data.data.totalPrice + response.data.data.deliveryFee);
-        console.log(response);
-        if (!response.data.success) {
-          window.alert(response.data.message);
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    async function getCreateOrderData() {
-      try {
-        const response = await axios.post(
-          `/api/restaurants/${restaurantId}/create/order`,
-          {
-            restaurantId: restaurantId,
-            roomName: roomOptionObj.roomName,
-            zipcode: zipcode,
-            normalAddress: normalAddress,
-            specificAddress: specificAddress,
-            menus: [
-              {
-                menuId: 1,
-                count: 1,
-              },
-            ],
-            maxPeople: roomOptionObj.maxPeople,
-            timer: roomOptionObj.timer,
-          }
-        );
-        setOrderData(response.data.data);
-        setResultPrice(response.data.data.totalPrice + response.data.data.deliveryFee);
-        console.log(response);
-        if (!response.data.success) {
-          window.alert(response.data.message);
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    roomType === "participant"
-      ? getOrderData()
-      : roomType === "create"
-      ? getCreateOrderData()
-      : getSingleOrderData();
-  }, []);
-
-  async function onPay() {
-    const response = await axios.post(`/api/pay/${restaurantId}/${roomId}`, {
-      orderId: orderData?.orderId,
-      restaurantId: restaurantId,
-      roomId: orderData?.roomId,
-      price: resultPrice,
-    });
-    console.log(response);
-  }
-
-  return (
-    <Div>
-      <PayGrid>
-        <Info>
-          <Address
-            placeholder="배송지"
-            value={orderData?.deliveryLocation}
-            disabled={roomType === "participant" ? true : false}
-          ></Address>
-          <Mathod></Mathod>
-        </Info>
-        <Order>
-          <OrderList>
-            <Title>주문목록</Title>
-            {orderData?.menus.map((value: any, index: number) => (
-              <MenuOption key={index}>
-                <MenuName>{value.menuName}</MenuName>
-                <MenuValue>{value.price.toLocaleString("ko-KR")}원</MenuValue>
-              </MenuOption>
-            ))}
-          </OrderList>
-          <TotalPrice>
-            <Title>결제 예정금액</Title>
-            <PayOption>
-              <PayName>상품금액</PayName>
-              <PayValue>{orderData?.totalPrice.toLocaleString("ko-KR")}원</PayValue>
-            </PayOption>
-            <PayOption>
-              <PayName>배달금액</PayName>
-              <PayValue>{orderData?.deliveryFee.toLocaleString("ko-KR")}원</PayValue>
-            </PayOption>
-            <PayOption>
-              <PayName>합계</PayName>
-              <PayValue>{resultPrice?.toLocaleString("ko-KR")}원</PayValue>
-            </PayOption>
-            <Link to={ROUTES.USER.PAYCOMPLETE}>
-              <PayButton onClick={onPay}>결제</PayButton>
-            </Link>
-          </TotalPrice>
-        </Order>
-      </PayGrid>
-    </Div>
-  );
-}
 export default Main;

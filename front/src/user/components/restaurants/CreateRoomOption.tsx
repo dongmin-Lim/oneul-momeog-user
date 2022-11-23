@@ -4,46 +4,6 @@ import { useState } from "react";
 import styled from "styled-components";
 import DaumPost from "../../../components/DaumPost";
 
-const ModalBackground = styled.div`
-  z-index: 100;
-  position: fixed;
-  top: 0%;
-  left: 0%;
-  background-color: rgba(0, 0, 0, 0.2);
-  width: 100%;
-  height: 100%;
-`;
-
-const Div = styled.div`
-  margin-top: 50px;
-`;
-
-const CloseButtonWrapper = styled(CloseButton)`
-  z-index: 10;
-`;
-
-// const Room = styled.div`
-//   border-bottom: 1px solid #aaaaaa;
-//   :hover {
-//     background-color: #d8f1ff;
-//   }
-// `;
-
-const Rooms = styled.div`
-  border: 1px solid #aaaaaa;
-  border-top: none;
-  height: 700px;
-  overflow: scroll;
-`;
-
-const Title = styled.div`
-  border: 1px solid #aaaaaa;
-  border-bottom: 2px solid black;
-  height: 50px;
-  line-height: 50px;
-  text-align: center;
-`;
-
 function CreateRoomOption({
   isPopupOpen,
   setIsPopupOpen,
@@ -94,12 +54,12 @@ function CreateRoomOption({
           <InputNumber
             size="large"
             autoFocus={true}
-            min={5}
+            min={1}
             max={100}
             defaultValue={5}
             onChange={timerChange}
           />
-          최소시간 5분 최대시간 100분
+          최소시간 1분 최대시간 100분
         </div>
         {isPopupOpen ? (
           <ModalBackground onClick={() => setIsPopupOpen(!isPopupOpen)}>
@@ -128,4 +88,36 @@ function CreateRoomOption({
     </Div>
   );
 }
+const ModalBackground = styled.div`
+  z-index: 100;
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: 100%;
+`;
+
+const Div = styled.div`
+  margin-top: 50px;
+`;
+
+const CloseButtonWrapper = styled(CloseButton)`
+  z-index: 10;
+`;
+
+const Rooms = styled.div`
+  border: 1px solid #aaaaaa;
+  border-top: none;
+  height: 700px;
+  overflow: scroll;
+`;
+
+const Title = styled.div`
+  border: 1px solid #aaaaaa;
+  border-bottom: 2px solid black;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+`;
 export default CreateRoomOption;
