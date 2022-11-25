@@ -25,10 +25,6 @@ export interface RestaurantTypeProps {
   categoryId: number;
 }
 
-const Div = styled.div`
-  text-align: center;
-`;
-
 function Main() {
   const [searchObj, setSearchObj] = useState<SearchProps>({
     search: "",
@@ -53,22 +49,34 @@ function Main() {
     <Div>
       {isModal ? <AddressModal setIsModal={setIsModal} /> : <></>}
       <HorizonScroll roomType={roomType} setRoomType={setRoomType} />
-      <SearchBar
-        setLists={setLists}
-        mode={mode}
-        setMode={setMode}
-        searchObj={searchObj}
-        setSearchObj={setSearchObj}
-        categories={categories}
-        setCategories={setCategories}
-      />
-      <SelectCategory categories={categories} setCategories={setCategories} />
-      {mode === "rooms" ? (
-        <Rooms lists={lists} roomType={roomType} setRoomType={setRoomType} />
-      ) : (
-        <Restaurants lists={lists} roomType={roomType} setRoomType={setRoomType} />
-      )}
+      <Container>
+        <SearchBar
+          setLists={setLists}
+          mode={mode}
+          setMode={setMode}
+          searchObj={searchObj}
+          setSearchObj={setSearchObj}
+          categories={categories}
+          setCategories={setCategories}
+        />
+        <SelectCategory categories={categories} setCategories={setCategories} />
+        {mode === "rooms" ? (
+          <Rooms lists={lists} roomType={roomType} setRoomType={setRoomType} />
+        ) : (
+          <Restaurants lists={lists} roomType={roomType} setRoomType={setRoomType} />
+        )}
+      </Container>
     </Div>
   );
 }
+const Div = styled.div`
+  text-align: center;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 export default Main;

@@ -5,32 +5,6 @@ import { Modal, Table, NavDropdown } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const Div = styled.div`
-  width: 100%;
-  height: 50px;
-  line-height: 50px;
-  background-color: #d8f1ff;
-  a {
-    color: black;
-    text-decoration: none;
-  }
-`;
-
-const Logo = styled.img`
-  float: left;
-  height: 30px;
-  padding: 0 30px;
-  margin-top: 10px;
-`;
-
-const NavList = styled.div`
-  float: right;
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  padding: 0 30px;
-  text-align: center;
-`;
-
 function MyVerticallyCenteredModal(props: any) {
   const lists = props.lists;
 
@@ -99,47 +73,80 @@ function Nav() {
   }
   return (
     <Div>
-      <Link to={ROUTES.USER.MAIN}>
-        <Logo src="../data/img/logo.png" alt="logo" />
-      </Link>
-      <NavList>
-        {sessionStorage.getItem("jwt") ? (
-          sessionStorage.getItem("normalAddress") === "null" ? (
-            <div style={{ padding: "0 30px" }}>주소를 입력해주세요</div>
+      <Container>
+        <Link to={ROUTES.USER.MAIN}>
+          <Logo src="../data/img/logo.png" alt="logo" />
+        </Link>
+        <NavList>
+          {sessionStorage.getItem("jwt") ? (
+            sessionStorage.getItem("normalAddress") === "null" ? (
+              <div style={{ padding: "0 30px" }}>주소를 입력해주세요</div>
+            ) : (
+              <div style={{ padding: "0 30px" }}>
+                {sessionStorage.getItem("normalAddress")}
+              </div>
+            )
           ) : (
-            <div style={{ padding: "0 30px" }}>
-              {sessionStorage.getItem("normalAddress")}
-            </div>
-          )
-        ) : (
-          <div></div>
-        )}
-        <div
-          style={{ padding: "0 30px" }}
-          onClick={() => (getChatList(), setModalShow(true))}
-        >
-          💬
-        </div>
-        <MyVerticallyCenteredModal
-          show={modalShow}
-          onHide={() => setModalShow(false)}
-          setModalShow={setModalShow}
-          lists={lists}
-        />
-        {sessionStorage.getItem("jwt") ? (
-          <NavDropdown title={sessionStorage.getItem("nickname")}>
-            <NavDropdown.Item href="#action/3.1">내 주문목록</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2" onClick={LogOutHandler}>
-              로그아웃
-            </NavDropdown.Item>
-          </NavDropdown>
-        ) : (
-          <div>
-            <Link to={ROUTES.USER.LOGIN}>로그인</Link>
+            <div></div>
+          )}
+          <div
+            style={{ padding: "0 30px" }}
+            onClick={() => (getChatList(), setModalShow(true))}
+          >
+            💬
           </div>
-        )}
-      </NavList>
+          <MyVerticallyCenteredModal
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            setModalShow={setModalShow}
+            lists={lists}
+          />
+          {sessionStorage.getItem("jwt") ? (
+            <NavDropdown title={sessionStorage.getItem("nickname")}>
+              <NavDropdown.Item>내 주문목록</NavDropdown.Item>
+              <NavDropdown.Item onClick={LogOutHandler}>로그아웃</NavDropdown.Item>
+            </NavDropdown>
+          ) : (
+            <div>
+              <Link to={ROUTES.USER.LOGIN}>로그인</Link>
+            </div>
+          )}
+        </NavList>
+      </Container>
     </Div>
   );
 }
+const Div = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  background-color: #d8f1ff;
+  a {
+    color: black;
+    text-decoration: none;
+  }
+`;
+
+const Container = styled.div`
+  width: 100%;
+  min-width: 1100px;
+`;
+
+const Logo = styled.img`
+  float: left;
+  height: 30px;
+  padding: 0 30px;
+  margin-top: 10px;
+`;
+
+const NavList = styled.div`
+  float: right;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  padding: 0 30px;
+  text-align: center;
+`;
 export default Nav;

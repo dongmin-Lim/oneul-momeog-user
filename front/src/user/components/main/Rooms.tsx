@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import styled from "styled-components";
 import Card from "./Card";
 import { listsProps } from "./Main";
 
@@ -15,15 +15,21 @@ function Rooms({ lists, roomType, setRoomType }: roomTypeProps) {
   );
 
   return (
-    <Container>
-      <Row className="justify-content-md-center">
-        {lists.map((value, index) => (
-          <Col key={index}>
-            <Card value={value} roomType={roomType} />
-          </Col>
-        ))}
-      </Row>
-    </Container>
+    <CardContainer>
+      {lists.map((value) => (
+        <Card value={value} roomType={roomType} key={value.restaurantId} />
+      ))}
+    </CardContainer>
   );
 }
+
+const CardContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  align-items: center;
+  width: 1320px;
+  margin: 0 auto;
+`;
+
 export default Rooms;

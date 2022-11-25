@@ -1,16 +1,8 @@
 import styled from "styled-components";
-import { Carousel, Container, Row, Col } from "react-bootstrap";
+import { Carousel } from "react-bootstrap";
 import Card from "./Card";
 import axios from "axios";
 import { useEffect, useState } from "react";
-
-const CarouselWrapper = styled(Carousel)`
-  background-color: rgb(230, 230, 230);
-  height: 250px;
-  .carousel-indicators {
-    margin: 0;
-  }
-`;
 
 interface roomsProps {
   roomId: number;
@@ -36,7 +28,8 @@ function HorizonScroll({ roomType, setRoomType }: roomTypeProps) {
       try {
         const response = await axios.get(`/api/main/room/last`);
         setLists(response.data.data);
-        console.log(response.data.data);
+        console.log(response.data.data[0].dueTime.toString());
+        console.log(response.data.data[0].currentTime.toString().split(".")[0]);
       } catch (e) {
         console.log(e);
       }
@@ -52,17 +45,30 @@ function HorizonScroll({ roomType, setRoomType }: roomTypeProps) {
       {result.map((values, index) => (
         <Carousel.Item key={index}>
           <Container>
-            <Row className="justify-content-md-center">
-              {values.map((room, index) => (
-                <Col key={index}>
-                  <Card value={room} roomType={roomType} />
-                </Col>
-              ))}
-            </Row>
+            {values.map((room) => (
+              <Card value={room} roomType={roomType} key={room.roomId} />
+            ))}
           </Container>
         </Carousel.Item>
       ))}
     </CarouselWrapper>
   );
 }
+const CarouselWrapper = styled(Carousel)`
+  background-color: rgb(255, 175, 175);
+  height: 250px;
+  .carousel-indicators {
+    margin: 0;
+  }
+`;
+
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  align-items: center;
+  width: 1320px;
+  margin: 0 auto;
+`;
+
 export default HorizonScroll;

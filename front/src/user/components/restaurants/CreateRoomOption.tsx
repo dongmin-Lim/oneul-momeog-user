@@ -56,7 +56,7 @@ function CreateRoomOption({
             autoFocus={true}
             min={1}
             max={100}
-            defaultValue={5}
+            defaultValue={1}
             onChange={timerChange}
           />
           최소시간 1분 최대시간 100분

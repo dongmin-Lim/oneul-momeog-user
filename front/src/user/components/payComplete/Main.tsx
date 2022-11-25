@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import { Button } from "react-bootstrap";
+import { ROUTES } from "../../../enum/routes";
 
 function Main() {
   const [payData, setPayData] = useState<any>();
@@ -17,7 +18,7 @@ function Main() {
     async function onPay() {
       try {
         const response = await axios.post(
-          `/api/pay/${restaurantId}/${orderData?.orderId}`,
+          `/api/pay/${restaurantId}/${orderData?.roomId}`,
           {
             orderId: orderData?.orderId,
             restaurantId: restaurantId,
@@ -93,7 +94,9 @@ function Main() {
               </PayValue>
             </PayOption>
             <PayOption>
-              <PayButton>홈으로</PayButton>
+              <Link to={ROUTES.USER.MAIN}>
+                <PayButton>홈으로</PayButton>
+              </Link>
             </PayOption>
           </TotalPrice>
         </Order>
