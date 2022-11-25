@@ -1,4 +1,0 @@
-include:
-  - project: oneul_momeog/gitlab-ci
-    ref: production
-    file: .gitlab-ci-frontend_user.yaml
