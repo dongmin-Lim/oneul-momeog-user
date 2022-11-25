@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import TimeCalculator from "../../../components/TimeCalculator";
 
 interface ValueProps {
   value: any;
@@ -10,21 +11,40 @@ function Card({ value, roomType }: ValueProps) {
   const restaurantId = value.restaurantId;
   const roomId = value.roomId;
   // TODO 남은시간 실시간으로 되게끔 구현해야함
+
   return (
     <Link
       to={`/restaurants/${restaurantId}`}
       state={{ restaurantId: restaurantId, roomId: roomId, roomType: roomType }}
     >
       <CardDiv>
-        <RoomName>{value.roomName}</RoomName>
-        <RestaurantImg src="../data/img/bbq.jpg" />
-        <RestaurantName>{value.restaurantName}</RestaurantName>
-        <Detail>
-          <RestaurantPeople>
-            {value.currentPeople}/{value.maxPeople}명 참가중
-          </RestaurantPeople>
+        {value.roomName ? (
+          <RoomName>{value.roomName}</RoomName>
+        ) : (
+          <RoomName>{value.restaurantName}</RoomName>
+        )}
 
-          <RestaurantTime>남은시간 01:19</RestaurantTime>
+        <RestaurantImg src="../data/img/bbq.jpg" />
+        {value.roomName ? (
+          <RestaurantName>{value.restaurantName}</RestaurantName>
+        ) : (
+          <RoomName></RoomName>
+        )}
+        <Detail>
+          {value.currentPeople ? (
+            <RestaurantPeople>
+              {value.currentPeople}/{value.maxPeople}명 참가중
+            </RestaurantPeople>
+          ) : (
+            <></>
+          )}
+          {value.dueTime ? (
+            <RestaurantTime>
+              <TimeCalculator currentTime={value.currentTime} dueTime={value.dueTime} />
+            </RestaurantTime>
+          ) : (
+            <></>
+          )}
         </Detail>
       </CardDiv>
     </Link>

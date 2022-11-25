@@ -54,12 +54,12 @@ function CreateRoomOption({
           <InputNumber
             size="large"
             autoFocus={true}
-            min={1}
-            max={100}
-            defaultValue={1}
+            min={10}
+            max={60}
+            defaultValue={10}
             onChange={timerChange}
           />
-          최소시간 1분 최대시간 100분
+          최소시간 10분 최대시간 60분
         </div>
         {isPopupOpen ? (
           <ModalBackground onClick={() => setIsPopupOpen(!isPopupOpen)}>

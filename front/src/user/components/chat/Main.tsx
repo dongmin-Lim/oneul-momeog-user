@@ -26,7 +26,7 @@ function Main() {
     async function getChats() {
       try {
         const response = await axios.get(
-          `http://211.188.65.107:8081/api/chats/${value.roomId}/all`
+          `http://211.188.65.107:8081/api/chats/${value.roomId}/all?chatId=5`
         );
         console.log(response.data.data);
       } catch (e) {
@@ -38,51 +38,62 @@ function Main() {
 
   return (
     <Div>
-      <div>방제목</div>
+      <ChatHeader>
+        <RoomName>방제목</RoomName>
+        <div>현재 접속 인원 {currentUser}명</div>
+        <ReviewModal
+          value={value}
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          setModalShow={setModalShow}
+        />
+      </ChatHeader>
       <Chat>
         <ChatBox>
           <Message></Message>
           <InputBox>
-            <Button>사진전송</Button>
             <TextInputBox value={value} />
           </InputBox>
         </ChatBox>
-        <ChatUserList>
-          <div>현재 접속 인원: {currentUser}명</div>
-          <ReviewModal
-            value={value}
-            show={modalShow}
-            onHide={() => setModalShow(false)}
-            setModalShow={setModalShow}
-          />
-          <Button onClick={() => setModalShow(true)}>리뷰작성</Button> {/* 임시버튼*/}
-        </ChatUserList>
       </Chat>
+      <Button onClick={() => setModalShow(true)}>리뷰작성</Button> {/* 임시버튼*/}
     </Div>
   );
 }
 const Div = styled.div`
   margin: 0 auto;
   text-align: center;
-  width: 1000px;
+  width: 800px;
   height: 1000px;
-  border: 1px solid black;
+`;
+
+const ChatHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  width: 500px;
+  height: 50px;
+`;
+
+const RoomName = styled.div`
+  font-size: 24px;
 `;
 
 const Chat = styled.div`
-  display: grid;
-  grid-template-columns: 3fr 1fr;
+  display: flex;
+  flex-direction: row;
 `;
 
 const Message = styled.div``;
 
 const InputBox = styled.div`
-  display: inline;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 0 auto;
   text-align: center;
-  width: 95%;
-  height: 50px;
-  border: 1px solid black;
 `;
 
 const ChatBox = styled.div`
@@ -93,14 +104,8 @@ const ChatBox = styled.div`
   width: 500px;
   height: 500px;
   border: 1px solid black;
-`;
-
-const ChatUserList = styled.div`
-  margin: 0 auto;
-  text-align: center;
-  width: 200px;
-  height: 300px;
-  border: 1px solid black;
+  border-radius: 10px;
+  padding-bottom: 5px;
 `;
 
 export default Main;
