@@ -13,15 +13,17 @@ function TextInputBox({ value }: any) {
 
   const handleClickSubmit = (e: any) => {
     e.preventDefault();
-    ws.current.send(
-      JSON.stringify({
-        userId: sessionStorage.getItem("userId"),
-        userNickname: sessionStorage.getItem("nickname"),
-        roomId: value.roomId,
-        messageType: "text",
-        content: message,
-      })
-    );
+    message
+      ? ws.current.send(
+          JSON.stringify({
+            userId: sessionStorage.getItem("userId"),
+            nickname: sessionStorage.getItem("nickname"),
+            roomId: value.roomId,
+            messageType: "text",
+            content: message,
+          })
+        )
+      : window.alert("메세지를 입력해주세요");
     setMessage("");
   };
 
@@ -51,7 +53,9 @@ const ButtonWrapper = styled.button`
   width: 70px;
   border: none;
   border-radius: 0px 10px 10px 0px;
-  background-color: #f9e000;
+  border: 1px solid #aaa;
+  background-color: #c0c0c0;
+  color: black;
 `;
 
 export default TextInputBox;

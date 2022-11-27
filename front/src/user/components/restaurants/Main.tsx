@@ -10,6 +10,7 @@ import RoomList from "./RoomList";
 import SelectMenuOption from "./SelectMenuOption";
 import SelectRoomOption from "./SelectRoomOption";
 import CreateRoomOption from "./CreateRoomOption";
+import TimeCalculator from "../../../components/TimeCalculator";
 
 interface restaurantInfoProps {
   restaurantId: number;
@@ -69,8 +70,8 @@ function Main() {
   const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
   const [roomOptionObj, setRoomOptionObj] = useState<RoomOptionProps>({
     roomName: "",
-    maxPeople: 0,
-    timer: 0,
+    maxPeople: 1,
+    timer: 10,
   });
   const [normalAddress, setNormalAddress] = useState<string>("");
   const [specificAddress, setSpecificAddress] = useState<string>("");
@@ -107,14 +108,14 @@ function Main() {
   function Participant() {
     return (
       <RoomInfoDiv>
-        <div style={{ fontSize: "34px", padding: "3px 0px" }}>{roomInfo?.roomName}</div>
-        <div style={{ padding: "3px 0px" }}>
+        <div style={{ fontSize: "34px" }}>{roomInfo?.roomName}</div>
+        <div>
           모집인원 [{roomInfo?.currentPeople}/{roomInfo?.maxPeople}]
         </div>
-        <div style={{ padding: "3px 0px" }}>
+        <div>
           배송지 {roomInfo?.normalAddress} {roomInfo?.specificAddress}
         </div>
-        <div style={{ padding: "3px 0px" }}>남은시간 12:12</div>
+        <TimeCalculator currentTime={roomInfo?.currentTime} dueTime={roomInfo?.dueTime} />
       </RoomInfoDiv>
     );
   }
@@ -239,6 +240,10 @@ const Event = styled.div`
 
 const RoomInfoDiv = styled.div`
   height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
 `;
 
 const OrderButton = styled(Button)`

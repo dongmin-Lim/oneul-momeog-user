@@ -1,12 +1,10 @@
-import { useEffect, useState } from "react";
-
 interface TimeProps {
-  currentTime: string;
-  dueTime: string;
+  currentTime: any;
+  dueTime: any;
 }
 
 function TimeCalculator({ currentTime, dueTime }: TimeProps) {
-  var newCurrentTime = currentTime.toString().split(".")[0];
+  var newCurrentTime = currentTime?.toString().split(".")[0];
 
   var date1 = new Date(newCurrentTime); // 현재
   var date2 = new Date(dueTime); // 파라미터
@@ -16,7 +14,6 @@ function TimeCalculator({ currentTime, dueTime }: TimeProps) {
   var min = Math.floor((SecGap % 3600) / 60);
   var sec = Math.floor(SecGap % 60);
 
-  console.log(SecGap);
   return (
     <>
       {SecGap > 0 ? (

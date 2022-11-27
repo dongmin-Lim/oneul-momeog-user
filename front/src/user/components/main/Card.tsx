@@ -10,7 +10,6 @@ interface ValueProps {
 function Card({ value, roomType }: ValueProps) {
   const restaurantId = value.restaurantId;
   const roomId = value.roomId;
-  // TODO 남은시간 실시간으로 되게끔 구현해야함
 
   return (
     <Link
@@ -38,6 +37,7 @@ function Card({ value, roomType }: ValueProps) {
           ) : (
             <></>
           )}
+          {/*TODO 1초마다 재랜더링 되도록 해보기*/}
           {value.dueTime ? (
             <RestaurantTime>
               <TimeCalculator currentTime={value.currentTime} dueTime={value.dueTime} />

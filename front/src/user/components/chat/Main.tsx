@@ -1,11 +1,11 @@
+import { useContext, useEffect, useState, useRef } from "react";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 import { Button, Modal } from "react-bootstrap";
 import styled from "styled-components";
-import { useContext, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { WebSocketContext } from "../../websocket/WebSocketProvider";
 import TextInputBox from "./TextInputBox";
 import ReviewModal from "./ReviewModal";
-import { WebSocketContext } from "../../websocket/WebSocketProvider";
-import axios from "axios";
 
 function Main() {
   const location = useLocation();
@@ -13,21 +13,37 @@ function Main() {
 
   const [modalShow, setModalShow] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<number>(0);
+  const [chats, setChats] = useState<any>();
 
-  const handleClose = () => setModalShow(false);
+  const scrollRef = useRef<null | HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  };
+  useEffect(() => {
+    scrollToBottom();
+  }, [chats]);
+
   const ws = useContext(WebSocketContext);
 
   ws.current.onmessage = (evt: MessageEvent) => {
     const data = JSON.parse(evt.data);
-    setCurrentUser(data.currentPeople);
+    if (data.currentPeople) {
+      setCurrentUser(data.currentPeople);
+    }
+    console.log(data);
+    setChats([...chats, data]);
   };
 
   useEffect(() => {
     async function getChats() {
       try {
         const response = await axios.get(
-          `http://211.188.65.107:8081/api/chats/${value.roomId}/all?chatId=5`
+          `http://175.45.208.84:8081/api/chats/${value.roomId}/all?chatId=0`
         );
+        setChats(response.data.data);
         console.log(response.data.data);
       } catch (e) {
         console.log(e);
@@ -50,7 +66,24 @@ function Main() {
       </ChatHeader>
       <Chat>
         <ChatBox>
-          <Message></Message>
+          <MessageBox ref={scrollRef}>
+            {chats?.map((value: any) =>
+              value.content ? (
+                value.userId == sessionStorage.getItem("userId") ? (
+                  <div className="myMsg">
+                    <span className="msg">{value.content}</span>
+                  </div>
+                ) : (
+                  <div className="anotherMsg">
+                    <span className="anotherName">{value.nickname}</span>
+                    <span className="msg">{value.content}</span>
+                  </div>
+                )
+              ) : (
+                <></>
+              )
+            )}
+          </MessageBox>
           <InputBox>
             <TextInputBox value={value} />
           </InputBox>
@@ -86,16 +119,6 @@ const Chat = styled.div`
   flex-direction: row;
 `;
 
-const Message = styled.div``;
-
-const InputBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  text-align: center;
-`;
-
 const ChatBox = styled.div`
   margin: 0 auto;
   text-align: center;
@@ -106,6 +129,58 @@ const ChatBox = styled.div`
   border: 1px solid black;
   border-radius: 10px;
   padding-bottom: 5px;
+`;
+
+const MessageBox = styled.div`
+  display: flex;
+
+  flex-direction: column;
+
+  overflow-y: auto;
+
+  padding: 5px 20px;
+  margin-bottom: 0;
+  overflow: scroll;
+
+  .myMsg {
+    text-align: right;
+  }
+
+  .anotherMsg {
+    text-align: left;
+    margin-bottom: 5px;
+  }
+
+  .msg {
+    display: inline-block;
+    border-radius: 10px;
+    padding: 7px 15px;
+    margin-bottom: 0px;
+    margin-top: 5px;
+  }
+
+  .anotherMsg > .msg {
+    background-color: #cfcfcf;
+    color: #000000;
+  }
+
+  .myMsg > .msg {
+    background-color: #f9e000;
+    color: #000000;
+  }
+
+  .anotherName {
+    font-size: 12px;
+    display: block;
+  }
+`;
+
+const InputBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  text-align: center;
 `;
 
 export default Main;

@@ -28,8 +28,6 @@ function HorizonScroll({ roomType, setRoomType }: roomTypeProps) {
       try {
         const response = await axios.get(`/api/main/room/last`);
         setLists(response.data.data);
-        console.log(response.data.data[0].dueTime.toString());
-        console.log(response.data.data[0].currentTime.toString().split(".")[0]);
       } catch (e) {
         console.log(e);
       }

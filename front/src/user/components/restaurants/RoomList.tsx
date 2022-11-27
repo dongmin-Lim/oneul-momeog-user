@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import TimeCalculator from "../../../components/TimeCalculator";
 
 const Div = styled.div`
   margin-top: 50px;
@@ -29,6 +31,9 @@ const Title = styled.div`
 `;
 
 interface roomsProps {
+  restaurantId: number;
+  restaurantImage: string;
+  restaurantName: string;
   roomId: number;
   roomName: string;
   maxPeople: number;
@@ -51,24 +56,35 @@ function RoomList({ restaurantId }: any) {
       try {
         const response = await axios.get(`/api/restaurants/${restaurantId}/room/list`);
         setRoomList(response.data.data);
+        console.log(response.data);
       } catch (e) {
         console.log(e);
       }
     }
     getRoomListData();
   }, []);
-
+  // TODO 방 리스트 클릭 시 페이지이동 안댐 수정하자
   return (
     <Div>
       <Title>공동구매 방 목록</Title>
       <Rooms>
-        {roomList?.map((value: any, index: number) => (
-          <Room key={index}>
-            <div>{value.roomName}</div>
-            <div>[{value.currentPeople + "/" + value.maxPeople}]</div>
-            <div>{value.specificAddress}</div>
-            <div>남은시간 01:19</div>
-          </Room>
+        {roomList?.map((value: any) => (
+          <Link
+            to={`/restaurants/${value.restaurantId}`}
+            state={{
+              restaurantId: value.restaurantId,
+              roomId: value.roomId,
+              roomType: "participant",
+            }}
+            key={value.restaurantId}
+          >
+            <Room>
+              <div>{value.roomName}</div>
+              <div>[{value.currentPeople + "/" + value.maxPeople}]</div>
+              <div>{value.specificAddress}</div>
+              <TimeCalculator currentTime={value?.currentTime} dueTime={value?.dueTime} />
+            </Room>
+          </Link>
         ))}
       </Rooms>
     </Div>

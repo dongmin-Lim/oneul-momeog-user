@@ -33,13 +33,11 @@ function CreateRoomOption({
   return (
     <Div>
       <Title>방 생성하기 옵션</Title>
-      <Rooms>
-        <div>
-          방이름
+      <RoomOption>
+        <OptionGrid>
+          <div>방이름</div>
           <input onChange={roomNameChange}></input>
-        </div>
-        <div>
-          인원 선택
+          <div>인원 선택</div>
           <InputNumber
             size="large"
             autoFocus={true}
@@ -48,9 +46,7 @@ function CreateRoomOption({
             defaultValue={1}
             onChange={maxPeopleChange}
           />
-        </div>
-        <div>
-          구매 마감 타이머 설정
+          <div>구매 마감 타이머 설정</div>
           <InputNumber
             size="large"
             autoFocus={true}
@@ -59,32 +55,28 @@ function CreateRoomOption({
             defaultValue={10}
             onChange={timerChange}
           />
-          최소시간 10분 최대시간 60분
-        </div>
-        {isPopupOpen ? (
-          <ModalBackground onClick={() => setIsPopupOpen(!isPopupOpen)}>
-            <DaumPost
-              isPopupOpen={isPopupOpen}
-              setIsPopupOpen={setIsPopupOpen}
-              setNormalAddress={setNormalAddress}
-              setZipcode={setZipcode}
-            />
-          </ModalBackground>
-        ) : (
-          <></>
-        )}
+        </OptionGrid>
+        <div>최소시간 10분 최대시간 60분</div>
         <button onClick={() => setIsPopupOpen(!isPopupOpen)}>주소 검색</button>
-        <div>
-          <input placeholder="주소" value={normalAddress} disabled></input>
-        </div>
-        <div>
-          <input
-            placeholder="상세주소"
-            value={specificAddress}
-            onChange={(e: any) => setSpecificAddress(e.target.value)}
-          ></input>
-        </div>
-      </Rooms>
+        <input placeholder="주소" value={normalAddress} disabled></input>
+        <input
+          placeholder="상세주소"
+          value={specificAddress}
+          onChange={(e: any) => setSpecificAddress(e.target.value)}
+        ></input>
+      </RoomOption>
+      {isPopupOpen ? (
+        <ModalBackground onClick={() => setIsPopupOpen(!isPopupOpen)}>
+          <DaumPost
+            isPopupOpen={isPopupOpen}
+            setIsPopupOpen={setIsPopupOpen}
+            setNormalAddress={setNormalAddress}
+            setZipcode={setZipcode}
+          />
+        </ModalBackground>
+      ) : (
+        <></>
+      )}
     </Div>
   );
 }
@@ -102,15 +94,16 @@ const Div = styled.div`
   margin-top: 50px;
 `;
 
-const CloseButtonWrapper = styled(CloseButton)`
-  z-index: 10;
-`;
-
-const Rooms = styled.div`
+const RoomOption = styled.div`
   border: 1px solid #aaaaaa;
   border-top: none;
   height: 700px;
   overflow: scroll;
+`;
+
+const OptionGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 `;
 
 const Title = styled.div`
@@ -120,4 +113,5 @@ const Title = styled.div`
   line-height: 50px;
   text-align: center;
 `;
+
 export default CreateRoomOption;
