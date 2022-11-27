@@ -4,6 +4,63 @@ import { MenuProps } from "./Main";
 import { Button } from "react-bootstrap";
 import QuantityPicker from "../../../components/quantityPicker/QuantityPicker";
 
+interface orderMenuProps {
+  orderMenu: MenuProps[];
+  setOrderMenu: React.Dispatch<React.SetStateAction<MenuProps[]>>;
+  menus: MenuProps[];
+  setMenus: React.Dispatch<React.SetStateAction<MenuProps[]>>;
+  totalPrice: number;
+  setTotalPrice: React.Dispatch<React.SetStateAction<number>>;
+}
+
+function MenuList({
+  orderMenu,
+  setOrderMenu,
+  menus,
+  setMenus,
+  totalPrice,
+  setTotalPrice,
+}: orderMenuProps) {
+  console.log(orderMenu);
+  return (
+    <Div>
+      <Title>주문목록</Title>
+      <Menus>
+        {orderMenu.map((value: any, index: number) => (
+          <Menu key={index}>
+            <MenuName>{value.menuName}</MenuName>
+            <MenuValue>{value.price.toLocaleString("ko-KR")}원</MenuValue>
+            <QuanPicker>
+              <QuantityPicker
+                min={1}
+                max={10}
+                value={value}
+                menus={menus[index]}
+                num={totalPrice}
+                setNum={setTotalPrice}
+                orderMenu={orderMenu}
+              />
+            </QuanPicker>
+            <ButtonWrapper
+              variant="danger"
+              onClick={() => (
+                setTotalPrice((totalPrice -= value.price * value.count)),
+                setOrderMenu(
+                  orderMenu.filter((list: any) => {
+                    return list !== value;
+                  })
+                )
+              )}
+            >
+              삭제
+            </ButtonWrapper>
+          </Menu>
+        ))}
+      </Menus>
+      <TotalPrice>총 주문 금액 {totalPrice.toLocaleString("ko-KR")}원</TotalPrice>
+    </Div>
+  );
+}
 const Div = styled.div`
   margin-top: 50px;
 `;
@@ -84,61 +141,4 @@ const QuantityInput = styled.input`
   padding-bottom: 2px;
   text-align: center;
 `;
-
-interface orderMenuProps {
-  orderMenu: MenuProps[];
-  setOrderMenu: React.Dispatch<React.SetStateAction<MenuProps[]>>;
-  menus: MenuProps[];
-  setMenus: React.Dispatch<React.SetStateAction<MenuProps[]>>;
-  totalPrice: number;
-  setTotalPrice: React.Dispatch<React.SetStateAction<number>>;
-}
-
-function MenuList({
-  orderMenu,
-  setOrderMenu,
-  menus,
-  setMenus,
-  totalPrice,
-  setTotalPrice,
-}: orderMenuProps) {
-  return (
-    <Div>
-      <Title>주문목록</Title>
-      <Menus>
-        {orderMenu.map((value: any, index: number) => (
-          <Menu key={index}>
-            <MenuName>{value.menuName}</MenuName>
-            <MenuValue>{value.price.toLocaleString("ko-KR")}원</MenuValue>
-            <QuanPicker>
-              <QuantityPicker
-                min={1}
-                max={10}
-                value={value}
-                menus={menus[index]}
-                num={totalPrice}
-                setNum={setTotalPrice}
-                orderMenu={orderMenu}
-              />
-            </QuanPicker>
-            <ButtonWrapper
-              variant="danger"
-              onClick={() => (
-                setOrderMenu(
-                  orderMenu.filter((list: any) => {
-                    return list !== value;
-                  })
-                ),
-                setTotalPrice((totalPrice -= value.price * value.quantity))
-              )}
-            >
-              삭제
-            </ButtonWrapper>
-          </Menu>
-        ))}
-      </Menus>
-      <TotalPrice>총 주문 금액 {totalPrice.toLocaleString("ko-KR")}원</TotalPrice>
-    </Div>
-  );
-}
 export default MenuList;

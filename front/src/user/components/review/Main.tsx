@@ -62,8 +62,8 @@ function Main() {
     async function getReviewData() {
       try {
         const response = await axios.get(
-          `/mockdata/review.json`
-          //   `/api/restaurants/${restaurantId}/review/list`
+          // `/mockdata/review.json`
+          `/api/restaurants/${restaurantId}/review/list`
         );
         setReviews(response.data.data.reviews);
         console.log(response.data);

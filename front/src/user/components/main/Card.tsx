@@ -37,7 +37,6 @@ function Card({ value, roomType }: ValueProps) {
           ) : (
             <></>
           )}
-          {/*TODO 1초마다 재랜더링 되도록 해보기*/}
           {value.dueTime ? (
             <RestaurantTime>
               <TimeCalculator currentTime={value.currentTime} dueTime={value.dueTime} />

@@ -61,6 +61,7 @@ function Review({ restaurantId }: any) {
       try {
         const response = await axios.get(`/api/restaurants/${restaurantId}/review`);
         setReviewInfo(response.data.data);
+        console.log(response.data.data);
       } catch (e) {
         console.log(e);
       }
@@ -70,18 +71,24 @@ function Review({ restaurantId }: any) {
 
   return (
     <ReviewDiv>
-      <ReviewImg src={reviewInfo?.reviewImage}></ReviewImg>
-      <ReviewContent>
-        <ReviewLabel>추천리뷰</ReviewLabel>
-        <div style={{ padding: "5px 0px" }}>
-          <span>{reviewInfo?.nickname}</span>
-          <span>⭐️⭐️⭐️⭐️⭐️ 5</span>
-        </div>
-        <div>{reviewInfo?.content}</div>
-      </ReviewContent>
-      <Link to={ROUTES.USER.REVIEW} state={{ restaurantId: restaurantId }}>
-        <ReviewButton>리뷰더보기</ReviewButton>
-      </Link>
+      {reviewInfo === null ? (
+        <div>리뷰가 없습니다</div>
+      ) : (
+        <>
+          <ReviewImg src={reviewInfo?.reviewImage}></ReviewImg>
+          <ReviewContent>
+            <ReviewLabel>추천리뷰</ReviewLabel>
+            <div style={{ padding: "5px 0px" }}>
+              <span>{reviewInfo?.nickname}</span>
+              <span>⭐️⭐️⭐️⭐️⭐️ 5</span>
+            </div>
+            <div>{reviewInfo?.content}</div>
+          </ReviewContent>
+          <Link to={ROUTES.USER.REVIEW} state={{ restaurantId: restaurantId }}>
+            <ReviewButton>리뷰더보기</ReviewButton>
+          </Link>
+        </>
+      )}
     </ReviewDiv>
   );
 }

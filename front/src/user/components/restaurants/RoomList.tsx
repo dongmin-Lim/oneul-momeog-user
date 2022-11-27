@@ -63,7 +63,6 @@ function RoomList({ restaurantId }: any) {
     }
     getRoomListData();
   }, []);
-  // TODO 방 리스트 클릭 시 페이지이동 안댐 수정하자
   return (
     <Div>
       <Title>공동구매 방 목록</Title>
@@ -76,9 +75,9 @@ function RoomList({ restaurantId }: any) {
               roomId: value.roomId,
               roomType: "participant",
             }}
-            key={value.restaurantId}
+            key={value.roomId}
           >
-            <Room>
+            <Room onClick={() => window.location.reload()}>
               <div>{value.roomName}</div>
               <div>[{value.currentPeople + "/" + value.maxPeople}]</div>
               <div>{value.specificAddress}</div>

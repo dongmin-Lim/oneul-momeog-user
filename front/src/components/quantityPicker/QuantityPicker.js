@@ -16,6 +16,7 @@ export default class QuantityPicker extends Component {
       this.setState({ value: plusState });
       this.setState({ disable: false });
       this.props.menus.count += 1;
+      this.props.value.count += 1;
       this.props.setNum(this.props.num + this.props.value.price);
 
       console.log(this.props.value);
@@ -34,6 +35,7 @@ export default class QuantityPicker extends Component {
     if (this.state.value > this.props.min) {
       this.setState({ value: minusState });
       this.props.menus.count -= 1;
+      this.props.value.count -= 1;
       this.props.setNum(this.props.num - this.props.value.price);
 
       if (this.state.value === this.props.min + 1) {
