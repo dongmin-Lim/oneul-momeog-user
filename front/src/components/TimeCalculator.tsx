@@ -1,22 +1,33 @@
+import { useEffect, useRef, useState } from "react";
+
 interface TimeProps {
   currentTime: any;
   dueTime: any;
 }
 
 function TimeCalculator({ currentTime, dueTime }: TimeProps) {
-  var newCurrentTime = currentTime?.toString().split(".")[0];
+  const [newCurrentTime, setNewCurrentTime] = useState<string>(
+    currentTime?.toString().split(".")[0]
+  );
+  const [nowDate, setNowDate] = useState<Date>(new Date(newCurrentTime));
+  const [targetDate, setTargetDate] = useState<Date>(new Date(dueTime));
+  const [secGap, setSecGap] = useState<number>(
+    (targetDate.getTime() - nowDate.getTime()) / 1000
+  );
+  const [min, setMin] = useState<number>(Math.floor((secGap % 3600) / 60));
+  const [sec, setSec] = useState<number>(Math.floor(secGap % 60));
+  const [delay, setDelay] = useState(1000);
 
-  var date1 = new Date(newCurrentTime); // 현재
-  var date2 = new Date(dueTime); // 파라미터
-
-  var SecGap = (date2.getTime() - date1.getTime()) / 1000;
-
-  var min = Math.floor((SecGap % 3600) / 60);
-  var sec = Math.floor(SecGap % 60);
+  useInterval(() => {
+    // Your custom logic here
+    setSecGap(secGap - 1);
+    setMin(Math.floor((secGap % 3600) / 60));
+    setSec(Math.floor(secGap % 60));
+  }, 1000);
 
   return (
     <>
-      {SecGap > 0 ? (
+      {secGap > 0 ? (
         <>
           남은시간 {min}분 {sec}초
         </>
@@ -25,6 +36,26 @@ function TimeCalculator({ currentTime, dueTime }: TimeProps) {
       )}
     </>
   );
+}
+
+function useInterval(callback: any, delay: any) {
+  const savedCallback = useRef<any>();
+
+  // Remember the latest function.
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
+
+  // Set up the interval.
+  useEffect(() => {
+    function tick() {
+      savedCallback.current();
+    }
+    if (delay !== null) {
+      let id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
 }
 
 export default TimeCalculator;
