@@ -41,7 +41,7 @@ function Main() {
     async function getChats() {
       try {
         const response = await axios.get(
-          `http://175.45.208.84:8081/api/chats/${value.roomId}/all?chatId=0`
+          `http://localhost:8081/api/chats/${value.roomId}/all?chatId=0`
         );
         setChats(response.data.data);
         console.log(response.data.data);
@@ -57,12 +57,7 @@ function Main() {
       <ChatHeader>
         <RoomName>방제목</RoomName>
         <div>현재 접속 인원 {currentUser}명</div>
-        <ReviewModal
-          value={value}
-          show={modalShow}
-          onHide={() => setModalShow(false)}
-          setModalShow={setModalShow}
-        />
+        <ReviewModal value={value} show={modalShow} onHide={() => setModalShow(false)} />
       </ChatHeader>
       <Chat>
         <ChatBox>
