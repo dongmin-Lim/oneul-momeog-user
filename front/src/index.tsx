@@ -1,11 +1,10 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.css";
 import axios from "axios";
 
-axios.defaults.baseURL = "http://175.45.208.84:8080";
+axios.defaults.baseURL = "http://175.45.208.84:8070";
 axios.defaults.headers.common["Authorization"] = `Bearer ${sessionStorage.getItem(
   "jwt"
 )}`;

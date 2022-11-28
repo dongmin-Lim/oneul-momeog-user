@@ -16,8 +16,8 @@ function Rooms({ lists, roomType, setRoomType }: roomTypeProps) {
 
   return (
     <CardContainer>
-      {lists.map((value) => (
-        <Card value={value} roomType={roomType} key={value.restaurantId} />
+      {lists.map((value, index) => (
+        <Card value={value} roomType={roomType} key={index} />
       ))}
     </CardContainer>
   );

@@ -50,13 +50,13 @@ function CreateRoomOption({
           <InputNumber
             size="large"
             autoFocus={true}
-            min={10}
+            min={1}
             max={60}
-            defaultValue={10}
+            defaultValue={1}
             onChange={timerChange}
           />
         </OptionGrid>
-        <div>최소시간 10분 최대시간 60분</div>
+        <div>최소시간 1분 최대시간 60분</div>
         <button onClick={() => setIsPopupOpen(!isPopupOpen)}>주소 검색</button>
         <input placeholder="주소" value={normalAddress} disabled></input>
         <input
