@@ -4,9 +4,9 @@ ENV LC_ALL ko_KR.UTF8
 RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime && mkdir /usr/src/app
 WORKDIR /usr/src/app
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
-COPY package.json ./
+COPY front/package.json ./
 RUN npm install --silent
-COPY ./ ./
+COPY front/. ./
 RUN npm run build
 
 FROM nginx:1.22
