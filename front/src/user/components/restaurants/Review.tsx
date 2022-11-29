@@ -38,7 +38,9 @@ function Review({ restaurantId }: any) {
         <div>리뷰가 없습니다</div>
       ) : (
         <>
-          <ReviewImg src={"http://175.45.208.84" + reviewInfo?.reviewImage}></ReviewImg>
+          <ReviewImg
+            src={`http://175.45.208.84:8080/api/image?imageUrl=${reviewInfo?.reviewImage}`}
+          ></ReviewImg>
           <ReviewContent>
             <ReviewLabel>추천리뷰</ReviewLabel>
             <div style={{ padding: "5px 0px" }}>

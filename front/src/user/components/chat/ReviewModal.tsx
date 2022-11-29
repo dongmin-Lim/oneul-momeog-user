@@ -8,7 +8,7 @@ function ReviewModal(this: any, props: any) {
   const [rating, setRating] = useState<any>();
   const [contentInput, setContentInput] = useState("");
 
-  this.setState({ showModal: false });
+  // this.setState({ showModal: false });
 
   async function onClickSubmit() {
     // 폼 데이터 생성

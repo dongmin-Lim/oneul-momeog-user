@@ -88,12 +88,11 @@ function Main() {
               <Rate disabled defaultValue={value.rating} /> {`  ${value.rating}점`}
             </div>
             <div>{value.content}</div>
-            <div>
-              <h3>리뷰자 메뉴목록</h3>
-              <div>{value.restaurantContent}</div>
-            </div>
           </Content>
-          <Img src={value.reviewImage} alt="review_img" />
+          <Img
+            src={`http://175.45.208.84:8080/api/image?imageUrl=${value.reviewImage}`}
+            alt="review_img"
+          />
         </Review>
       ))}
     </Div>
