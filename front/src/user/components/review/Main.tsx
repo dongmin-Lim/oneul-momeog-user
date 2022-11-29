@@ -65,7 +65,7 @@ function Main() {
           // `/mockdata/review.json`
           `/api/restaurants/${restaurantId}/review/list`
         );
-        setReviews(response.data.data.reviews);
+        setReviews(response.data.data);
         console.log(response.data);
       } catch (e) {
         console.log(e);
