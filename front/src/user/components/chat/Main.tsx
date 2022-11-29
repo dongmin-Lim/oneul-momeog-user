@@ -13,7 +13,8 @@ function Main() {
 
   const [modalShow, setModalShow] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<number>(0);
-  const [chats, setChats] = useState<any>();
+  const [chats, setChats] = useState<any>([]);
+  const [orderId, setOrderId] = useState<number>();
 
   const scrollRef = useRef<null | HTMLDivElement>(null);
 
@@ -41,7 +42,7 @@ function Main() {
     async function getChats() {
       try {
         const response = await axios.get(
-          `http://localhost:8081/api/chats/${value.roomId}/all?chatId=0`
+          `http://175.45.208.84:8081/api/chats/${value.roomId}/all?chatId=0`
         );
         setChats(response.data.data);
         console.log(response.data.data);
@@ -49,7 +50,21 @@ function Main() {
         console.log(e);
       }
     }
+    async function getOrderId() {
+      try {
+        const response = await axios.get(
+          `http://175.45.208.84:8080/api/reviews/add?roomId=${
+            value.roomId
+          }&userId=${sessionStorage.getItem("userId")}`
+        );
+        setOrderId(response.data.data);
+        console.log(response);
+      } catch (e) {
+        console.log(e);
+      }
+    }
     getChats();
+    getOrderId();
   }, []);
 
   return (
@@ -57,7 +72,12 @@ function Main() {
       <ChatHeader>
         <RoomName>방제목</RoomName>
         <div>현재 접속 인원 {currentUser}명</div>
-        <ReviewModal value={value} show={modalShow} onHide={() => setModalShow(false)} />
+        <ReviewModal
+          value={value}
+          show={modalShow}
+          orderId={orderId}
+          onHide={() => setModalShow(false)}
+        />
       </ChatHeader>
       <Chat>
         <ChatBox>
