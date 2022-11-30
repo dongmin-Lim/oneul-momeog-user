@@ -124,7 +124,7 @@ function Main() {
   return (
     <Div>
       <div>
-        <Img src="../data/img/logo.png"></Img>
+        <Img src="../data/img/restaurant.png"></Img>
         <Title>
           {restaurantInfo?.restaurantName} {restaurantInfo?.branch}
         </Title>

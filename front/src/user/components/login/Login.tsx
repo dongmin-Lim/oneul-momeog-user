@@ -48,7 +48,7 @@ function Login() {
           onClick={handleKakaoButton}
         ></SocialBtn>
         <SocialBtn
-          src="/data/img/naver_login_btn.PNG"
+          src="../data/img/naver_login_btn.png"
           alt="naver_login"
           onClick={handleNaverButton}
         ></SocialBtn>

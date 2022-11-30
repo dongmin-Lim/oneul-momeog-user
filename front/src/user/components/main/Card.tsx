@@ -23,7 +23,7 @@ function Card({ value, roomType }: ValueProps) {
           <RoomName>{value.restaurantName}</RoomName>
         )}
 
-        <RestaurantImg src="../data/img/bbq.jpg" />
+        <RestaurantImg src="../data/img/restaurant.png" />
         {value.roomName ? (
           <RestaurantName>{value.restaurantName}</RestaurantName>
         ) : (

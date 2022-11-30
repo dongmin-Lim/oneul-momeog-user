@@ -89,10 +89,7 @@ function Main() {
             </div>
             <div>{value.content}</div>
           </Content>
-          <Img
-            src={`http://springboot-user-svc:8080/api/image?imageUrl=${value.reviewImage}`}
-            alt="review_img"
-          />
+          <Img src="../data/img/review.jpeg" alt="review_img" />
         </Review>
       ))}
     </Div>

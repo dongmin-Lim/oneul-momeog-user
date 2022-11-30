@@ -38,9 +38,7 @@ function Review({ restaurantId }: any) {
         <div>리뷰가 없습니다</div>
       ) : (
         <>
-          <ReviewImg
-            src={`http://springboot-user-svc:8080/api/image?imageUrl=${reviewInfo?.reviewImage}`}
-          ></ReviewImg>
+          <ReviewImg src="../data/img/review.jpeg"></ReviewImg>
           <ReviewContent>
             <ReviewLabel>추천리뷰</ReviewLabel>
             <div style={{ padding: "5px 0px" }}>
