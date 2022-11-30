@@ -8,7 +8,7 @@ export { WebSocketContext };
 export default ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
 
-  const webSocketUrl = `ws://198.19.242.196:8081/ws/chat?roomId=${location.state.value.roomId}`;
+  const webSocketUrl = `ws://localhost:8081/ws/chat?roomId=${location.state.value.roomId}`;
   let ws = useRef<WebSocket | null>(null);
 
   if (!ws.current) {

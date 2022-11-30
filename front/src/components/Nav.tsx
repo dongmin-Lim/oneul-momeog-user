@@ -54,7 +54,7 @@ function Nav() {
   async function getChatList() {
     try {
       const response = await axios.get(
-        `http://198.19.242.196:8081/api/chats`
+        `http://localhost:8081/api/chats`
         // `/mockdata/ChatRoomList.json`
       );
       setLists(response.data.data);

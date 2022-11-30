@@ -41,7 +41,7 @@ function Main() {
     async function getChats() {
       try {
         const response = await axios.get(
-          `http://198.19.242.196:8081/api/chats/${value.roomId}/all?chatId=0`
+          `http://localhost:8081/api/chats/${value.roomId}/all?chatId=0`
         );
         setChats(response.data.data);
       } catch (e) {
@@ -51,7 +51,7 @@ function Main() {
     async function getOrderId() {
       try {
         const response = await axios.get(
-          `http://198.19.185.198:8080/api/reviews/add?roomId=${
+          `http://localhost:8080/api/reviews/add?roomId=${
             value.roomId
           }&userId=${sessionStorage.getItem("userId")}`
         );
