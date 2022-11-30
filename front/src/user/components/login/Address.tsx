@@ -1,7 +1,6 @@
 import { Form, Button } from "react-bootstrap";
 import styled from "styled-components";
 import axios from "axios";
-import { ROUTES } from "../../../enum/routes";
 
 const Div = styled.div`
   z-index: 0;
@@ -44,6 +43,7 @@ const ButtonWrapper = styled(Button)`
   margin: 0 auto;
   margin-bottom: 10px;
 `;
+
 function Address({
   isPopupOpen,
   setIsPopupOpen,
@@ -61,9 +61,9 @@ function Address({
     });
     sessionStorage.setItem("normalAddress", normalAddress);
     sessionStorage.setItem("jwt", response.data.data);
-    response.data.success
-      ? (window.location.href = ROUTES.USER.MAIN)
-      : window.alert("에러가 발생하였습니다.");
+    // response.data.success
+    //   ? (window.location.href = ROUTES.USER.MAIN)
+    //   : window.alert("에러가 발생하였습니다.");
   }
 
   return (
