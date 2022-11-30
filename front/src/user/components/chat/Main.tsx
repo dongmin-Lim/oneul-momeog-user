@@ -42,7 +42,7 @@ function Main() {
     async function getChats() {
       try {
         const response = await axios.get(
-          `http://springboot-websocket-svc:8081/api/chats/${value.roomId}/all?chatId=0`
+          `http://198.19.242.196:8081/api/chats/${value.roomId}/all?chatId=0`
         );
         setChats(response.data.data);
         console.log(response.data.data);
@@ -53,7 +53,7 @@ function Main() {
     async function getOrderId() {
       try {
         const response = await axios.get(
-          `http://springboot-user-svc:8080/api/reviews/add?roomId=${
+          `http://198.19.185.198:8080/api/reviews/add?roomId=${
             value.roomId
           }&userId=${sessionStorage.getItem("userId")}`
         );
