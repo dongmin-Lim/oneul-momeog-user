@@ -42,7 +42,7 @@ function Main() {
     async function getChats() {
       try {
         const response = await axios.get(
-          `http://175.45.208.84:8081/api/chats/${value.roomId}/all?chatId=0`
+          `http://springboot-websocket-svc:8081/api/chats/${value.roomId}/all?chatId=0`
         );
         setChats(response.data.data);
         console.log(response.data.data);
@@ -53,7 +53,7 @@ function Main() {
     async function getOrderId() {
       try {
         const response = await axios.get(
-          `http://175.45.208.84:8080/api/reviews/add?roomId=${
+          `http://springboot-user-svc:8080/api/reviews/add?roomId=${
             value.roomId
           }&userId=${sessionStorage.getItem("userId")}`
         );
@@ -70,7 +70,7 @@ function Main() {
   return (
     <Div>
       <ChatHeader>
-        <RoomName>방제목</RoomName>
+        <RoomName>{value.roomName}</RoomName>
         <div>현재 접속 인원 {currentUser}명</div>
         <ReviewModal
           value={value}
@@ -91,7 +91,17 @@ function Main() {
                 ) : (
                   <div className="anotherMsg">
                     <span className="anotherName">{value.nickname}</span>
-                    <span className="msg">{value.content}</span>
+                    {value.content === "리뷰를 작성해 주세요" ? (
+                      <span
+                        className="msg"
+                        onClick={() => setModalShow(true)}
+                        style={{ cursor: "pointer", color: "blue" }}
+                      >
+                        {value.content}
+                      </span>
+                    ) : (
+                      <span className="msg">{value.content}</span>
+                    )}
                   </div>
                 )
               ) : (
@@ -104,7 +114,6 @@ function Main() {
           </InputBox>
         </ChatBox>
       </Chat>
-      <Button onClick={() => setModalShow(true)}>리뷰작성</Button> {/* 임시버튼*/}
     </Div>
   );
 }

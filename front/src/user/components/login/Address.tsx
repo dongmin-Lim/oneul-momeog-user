@@ -1,6 +1,7 @@
 import { Form, Button } from "react-bootstrap";
 import styled from "styled-components";
 import axios from "axios";
+import { ROUTES } from "../../../enum/routes";
 
 const Div = styled.div`
   z-index: 0;
@@ -61,9 +62,9 @@ function Address({
     });
     sessionStorage.setItem("normalAddress", normalAddress);
     sessionStorage.setItem("jwt", response.data.data);
-    // response.data.success
-    //   ? (window.location.href = ROUTES.USER.MAIN)
-    //   : window.alert("에러가 발생하였습니다.");
+    response.data.success
+      ? (window.location.href = ROUTES.USER.MAIN)
+      : window.alert("에러가 발생하였습니다.");
   }
 
   return (

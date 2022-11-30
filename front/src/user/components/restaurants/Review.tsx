@@ -39,7 +39,7 @@ function Review({ restaurantId }: any) {
       ) : (
         <>
           <ReviewImg
-            src={`http://175.45.208.84:8080/api/image?imageUrl=${reviewInfo?.reviewImage}`}
+            src={`http://springboot-user-svc:8080/api/image?imageUrl=${reviewInfo?.reviewImage}`}
           ></ReviewImg>
           <ReviewContent>
             <ReviewLabel>추천리뷰</ReviewLabel>
