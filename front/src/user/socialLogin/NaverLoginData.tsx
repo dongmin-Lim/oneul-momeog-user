@@ -5,12 +5,10 @@ function NaverLoginData() {
   let query: string = window.location.search;
   let param: URLSearchParams = new URLSearchParams(query);
   let NAVER_CODE: string | null = param.get("code");
-  console.log(NAVER_CODE);
 
   async function accessNaverToken() {
     try {
       const response = await axios.get(`/api/auth/oauth/login/naver?code=${NAVER_CODE}`);
-      console.log(response);
       sessionStorage.setItem("jwt", response.data.data.jwt);
       sessionStorage.setItem("nickname", response.data.data.nickname);
       sessionStorage.setItem("normalAddress", response.data.data.normalAddress);

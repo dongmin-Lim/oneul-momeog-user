@@ -40,7 +40,6 @@ function ReviewModal(this: any, props: any) {
   // form-data에 이미지 전송을 위한 변수저장
   const onChangeImageInput = (e: any) => {
     setImageList(e.target.files[0]);
-    console.log(e.target.files[0]);
   };
 
   return (

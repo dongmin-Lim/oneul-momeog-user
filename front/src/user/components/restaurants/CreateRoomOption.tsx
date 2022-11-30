@@ -16,17 +16,14 @@ function CreateRoomOption({
   setZipcode,
 }: any) {
   const roomNameChange = (e: any) => {
-    console.log("roomNameChange", e.target.value);
     setRoomOptionObj({ ...roomOptionObj, roomName: e.target.value });
   };
 
   const maxPeopleChange = (value: any) => {
-    console.log("maxPeopleChange", value);
     setRoomOptionObj({ ...roomOptionObj, maxPeople: value });
   };
 
   const timerChange = (value: any) => {
-    console.log("timerChange", value);
     setRoomOptionObj({ ...roomOptionObj, timer: value });
   };
 

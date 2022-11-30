@@ -66,7 +66,6 @@ function Main() {
           `/api/restaurants/${restaurantId}/review/list`
         );
         setReviews(response.data.data);
-        console.log(response.data);
       } catch (e) {
         console.log(e);
       }

@@ -5,12 +5,10 @@ function KakaoLoginData() {
   let query: string = window.location.search;
   let param: URLSearchParams = new URLSearchParams(query);
   let KAKAO_CODE: string | null = param.get("code");
-  console.log(KAKAO_CODE);
 
   async function accessKakaoToken() {
     try {
       const response = await axios.get(`/api/auth/oauth/login/kakao?code=${KAKAO_CODE}`);
-      console.log(response);
       sessionStorage.setItem("jwt", response.data.data.jwt);
       sessionStorage.setItem("nickname", response.data.data.nickname);
       sessionStorage.setItem("normalAddress", response.data.data.normalAddress);

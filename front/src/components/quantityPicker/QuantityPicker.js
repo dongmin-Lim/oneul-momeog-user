@@ -18,8 +18,6 @@ export default class QuantityPicker extends Component {
       this.props.menus.count += 1;
       this.props.value.count += 1;
       this.props.setNum(this.props.num + this.props.value.price);
-
-      console.log(this.props.value);
     }
     if (this.state.value === this.props.max - 1) {
       this.setState({ disableInc: true });

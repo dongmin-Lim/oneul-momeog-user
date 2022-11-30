@@ -46,8 +46,7 @@ function SelectCategory({ categories, setCategories }: any) {
                       categories.some((type: any) => type === value.categoryId)
                         ? // 드롭다운에서 선택한 값과 이미 추가되어있는 값과 비교하여 이미 존재하면 추가안되게 구현
                           window.alert("해당항목이 존재합니다.")
-                        : (setCategories([...categories, value.categoryId]),
-                          console.log(categories))
+                        : setCategories([...categories, value.categoryId])
                     }
                   >
                     {restaurantTypeList[index].categoryName}

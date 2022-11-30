@@ -34,7 +34,6 @@ function Main() {
     if (data.currentPeople) {
       setCurrentUser(data.currentPeople);
     }
-    console.log(data);
     setChats([...chats, data]);
   };
 
@@ -45,7 +44,6 @@ function Main() {
           `http://198.19.242.196:8081/api/chats/${value.roomId}/all?chatId=0`
         );
         setChats(response.data.data);
-        console.log(response.data.data);
       } catch (e) {
         console.log(e);
       }
@@ -58,7 +56,6 @@ function Main() {
           }&userId=${sessionStorage.getItem("userId")}`
         );
         setOrderId(response.data.data);
-        console.log(response);
       } catch (e) {
         console.log(e);
       }

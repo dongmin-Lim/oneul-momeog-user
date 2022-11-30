@@ -37,8 +37,6 @@ function Main() {
   const [orderData, setOrderData] = useState<orderDataProps>();
   const [resultPrice, setResultPrice] = useState<number>();
 
-  console.log(roomOption);
-
   useEffect(() => {
     async function getOrderData() {
       try {
@@ -52,7 +50,6 @@ function Main() {
         );
         setOrderData(response.data.data);
         setResultPrice(response.data.data.totalPrice + response.data.data.deliveryFee);
-        console.log(response);
 
         if (!response.data.success) {
           window.alert(response.data.message);
@@ -72,7 +69,6 @@ function Main() {
         );
         setOrderData(response.data.data);
         setResultPrice(response.data.data.totalPrice + response.data.data.deliveryFee);
-        console.log(response);
         if (!response.data.success) {
           window.alert(response.data.message);
         }
@@ -97,7 +93,6 @@ function Main() {
         );
         setOrderData(response.data.data);
         setResultPrice(response.data.data.totalPrice + response.data.data.deliveryFee);
-        console.log(response);
         if (!response.data.success) {
           window.alert(response.data.message);
         }

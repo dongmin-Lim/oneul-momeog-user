@@ -24,7 +24,6 @@ function Review({ restaurantId }: any) {
       try {
         const response = await axios.get(`/api/restaurants/${restaurantId}/review`);
         setReviewInfo(response.data.data);
-        console.log(response.data.data);
       } catch (e) {
         console.log(e);
       }

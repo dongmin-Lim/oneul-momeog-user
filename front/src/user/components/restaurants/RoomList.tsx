@@ -56,7 +56,6 @@ function RoomList({ restaurantId }: any) {
       try {
         const response = await axios.get(`/api/restaurants/${restaurantId}/room/list`);
         setRoomList(response.data.data);
-        console.log(response.data);
       } catch (e) {
         console.log(e);
       }

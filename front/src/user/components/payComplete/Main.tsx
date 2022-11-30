@@ -27,7 +27,6 @@ function Main() {
           }
         );
         setPayData(response.data.data);
-        console.log(response);
         if (!response.data.success) {
           window.alert(response.data.message);
         }
@@ -37,9 +36,6 @@ function Main() {
     }
     onPay();
   }, []);
-
-  console.log(orderData);
-  console.log(payData);
 
   return (
     <Div>

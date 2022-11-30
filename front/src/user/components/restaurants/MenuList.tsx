@@ -21,7 +21,6 @@ function MenuList({
   totalPrice,
   setTotalPrice,
 }: orderMenuProps) {
-  console.log(orderMenu);
   return (
     <Div>
       <Title>주문목록</Title>

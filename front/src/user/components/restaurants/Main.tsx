@@ -92,7 +92,6 @@ function Main() {
           `/api/restaurants/${restaurantId}/room/default?roomId=${roomId}`
         );
         setRoomInfo(response.data.data);
-        console.log(response.data.data);
         if (roomId && !response.data.success) {
           window.alert(response.data.message);
         }

@@ -36,7 +36,6 @@ function SelectMenuOption({
       try {
         const response = await axios.get(`/api/restaurants/${restaurantId}/groups`);
         setGroups(response.data.data);
-        console.log(response);
       } catch (e) {
         console.log(e);
       }
@@ -79,7 +78,6 @@ function SelectMenuOption({
                             ...menus,
                             { menuId: menuValue.menuId, count: menuValue.count },
                           ]),
-                          console.log(orderMenu),
                           setTotalPrice((totalPrice += menuValue.price)))
                     }
                   >
