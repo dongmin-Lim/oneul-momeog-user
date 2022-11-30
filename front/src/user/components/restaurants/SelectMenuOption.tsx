@@ -60,7 +60,7 @@ function SelectMenuOption({
           <CardWrapper>
             <CardHeaderWrapper>
               <CustomToggle eventKey={`${groupIndex}`}>
-                {groupValue.groupName}
+                {groupValue.groupName + "  ⏷"}
               </CustomToggle>
             </CardHeaderWrapper>
             <Accordion.Collapse eventKey={`${groupIndex}`}>
@@ -82,8 +82,8 @@ function SelectMenuOption({
                     }
                   >
                     <CustomOption eventKey={`${groupIndex}`}>
-                      {menuValue.menuName}
-                      {menuValue.price}원
+                      <div>{menuValue.menuName}</div>
+                      <div>{menuValue.price}원</div>
                     </CustomOption>
                   </div>
                 ))}
@@ -98,7 +98,7 @@ function SelectMenuOption({
 const Div = styled.div`
   height: 200px;
   overflow: scroll;
-  border: 1px solid #aaaaaa;
+  box-shadow: 1px 2px 5px gray;
   .card {
     border-bottom: 1px solid #aaaaaa;
   }
@@ -134,9 +134,14 @@ const Button = styled.button`
 const OptionButton = styled.button`
   width: 100%;
   height: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   border: none;
   border-top: 1px solid #aaaaaa;
   padding-left: 40px;
+  padding-right: 40px;
   text-align: start;
   background-color: #d8f1ff;
 

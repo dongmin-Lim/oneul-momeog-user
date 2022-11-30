@@ -62,6 +62,7 @@ function MenuList({
 }
 const Div = styled.div`
   margin-top: 50px;
+  box-shadow: 1px 2px 5px gray;
 `;
 
 const Menu = styled.div`
@@ -77,7 +78,6 @@ const Menu = styled.div`
 `;
 
 const Menus = styled.div`
-  border: 1px solid #aaaaaa;
   border-top: none;
   border-bottom: none;
   height: 650px;
@@ -112,32 +112,16 @@ const QuanPicker = styled.span`
 `;
 
 const Title = styled.div`
-  border: 1px solid #aaaaaa;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid gray;
   height: 50px;
   line-height: 50px;
   text-align: center;
 `;
 
 const TotalPrice = styled.div`
-  border: 1px solid #aaaaaa;
-  border-top: 2px solid black;
+  border-top: 2px solid gray;
   height: 50px;
   line-height: 50px;
-  text-align: center;
-`;
-
-const QuantityButton = styled.button`
-  width: 30px;
-  height: 30px;
-  border: none;
-`;
-
-const QuantityInput = styled.input`
-  width: 50px;
-  height: 30px;
-  border: 1px solid #aaa;
-  padding-bottom: 2px;
   text-align: center;
 `;
 export default MenuList;

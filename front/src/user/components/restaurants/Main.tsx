@@ -128,9 +128,7 @@ function Main() {
           {restaurantInfo?.restaurantName} {restaurantInfo?.branch}
         </Title>
         <Notice>{restaurantInfo?.notice}</Notice>
-        <Event
-          style={{ border: "1px solid black", height: "50px", marginBottom: "50px" }}
-        >
+        <Event style={{ height: "50px", marginBottom: "50px" }}>
           사장님 한마디: {restaurantInfo?.event}
         </Event>
         <Review restaurantId={restaurantId} />
@@ -204,7 +202,6 @@ function Main() {
 const Img = styled.img`
   width: 380px;
   height: 200px;
-  border: 1px solid #aaaaaa;
   padding: 10px;
   margin-bottom: 50px;
 `;
@@ -226,14 +223,14 @@ const Title = styled.h1`
 
 const Notice = styled.div`
   height: 150px;
-  border: 1px solid black;
+  box-shadow: 0.5px 1px 3px gray;
   padding: 10px;
   margin-top: 20px;
 `;
 
 const Event = styled.div`
   height: 150px;
-  border: 1px solid black;
+  box-shadow: 0.5px 1px 3px gray;
   padding: 10px;
   margin-top: 20px;
 `;

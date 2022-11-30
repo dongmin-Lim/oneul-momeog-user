@@ -116,7 +116,7 @@ function Main() {
             value={orderData?.deliveryLocation}
             disabled={roomType === "participant" ? true : false}
           ></Address>
-          <Mathod></Mathod>
+          {/* <Mathod></Mathod> */}
         </Info>
         <Order>
           <OrderList>
@@ -172,9 +172,10 @@ const Div = styled.div`
 
 const Title = styled.div`
   height: 59px;
-  border-bottom: 2px solid #777777;
+  border-bottom: 2px solid gray;
   text-align: center;
   line-height: 60px;
+  font-size: large;
 `;
 
 const PayGrid = styled.div`
@@ -193,7 +194,8 @@ const Info = styled.div`
 const Address = styled.input`
   height: 60px;
   width: 100%;
-  border: 1px solid black;
+  box-shadow: 1px 2px 5px gray;
+  border: none;
   padding: 0px 20px;
 `;
 
@@ -208,11 +210,13 @@ const Order = styled.div`
 `;
 
 const OrderList = styled.div`
-  border: 1px solid #aaaaaa;
+  box-shadow: 1px 2px 5px gray;
 `;
 
 const TotalPrice = styled.div`
-  border: 1px solid #aaaaaa;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 1px 2px 5px gray;
   text-align: center;
 `;
 

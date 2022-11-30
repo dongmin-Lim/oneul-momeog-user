@@ -55,7 +55,7 @@ const CardDiv = styled.div`
   align-items: center;
   width: 350px;
   height: 200px;
-  border: 1px solid #aaaaaa;
+  box-shadow: 1px 2px 5px gray;
   margin: 20px;
   border-radius: 10px;
   background-color: white;
@@ -95,14 +95,14 @@ const Detail = styled.div`
 const RestaurantPeople = styled.div`
   height: 30px;
   width: 150px;
-  border: 1px solid #808080;
+  box-shadow: 0.5px 1px 3px gray;
   border-radius: 5px;
 `;
 
 const RestaurantTime = styled.div`
   height: 30px;
   width: 150px;
-  border: 1px solid #808080;
+  box-shadow: 0.5px 1px 3px gray;
   border-radius: 5px;
 `;
 export default Card;

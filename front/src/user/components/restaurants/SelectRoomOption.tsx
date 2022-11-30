@@ -8,7 +8,7 @@ interface roomOptionProps {
 }
 
 function SelectRoomOption({ roomOption, setRoomOption }: roomOptionProps) {
-  const [display, setDisplay] = useState("방 옵션");
+  const [display, setDisplay] = useState("방 옵션 ⏷");
 
   function CustomToggle({ children, eventKey }: { children: string; eventKey: string }) {
     const decoratedOnClick = useAccordionButton(eventKey);
@@ -63,7 +63,7 @@ function SelectRoomOption({ roomOption, setRoomOption }: roomOptionProps) {
 const Div = styled.div`
   height: 200px;
   overflow: scroll;
-  border: 1px solid #aaaaaa;
+  box-shadow: 1px 2px 5px gray;
   .card {
     border-bottom: 1px solid #aaaaaa;
   }
