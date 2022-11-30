@@ -3,33 +3,6 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import TimeCalculator from "../../../components/TimeCalculator";
-
-const Div = styled.div`
-  margin-top: 50px;
-`;
-
-const Room = styled.div`
-  border-bottom: 1px solid #aaaaaa;
-  :hover {
-    background-color: #d8f1ff;
-  }
-`;
-
-const Rooms = styled.div`
-  border: 1px solid #aaaaaa;
-  border-top: none;
-  height: 700px;
-  overflow: scroll;
-`;
-
-const Title = styled.div`
-  border: 1px solid #aaaaaa;
-  border-bottom: 2px solid black;
-  height: 50px;
-  line-height: 50px;
-  text-align: center;
-`;
-
 interface roomsProps {
   restaurantId: number;
   restaurantImage: string;
@@ -43,7 +16,6 @@ interface roomsProps {
   currentTime: string;
   dueTime: string;
 }
-
 interface roomListProps {
   rooms: roomsProps[];
 }
@@ -88,4 +60,29 @@ function RoomList({ restaurantId }: any) {
     </Div>
   );
 }
+
+const Div = styled.div`
+  margin-top: 50px;
+  box-shadow: 1px 2px 5px gray;
+`;
+
+const Room = styled.div`
+  border-bottom: 1px solid #aaaaaa;
+  :hover {
+    background-color: #d8f1ff;
+  }
+`;
+
+const Rooms = styled.div`
+  border-top: none;
+  height: 700px;
+  overflow: scroll;
+`;
+
+const Title = styled.div`
+  border-bottom: 2px solid gray;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+`;
 export default RoomList;

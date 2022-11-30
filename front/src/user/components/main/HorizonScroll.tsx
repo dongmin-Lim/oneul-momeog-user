@@ -53,7 +53,7 @@ function HorizonScroll({ roomType, setRoomType }: roomTypeProps) {
   );
 }
 const CarouselWrapper = styled(Carousel)`
-  background-color: rgb(255, 175, 175);
+  background-color: rgb(240, 240, 240);
   height: 250px;
   .carousel-indicators {
     margin: 0;

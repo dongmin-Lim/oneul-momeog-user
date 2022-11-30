@@ -109,9 +109,10 @@ const Div = styled.div`
 
 const Title = styled.div`
   height: 59px;
-  border-bottom: 2px solid #777777;
+  border-bottom: 2px solid gray;
   text-align: center;
   line-height: 60px;
+  font-size: large;
 `;
 
 const PayGrid = styled.div`
@@ -128,12 +129,17 @@ const Info = styled.div`
 `;
 
 const Result = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   width: 100%;
-  border: 1px solid black;
+  box-shadow: 1px 2px 5px gray;
+  padding: 20px;
+  font-size: large;
 `;
 
 const KakaoMap = styled.div`
-  border: 1px solid #aaaaaa;
+  box-shadow: 1px 2px 5px gray;
 `;
 
 const Order = styled.div`
@@ -143,11 +149,13 @@ const Order = styled.div`
 `;
 
 const OrderList = styled.div`
-  border: 1px solid #aaaaaa;
+  box-shadow: 1px 2px 5px gray;
 `;
 
 const TotalPrice = styled.div`
-  border: 1px solid #aaaaaa;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 1px 2px 5px gray;
 `;
 
 const MenuOption = styled.div`

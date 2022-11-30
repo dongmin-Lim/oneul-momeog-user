@@ -67,9 +67,8 @@ const ReviewDiv = styled.div`
   grid-template-columns: 1fr 2fr;
   grid-column-gap: 10px;
   grid-row-gap: 10px;
-  border: 1px solid #808080;
-  border-radius: 10px;
   padding: 10px;
+  box-shadow: 1px 2px 5px gray;
 `;
 
 const ReviewImg = styled.img`

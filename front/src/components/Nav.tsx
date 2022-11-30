@@ -102,7 +102,7 @@ function Nav() {
           />
           {sessionStorage.getItem("jwt") ? (
             <NavDropdown title={sessionStorage.getItem("nickname")}>
-              <NavDropdown.Item>내 주문목록</NavDropdown.Item>
+              {/* <NavDropdown.Item>내 주문목록</NavDropdown.Item> */}
               <NavDropdown.Item onClick={LogOutHandler}>로그아웃</NavDropdown.Item>
             </NavDropdown>
           ) : (
@@ -123,6 +123,8 @@ const Div = styled.div`
   height: 50px;
   line-height: 50px;
   background-color: #d8f1ff;
+  box-shadow: 1px 2px 5px gray;
+
   a {
     color: black;
     text-decoration: none;
