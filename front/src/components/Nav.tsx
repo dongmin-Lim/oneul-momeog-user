@@ -54,7 +54,7 @@ function Nav() {
   async function getChatList() {
     try {
       const response = await axios.get(
-        `http://localhost:8081/api/chats`
+        `http://springboot-websocket-svc:8081/api/chats`
         // `/mockdata/ChatRoomList.json`
       );
       setLists(response.data.data);

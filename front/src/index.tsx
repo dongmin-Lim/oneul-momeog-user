@@ -4,7 +4,8 @@ import App from "./App";
 import "bootstrap/dist/css/bootstrap.css";
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:8080";
+axios.defaults.baseURL = "http://springboot-user-svc:8080";
+axios.defaults.withCredentials = true;
 axios.defaults.headers.common["Authorization"] = `Bearer ${sessionStorage.getItem(
   "jwt"
 )}`;
