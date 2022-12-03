@@ -41,7 +41,7 @@ function Main() {
     async function getChats() {
       try {
         const response = await axios.get(
-          `http://springboot-websocket-svc:8081/api/chats/${value.roomId}/all?chatId=0`
+          `http://localhost:8081/api/chats/${value.roomId}/all?chatId=0`
         );
         setChats(response.data.data);
       } catch (e) {
